@@ -36,7 +36,7 @@ public class DAOBebedor {
 	 * Constante para indicar el usuario Oracle del estudiante
 	 */
 	//TODO Requerimiento 1H: Modifique la constante, reemplazando al ususario PARRANDEROS por su ususario de Oracle
-	public final static String USUARIO = "PARRANDEROS";
+	public final static String USUARIO = "ISIS2304A301810";
 	
 	
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -273,7 +273,8 @@ public class DAOBebedor {
 		//TODO Requerimiento 1G: Complete el metodo con los atributos agregados previamente en la clase Bebedor. 
 		//						 Tenga en cuenta los nombres de las columnas de la Tabla en la Base de Datos (ID, NOMBRE, PRESUPUESTO, CIUDAD)
 
-		
+		Long id= resultSet.getLong("ID");
+		String nombre= resultSet.getString("NOMBRE");
 		String presupuesto = resultSet.getString("PRESUPUESTO");
 		String ciudad = resultSet.getString("CIUDAD");
 

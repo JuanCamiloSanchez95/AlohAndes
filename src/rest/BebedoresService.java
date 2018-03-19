@@ -128,20 +128,19 @@ public class BebedoresService {
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */
 	//TODO Requerimiento 2A: Identifique e implemente la anotacion correcta para la realizacion del metodo
-
+	@GET
 	@Path( "/filterBy" )
 	//TODO Requerimiento 2B: Identifique e implemente las anotaciones que indican el tipo de contenido que produce y/o consume el metodo 
-
+	@Produces( { MediaType.APPLICATION_JSON } )
 	//TODO Requerimiento 2C: Complete la signatura del metodo (parametros) a partir de la documentacion dada.
-	public Response getBebedoresByCiudadAndPresupuesto(@QueryParam("ciudad")String ciudad){
+	public Response getBebedoresByCiudadAndPresupuesto(@QueryParam("ciudad")String ciudad,@QueryParam("presupuesto")String presupuesto){
 		
 		try{
 			ParranderosTransactionManager tm = new ParranderosTransactionManager( getPath( ) );
 			List<Bebedor>bebedores;
 			
 			//TODO Requerimiento 2D: Llame al metodo del ParranderosTransactionManager que retorne el resultado esperado a partir de los criterios establecidos
-
-			bebedores = null;
+			bebedores= tm.getBebedoresByCiudadAndPresupuesto(ciudad, presupuesto);
 			return Response.status( 200 ).entity( bebedores ).build( );			
 		}
 		catch( Exception e )
