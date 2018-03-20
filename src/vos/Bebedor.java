@@ -30,28 +30,23 @@ public class Bebedor {
 	 */
 	@JsonProperty(value="id")
 	private Long id;
-	//TODO Requerimiento 1A: Cree un atributo tipo Long para representar el id. Este debe tener el mismo nombre que la etiqueta
-
 
 	/**
 	 * Nombre del bebedor
 	 */
 	@JsonProperty(value="nombre")
 	private String nombre;
-	//TODO Requerimiento 1B: Cree un atributo tipo String para representar el nombre. Este debe tener el mismo nombre que la etiqueta
-
+	
 
 	/**
 	 * Presupuesto del bebedor. Puede ser Alto, Medio o Bajo.
 	 */
-	//TODO Requerimiento 1C: Agregue la anotacion @JsonProperty para el atributo que representa el presupuesto. Esta debe tener el mismo nombre que el atributo
 	@JsonProperty(value="presupuesto")
 	private String presupuesto;
 	
 	/**
 	 * Ciudad del bebedor
 	 */
-	//TODO Requerimiento 1D: Agregue la anotacion @JsonProperty para el atributo que representa la ciudad. Esta debe tener el mismo nombre que el atributo
 	@JsonProperty(value="ciudad")
 	private String ciudad;
 	
@@ -67,7 +62,6 @@ public class Bebedor {
 	 * @param presupuesto - Presupuesto del bebedor.
 	 * @param ciudad - Ciudad del bebedor.
 	 */
-	//TODO Requerimiento 1E: Complete el metodo constructor (parametros y contenido) con los atributos agregados anteriormente
 	public Bebedor(@JsonProperty(value="id") Long id,@JsonProperty(value="nombre") String nombre, @JsonProperty(value="presupuesto")String presupuesto,@JsonProperty(value="ciudad")String ciudad) {
 
 		this.id= id;
@@ -114,6 +108,4 @@ public class Bebedor {
 		this.ciudad = ciudad;
 	}
 		
-	//TODO Requerimiento 1F: Genere los Getters y Setter de los atributos utilizando la opcion en Source-> Generate Getters And Setters
-
 }

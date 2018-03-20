@@ -127,19 +127,14 @@ public class BebedoresService {
 	 * @return	<b>Response Status 200</b> - JSONs que contienen a los bebedores que tengan el nombre o el apellido correspondiente<br/>
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */
-	//TODO Requerimiento 2A: Identifique e implemente la anotacion correcta para la realizacion del metodo
 	@GET
 	@Path( "/filterBy" )
-	//TODO Requerimiento 2B: Identifique e implemente las anotaciones que indican el tipo de contenido que produce y/o consume el metodo 
 	@Produces( { MediaType.APPLICATION_JSON } )
-	//TODO Requerimiento 2C: Complete la signatura del metodo (parametros) a partir de la documentacion dada.
 	public Response getBebedoresByCiudadAndPresupuesto(@QueryParam("ciudad")String ciudad,@QueryParam("presupuesto")String presupuesto){
 		
 		try{
 			ParranderosTransactionManager tm = new ParranderosTransactionManager( getPath( ) );
 			List<Bebedor>bebedores;
-			
-			//TODO Requerimiento 2D: Llame al metodo del ParranderosTransactionManager que retorne el resultado esperado a partir de los criterios establecidos
 			bebedores= tm.getBebedoresByCiudadAndPresupuesto(ciudad, presupuesto);
 			return Response.status( 200 ).entity( bebedores ).build( );			
 		}
@@ -158,15 +153,20 @@ public class BebedoresService {
 	 * @return	<b>Response Status 200</b> - JSON que contiene al bebedor que ha sido agregado <br/>
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */
-	//TODO Requerimiento 3A: Identifique e implemente la anotacion correcta para la realizacion del metodo
-
-	//TODO Requerimiento 3B: Identifique e implemente las anotaciones que indican el tipo de contenido que produce Y consume el metodo 
-
-	
-	public Response addBebedor(Bebedor bebedor) {
-		
-		//TODO Requerimiento 3C: Implemente el metodo a partir de los ejemplos anteriores y utilizando el Transaction Manager de Parranderos 
-		return null;
+	@POST 
+	@Consumes( { MediaType.APPLICATION_JSON } )
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addBebedor(Bebedor bebedor) 
+	{
+		try{
+			ParranderosTransactionManager tm = new ParranderosTransactionManager( getPath( ) );
+			tm.addBebedor(bebedor);
+			return Response.status( 200 ).entity( bebedor).build( );			
+		}
+		catch( Exception e )
+		{
+			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
+		}
 	}
 	
 	/**
@@ -184,9 +184,16 @@ public class BebedoresService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addBebedorWithLimitations(Bebedor bebedor) {
-		
-		//TODO Requerimiento 4A: Implemente el metodo a partir de los ejemplos anteriores y utilizando el Transaction Manager de Parranderos 
-		return null;
+
+		try{
+			ParranderosTransactionManager tm = new ParranderosTransactionManager( getPath( ) );
+			tm.addBebedorWithLimitations(bebedor);
+			return Response.status( 200 ).entity( bebedor).build( );			
+		}
+		catch( Exception e )
+		{
+			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
+		}
 	}
 	
 	
@@ -199,14 +206,20 @@ public class BebedoresService {
 	 * @return	<b>Response Status 200</b> - JSON que contiene al bebedor que se desea modificar <br/>
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */
-	//TODO Requerimiento 5A: Identifique e implemente la anotacion correcta para la realizacion del metodo
-
-	//TODO Requerimiento 5B: Identifique e implemente las anotaciones que indican el tipo de contenido que produce Y consume el metodo 
-
-	
+	@PUT 
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateBebedor(Bebedor bebedor) {
-		//TODO Requerimiento 5B: Implemente el metodo a partir de los ejemplos anteriores y utilizando el Transaction Manager de Parranderos 
-		return null;
+		try{
+			ParranderosTransactionManager tm = new ParranderosTransactionManager( getPath( ) );
+			tm.updateBebedor(bebedor);
+			return Response.status( 200 ).entity( bebedor).build( );			
+		}
+		catch( Exception e )
+		{
+			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
+		}
+		
 	}
 
 	/**
@@ -218,14 +231,19 @@ public class BebedoresService {
 	 * @return	<b>Response Status 200</b> - JSON que contiene al bebedor que se desea eliminar <br/>
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */
-	//TODO Requerimiento 6A: Identifique e implemente la anotacion correcta para la realizacion del metodo
-
-	//TODO Requerimiento 6B: Identifique e implemente las anotaciones que indican el tipo de contenido que produce Y consume el metodo 
-
-	
+	@DELETE
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteBebedor(Bebedor bebedor) {
-		//TODO Requerimiento 6C: Implemente el metodo a partir de los ejemplos anteriores y utilizando el Transaction Manager de Parranderos 
-		return null;
+		try{
+			ParranderosTransactionManager tm = new ParranderosTransactionManager( getPath( ) );
+			tm.deleteBebedor(bebedor);
+			return Response.status( 200 ).entity( bebedor).build( );			
+		}
+		catch( Exception e )
+		{
+			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
+		}
 	}
 
 }
