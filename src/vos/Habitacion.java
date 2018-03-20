@@ -1,5 +1,7 @@
 package vos;
 
+import java.util.ArrayList;
+
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
@@ -39,6 +41,19 @@ public class Habitacion
 		@JsonProperty(value="periodoFacturacion")
 		private int periodoFacturacion;
 		
+		/**
+		 * lista de  servicios de una  habitacion
+		 */
+		@JsonProperty(value="servicios")
+		private ArrayList<Servicio> servicios;
+		
+		/**
+		 * lista de  ofertas de una  habitacion
+		 */
+		@JsonProperty(value="ofertas")
+		private ArrayList<Servicio> ofertas;
+		
+		
 		//----------------------------------------------------------------------------------------------------------------------------------
 		// METODO CONSTRUCTOR
 		//----------------------------------------------------------------------------------------------------------------------------------
@@ -57,6 +72,8 @@ public class Habitacion
 				this.descripccion=descripccion;
 				this.precio=precio;
 				this.periodoFacturacion=periodoFacturacion;
+				servicios= new ArrayList<>();
+				ofertas= new ArrayList<>();
 			}
 			
 			//----------------------------------------------------------------------------------------------------------------------------------
@@ -94,6 +111,22 @@ public class Habitacion
 
 			public void setPeriodoFacturacion(int periodoFacturacion) {
 				this.periodoFacturacion = periodoFacturacion;
+			}
+
+			public ArrayList<Servicio> getServicios() {
+				return servicios;
+			}
+
+			public void setServicios(ArrayList<Servicio> servicios) {
+				this.servicios = servicios;
+			}
+
+			public ArrayList<Servicio> getOfertas() {
+				return ofertas;
+			}
+
+			public void setOfertas(ArrayList<Servicio> ofertas) {
+				this.ofertas = ofertas;
 			}
 			
 			

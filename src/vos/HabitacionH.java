@@ -16,7 +16,7 @@ public class HabitacionH extends Habitacion
 	// ATRIBUTOS
 	//----------------------------------------------------------------------------------------------------------------------------------
 	/**
-	 * Id de la habitacion
+	 * capacidad de la habitacion
 	 */
 	@JsonProperty(value="capacidad")
 	private int capacidad;
