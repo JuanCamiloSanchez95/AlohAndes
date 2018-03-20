@@ -1,5 +1,6 @@
 package vos;
 
+import java.util.ArrayList;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
@@ -43,6 +44,12 @@ public class Hostal extends Operador
 			@JsonProperty(value="registroST")
 			private String registroST;
 			
+			/**
+			 * Habitaciones del hostal
+			 */
+			@JsonProperty(value="habitaciones")
+			private ArrayList<HabitacionH> habitaciones;
+			
 			//----------------------------------------------------------------------------------------------------------------------------------
 			// METODO CONSTRUCTOR
 			//----------------------------------------------------------------------------------------------------------------------------------
@@ -58,14 +65,15 @@ public class Hostal extends Operador
 			* @param registroCamara - Registro de la camara del hostal
 			* @param registroST -  Registro del ST  del hostal 
 			*/
-			public Hostal(@JsonProperty(value="id") Long id,@JsonProperty(value="nombre") String nombre,@JsonProperty(value="horarioApertura") String horarioApertura,@JsonProperty(value="horarioCierre") String horarioCierre,@JsonProperty(value="ubicacion") String ubicacion,@JsonProperty(value="registroCamara")String registroCamara,@JsonProperty(value="registroST") String registroST )
+			public Hostal(@JsonProperty(value="id") int id,@JsonProperty(value="nombre") String nombre,@JsonProperty(value="horarioApertura") String horarioApertura,@JsonProperty(value="horarioCierre") String horarioCierre,@JsonProperty(value="ubicacion") String ubicacion,@JsonProperty(value="registroCamara")String registroCamara,@JsonProperty(value="registroST") String registroST )
 			{
 				super(id, nombre);
 				this.horarioApertura=horarioApertura;
 				this.horarioCierre= horarioCierre;
 				this.ubicacion=ubicacion;
 				this.registroCamara=registroCamara;
-				this.registroST= registroST;	
+				this.registroST= registroST;
+				habitaciones= new ArrayList<>();
 			}
 
 			//----------------------------------------------------------------------------------------------------------------------------------
@@ -113,6 +121,12 @@ public class Hostal extends Operador
 				this.registroST = registroST;
 			}
 
-			
+			public ArrayList<HabitacionH> getHabitaciones() {
+				return habitaciones;
+			}
+
+			public void setHabitaciones(ArrayList<HabitacionH> habitaciones) {
+				this.habitaciones = habitaciones;
+			}
 
 }
