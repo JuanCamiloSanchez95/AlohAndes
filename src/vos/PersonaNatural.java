@@ -2,6 +2,8 @@ package vos;
 
 
 
+import java.util.ArrayList;
+
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
@@ -27,6 +29,25 @@ public class PersonaNatural extends Operador
 	 */
 	@JsonProperty(value="vinculo")
 	private String vinculo;
+	
+	/**
+	 * lista de habitaciones de la persona 
+	 */
+	@JsonProperty(value="habitaciones")
+	private ArrayList<HabitacionVivienda> habitaciones;
+	
+	/**
+	 * lista de apartamentos de la persona 
+	 */
+	@JsonProperty(value="apartamentos")
+	private ArrayList<Apartamento> apartamentos;
+	
+	/**
+	 * lista de viviendas de la persona 
+	 */
+	@JsonProperty(value="viviendas")
+	private ArrayList<Vivienda> viviendas;
+	
 
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODO CONSTRUCTOR
@@ -45,6 +66,9 @@ public class PersonaNatural extends Operador
 			super(id, nombre);
 			this.documento=documento;
 			this.vinculo=vinculo;	
+			habitaciones= new ArrayList<>();
+			apartamentos= new ArrayList<>();
+			viviendas= new ArrayList<>();
 		}
 
 		//----------------------------------------------------------------------------------------------------------------------------------
@@ -66,6 +90,29 @@ public class PersonaNatural extends Operador
 		public void setVinculo(String vinculo) {
 			this.vinculo = vinculo;
 		}
-		
+
+		public ArrayList<HabitacionVivienda> getHabitaciones() {
+			return habitaciones;
+		}
+
+		public void setHabitaciones(ArrayList<HabitacionVivienda> habitaciones) {
+			this.habitaciones = habitaciones;
+		}
+
+		public ArrayList<Apartamento> getApartamentos() {
+			return apartamentos;
+		}
+
+		public void setApartamentos(ArrayList<Apartamento> apartamentos) {
+			this.apartamentos = apartamentos;
+		}
+
+		public ArrayList<Vivienda> getViviendas() {
+			return viviendas;
+		}
+
+		public void setViviendas(ArrayList<Vivienda> viviendas) {
+			this.viviendas = viviendas;
+		}
 		
 }

@@ -1,5 +1,7 @@
 package vos;
 
+import java.util.ArrayList;
+
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
@@ -26,6 +28,12 @@ public class ViviendaUniversitaria extends Operador
 	@JsonProperty(value="capacidad")
 	private Integer capacidad;
 	
+	/**
+	* Lista de habitaciones de la vivienda universitaria 
+	*/
+	@JsonProperty(value="habitaciones")
+	private ArrayList<HabitacionUniversitaria> habitaciones;
+	
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODO CONSTRUCTOR
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -44,6 +52,7 @@ public class ViviendaUniversitaria extends Operador
 		super(id, nombre);
 		this.capacidad=capacidad;
 		this.ubicacion=ubicacion;	
+		habitaciones=new ArrayList<>();
 	}
 
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -65,8 +74,14 @@ public class ViviendaUniversitaria extends Operador
 	public void setCapacidad(Integer capacidad) {
 		this.capacidad = capacidad;
 	}
-	
-	
+
+	public ArrayList<HabitacionUniversitaria> getHabitaciones() {
+		return habitaciones;
+	}
+
+	public void setHabitaciones(ArrayList<HabitacionUniversitaria> habitaciones) {
+		this.habitaciones = habitaciones;
+	}
 	
 	
 }

@@ -1,5 +1,7 @@
 package vos;
 
+import java.util.ArrayList;
+
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
@@ -24,6 +26,17 @@ public class Operador {
 	@JsonProperty(value="nombre")
 	private String nombre;
 
+	/**
+	 * lista de servicios del operador
+	 */
+	@JsonProperty(value="servicios")
+	private ArrayList<Servicio> servicios;
+	
+	/**
+	 * ofertas del operador
+	 */
+	@JsonProperty(value="ofertas")
+	private ArrayList<Oferta> ofertas;
 	
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODO CONSTRUCTOR
@@ -39,6 +52,8 @@ public class Operador {
 		{
 			this.id= id;
 			this.nombre=nombre;
+			servicios=new ArrayList<>();
+			ofertas= new ArrayList<>();
 		}
  
 
@@ -77,6 +92,26 @@ public class Operador {
 		 */
 		public void setNombre(String nombre) {
 			this.nombre = nombre;
+		}
+
+
+		public ArrayList<Servicio> getServicios() {
+			return servicios;
+		}
+
+
+		public void setServicios(ArrayList<Servicio> servicios) {
+			this.servicios = servicios;
+		}
+
+
+		public ArrayList<Oferta> getOfertas() {
+			return ofertas;
+		}
+
+
+		public void setOfertas(ArrayList<Oferta> ofertas) {
+			this.ofertas = ofertas;
 		}
 		
 

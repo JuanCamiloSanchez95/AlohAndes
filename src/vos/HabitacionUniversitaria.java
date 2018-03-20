@@ -20,11 +20,6 @@ public class HabitacionUniversitaria extends Habitacion
 	@JsonProperty(value="ubicacion")
 	private String ubicacion;
 	
-	/**
-	 * descripccion de la habitacion
-	 */
-	@JsonProperty(value="descripccion")
-	private String descripccion;
 	
 	/**
 	 * indicador si  la habitacion es compartida
@@ -42,20 +37,19 @@ public class HabitacionUniversitaria extends Habitacion
 		//----------------------------------------------------------------------------------------------------------------------------------
 
 		/**
-		 * Metodo constructor de la clase habitacionH
-		 * <b>post: </b> Crea la habitacionH con los valores que entran por parametro
-		 * @param id - Id de la habitacionH.
-		 * @param descripccion - descipccion de la habitacionH.
-		 * @param precio -precio de la habitacionH
-		 * @param periodoFacturacion - periodo en el que factura  la  habitacionH
-		 * @param capacidad - capacidad de la habitacioH
-		 * @param tipo - tipo de la habitacionH
+		 * Metodo constructor de la clase habitacion
+		 * <b>post: </b> Crea la habitacion con los valores que entran por parametro
+		 * @param id - Id de la habitacion.
+		 * @param descripccion - descipccion de la habitacion.
+		 * @param precio -precio de la habitacion
+		 * @param periodoFacturacion - periodo en el que factura  la  habitacion
+		 * @param capacidad - capacidad de la habitacio
+		 * @param tipo - tipo de la habitacion
 		 */
 		public HabitacionUniversitaria(@JsonProperty(value="id") Integer id,@JsonProperty(value="precio") Double precio,@JsonProperty(value="ubicacion") String ubicacion,@JsonProperty(value="descripccion") String descripccion,@JsonProperty(value="periodoFacturacion") int periodoFacturacion,@JsonProperty(value="compartida") boolean  compartida)
 		{
 			super(id, descripccion, precio, periodoFacturacion);
 			this.ubicacion=ubicacion;
-			this.descripccion=descripccion;
 			this.compartida=compartida;
 			viviendaU=null;
 		}
@@ -72,13 +66,6 @@ public class HabitacionUniversitaria extends Habitacion
 			this.ubicacion = ubicacion;
 		}
 
-		public String getDescripccion() {
-			return descripccion;
-		}
-
-		public void setDescripccion(String descripccion) {
-			this.descripccion = descripccion;
-		}
 
 		public boolean isCompartida() {
 			return compartida;
@@ -95,7 +82,6 @@ public class HabitacionUniversitaria extends Habitacion
 		public void setViviendaU(ViviendaUniversitaria viviendaU) {
 			this.viviendaU = viviendaU;
 		}
-		
 		
 	
 }
