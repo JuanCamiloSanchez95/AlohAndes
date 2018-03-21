@@ -23,8 +23,10 @@ import java.util.Properties;
 
 import dao.DAOBebedor;
 import dao.DAOCliente;
+import dao.DAOOferta;
 import dao.DAOReserva;
 import vos.Bebedor;
+import vos.Oferta;
 import vos.Reserva;
 
 /**
@@ -157,6 +159,7 @@ public class ParranderosTransactionManager {
 
 		DAOReserva daoReserva= new DAOReserva( );
 		DAOCliente daoCliente = new DAOCliente();
+		DAOOferta daoOferta = new DAOOferta();
 		try
 		{
 			//TODO Requerimiento 3D: Obtenga la conexion a la Base de Datos (revise los metodos de la clase)
@@ -170,6 +173,10 @@ public class ParranderosTransactionManager {
 			if(daoCliente.findReservaByDocument(reserva.getCliente().getDocumento())==null)
 			{
 				throw new Exception("El cliente de la reserva no existe");
+			}
+			if(daoOferta.findOfertaById(reserva.getOferta().getId())==null)
+			{
+				throw new Exception("La oferta de la reserva no existe");
 			}
 			daoReserva.addReserva(reserva);
 			
@@ -200,52 +207,6 @@ public class ParranderosTransactionManager {
 		}
 	}
 
-
-
-	/**
-	 * Metodo que modela la transaccion que actualiza en la base de datos al bebedor que entra por parametro.<br/>
-	 * Solamente se actualiza si existe el bebedor en la Base de Datos <br/>
-	 * <b> post: </b> se ha actualizado el bebedor que entra como parametro <br/>
-	 * @param bebedor - Bebedor a actualizar. bebedor != null
-	 * @throws Exception - Cualquier error que se genere actualizando al bebedor.
-	 */
-	public void updateBebedor(Bebedor bebedor) throws Exception 
-	{
-		DAOBebedor daoBebedor = new DAOBebedor( );
-		try
-		{
-			this.conn = darConexion();
-			daoBebedor.setConn( conn );
-			//TODO Requerimiento 5C: Utilizando los Metodos de DaoBebedor, verifique que exista el bebedor con el ID dado en el parametro. 
-			//						 Si no existe un bebedor con el ID ingresado, lance una excepcion en donde se explique lo sucedido
-			//						 De lo contrario, se actualiza la informacion del bebedor de la Base de Datos
-
-
-		}
-		catch (SQLException sqlException) {
-			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
-			sqlException.printStackTrace();
-			throw sqlException;
-		} 
-		catch (Exception exception) {
-			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
-			exception.printStackTrace();
-			throw exception;
-		} 
-		finally {
-			try {
-				daoBebedor.cerrarRecursos();
-				if(this.conn!=null){
-					this.conn.close();					
-				}
-			}
-			catch (SQLException exception) {
-				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}	
-	}
 	/**
 	 * Metodo que modela la transaccion que elimina de la base de datos al bebedor que entra por parametro. <br/>
 	 * Solamente se actualiza si existe el bebedor en la Base de Datos <br/>
@@ -284,6 +245,60 @@ public class ParranderosTransactionManager {
 		finally {
 			try {
 				daoReserva.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}	
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que elimina de la base de datos al bebedor que entra por parametro. <br/>
+	 * Solamente se actualiza si existe el bebedor en la Base de Datos <br/>
+	 * <b> post: </b> se ha eliminado el bebedor que entra por parametro <br/>
+	 * @param Bebedor - bebedor a eliminar. bebedor != null
+	 * @throws Exception - Cualquier error que se genere eliminando al bebedor.
+	 */
+	public void deleteOferta(Oferta oferta) throws Exception 
+	{
+		DAOOferta daoOferta = new DAOOferta( );
+		try
+		{
+			this.conn = darConexion();
+			daoOferta.setConn( conn );
+			//TODO Requerimiento 6D: Utilizando los Metodos de DaoBebedor, verifique que exista el bebedor con el ID dado en el parametro. 
+			//						 Si no existe un bebedor con el ID ingresado, lance una excepcion en donde se explique lo sucedido
+			//						 De lo contrario, se elimina la informacion del bebedor de la Base de Datos
+			if(daoOferta.findOfertaById(oferta.getId())==null)
+			{
+				throw new Exception("No existe una reserva con el id indicado para eliminar");
+			}
+			if(!daoOferta.getReservasOfertaByid(oferta.getId()).isEmpty())
+			{
+				throw new Exception("La oferta tiene reservas y no puede ser eliminada");
+			}
+			daoOferta.deleteOferta(oferta);
+
+
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoOferta.cerrarRecursos();
 				if(this.conn!=null){
 					this.conn.close();					
 				}
