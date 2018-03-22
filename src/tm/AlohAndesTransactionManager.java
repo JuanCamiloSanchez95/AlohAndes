@@ -25,6 +25,7 @@ import java.util.Properties;
 import dao.DAOBebedor;
 import dao.DAOCliente;
 import dao.DAOOferta;
+import dao.DAOOperador;
 import dao.DAOReserva;
 import vos.Bebedor;
 import vos.Oferta;
@@ -343,6 +344,44 @@ public class AlohAndesTransactionManager {
 		finally {
 			try {
 				daoOferta.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}	
+	}
+	public ArrayList<String> getDineroRecibidoOperadores() throws Exception 
+	{
+		DAOOperador daoOperador= new DAOOperador( );
+		try
+		{
+			this.conn = darConexion();
+			daoOperador.setConn( conn );
+			//TODO Requerimiento 6D: Utilizando los Metodos de DaoBebedor, verifique que exista el bebedor con el ID dado en el parametro. 
+			//						 Si no existe un bebedor con el ID ingresado, lance una excepcion en donde se explique lo sucedido
+			//						 De lo contrario, se elimina la informacion del bebedor de la Base de Datos
+
+			return daoOperador.getDineroRecibidoOperadores();
+
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoOperador.cerrarRecursos();
 				if(this.conn!=null){
 					this.conn.close();					
 				}
