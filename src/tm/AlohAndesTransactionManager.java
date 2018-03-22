@@ -310,7 +310,7 @@ public class AlohAndesTransactionManager {
 		}	
 	}
 	/**
-	 * Metodo que modela la transaccion que elimina de la base de datos al bebedor que entra por parametro. <br/>
+	 * Metodo que modela la transaccion que encuentra la oferta mas popular. <br/>
 	 * Solamente se actualiza si existe el bebedor en la Base de Datos <br/>
 	 * <b> post: </b> se ha eliminado el bebedor que entra por parametro <br/>
 	 * @param Bebedor - bebedor a eliminar. bebedor != null
