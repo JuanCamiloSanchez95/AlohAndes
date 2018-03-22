@@ -118,7 +118,26 @@ public class DAOOferta {
 		}
 		return reservas;
 	}
-	
+	/**
+	 * Metodo que obtiene la informacion de todos los bebedores en la Base de Datos <br/>
+	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
+	 * @return	lista con la informacion de todos los bebedores que se encuentran en la Base de Datos
+	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
+	 */
+	public ArrayList<Oferta> getOfertasMasPopu() throws SQLException, Exception {
+		ArrayList<Oferta> ofertas = new ArrayList<Oferta>();
+		//Aclaracion: Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
+		String sql = String.format("SELECT OFERTAS.ID FROM OFERTAS,RESERVASOFERTA WHERE RESERVASOFERTA.OFERTA=OFERTAS.ID AND ROWNUM <=20 GROUP BY OFERTAS.IDORDER BY COUNT(OFERTAS) DESC");
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			ofertas.add(findOfertaById(rs.getInt("OFERTAS.ID")));
+		}
+		return ofertas;
+	}
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODOS AUXILIARES
 	//----------------------------------------------------------------------------------------------------------------------------------
