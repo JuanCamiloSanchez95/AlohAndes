@@ -10,8 +10,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import tm.ParranderosTransactionManager;
-import vos.Bebedor;
+import tm.AlohAndesTransactionManager;
 
 /**
  * 
@@ -64,11 +63,11 @@ public class ApartamentoService
 		public Response getApartamentos() {
 			
 			try {
-				ParranderosTransactionManager tm = new ParranderosTransactionManager(getPath());
-				List<Bebedor> bebedores;
+				AlohAndesTransactionManager tm = new AlohAndesTransactionManager(getPath());
+				List<ApartamentoService> aptos;
 				//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
-				bebedores = tm.getAllBebedores();
-				return Response.status(200).entity(bebedores).build();
+				aptos = null;
+				return Response.status(200).entity(aptos).build();
 			} 
 			catch (Exception e) {
 				return Response.status(500).entity(doErrorMessage(e)).build();

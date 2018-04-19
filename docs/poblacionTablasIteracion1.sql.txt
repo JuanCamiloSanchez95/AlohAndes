@@ -1,0 +1,229 @@
+			ALOHANDES
+insert into AlohAndes(id) values (999);
+
+
+			CLIENTES
+insert into Clientes(documento , nombre , vinculo ) values (1, 'Laura','estudiante');
+insert into Clientes(documento , nombre , vinculo ) values (2, 'Juan','estudiante');
+insert into Clientes(documento , nombre , vinculo ) values (3, 'Sebastian','egresado');
+insert into Clientes(documento , nombre , vinculo ) values (4, 'Claudia','profesor');
+insert into Clientes(documento , nombre , vinculo ) values (5, 'Andres','profinvitador');
+
+
+			Apartamentos
+
+
+insert into Apartamentos( operador,precio,administracion,amoblado) values (199, 300000.00, 69000,’Y’);
+insert into Apartamentos( operador,precio,administracion,amoblado) values (200, 500000.00, 80000,’Y’);
+insert into Apartamentos( operador,precio,administracion,amoblado) values (201, 600000.00, 10000,’Y’);
+insert into Apartamentos( operador,precio,administracion,amoblado) values (202, 700000.00, 12000,’Y’);
+insert into Apartamentos( operador,precio,administracion,amoblado) values (203, 800000.00, 15000,’Y’);
+
+			ClientesRegistrados
+insert into ClientesRegistrados(cliente, aloha) values (1,999);
+insert into ClientesRegistrados(cliente, aloha) values (2,999);
+insert into ClientesRegistrados(cliente, aloha) values (3,999);
+insert into ClientesRegistrados(cliente, aloha) values (4,999);
+insert into ClientesRegistrados(cliente, aloha) values (5,999);
+
+			Habitaciones
+insert into Habitaciones(id,precio,descripcion,periodoFactura) values ( 100,33000,'Super Comoda', 1);
+insert into Habitaciones(id,precio,descripcion,periodoFactura) values ( 101,36000,'Super grande',30);
+insert into Habitaciones(id,precio,descripcion,periodoFactura) values ( 102,40000,'PequeÒa',1);
+insert into Habitaciones(id,precio,descripcion,periodoFactura) values ( 103,46000,'Barata',1);
+insert into Habitaciones(id,precio,descripcion,periodoFactura) values ( 104,50000,'Super barata', 1);
+
+			HabitacionesH
+insert into HabitacionesH(id,capacidad, tipo) values  (101, 2, 'suite');
+insert into HabitacionesH(id,capacidad, tipo) values  (102, 1, 'personal');
+insert into HabitacionesH(id,capacidad, tipo) values  (103, 2, 'compartida');
+
+			HabitacionesHostal
+insert into HabitacionesHostal(hostal, habitacion) values (305,103);
+
+			HabitacionesHotel
+insert into HabitacionesHotel(hotel,habitacion) values (300,101);
+insert into HabitacionesHotel(hotel,habitacion) values (302,102);
+
+			HabitacionesUniversitarias
+insert into HabitacionesUniversitarias(operador, habitacion) values (204, 104);
+
+			HabitacionesVivienda
+insert into HabitacionesVivienda(id,operador,nombre,compartida) values (100,209,'SuperFenicia','Y');
+
+			HabitacionUniversitaria
+insert into HabitacionUniversitaria(id,compartida,ubicacion) values (104,'N','En el ultimo piso');
+
+			Hostales
+insert into Hostales(id,categoria,ubicacion,registroSI,registroCamara,horarioApertura,horarioCierre) values (305, 3, 'Alfrente del italiano','21932131219','38127382173','se abre a las  7:00 am', 'se cierra a las  7:00pm');
+insert into Hostales(id,categoria,ubicacion,registroSI,registroCamara,horarioApertura,horarioCierre) values (306, 4, 'Alfrente de la pola','21931219','381231382173','se abre a las  7:00 am', 'se cierra a las  9:00pm');
+insert into Hostales(id,categoria,ubicacion,registroSI,registroCamara,horarioApertura,horarioCierre) values (307, 7, 'Alfrente del ML','219343534219','381275235173','se abre a las  8:00 am', 'se cierra a las  8:00pm');
+insert into Hostales(id,categoria,ubicacion,registroSI,registroCamara,horarioApertura,horarioCierre) values (308, 8, 'Alfrente del SD','216546219','3812745354173','se abre a las  8:00 am', 'se cierra a las  8:00pm');
+insert into Hostales(id,categoria,ubicacion,registroSI,registroCamara,horarioApertura,horarioCierre) values (309, 10, 'Alfrente del Mejor salon del mundo','2194238219','34147382173','se abre a las  7:00 am', 'se cierra a las  9:00pm');
+
+			Hoteles
+insert into Hoteles(id,categoria,ubicacion,registroSI,registroCamara) values (300, 5, 'Alfrente del italiano','21932131219','3812738862173');
+insert into Hoteles(id,categoria,ubicacion,registroSI,registroCamara) values (301, 5, 'Alfrente de Feinicia','219331331219','381273862173');
+insert into Hoteles(id,categoria,ubicacion,registroSI,registroCamara) values (302, 5, 'Hay al ladito','2193213123123119','381273821873');
+insert into Hoteles(id,categoria,ubicacion,registroSI,registroCamara) values (303, 5, 'Cerca del bar tomamuerto','219341242131219','381273782173');
+insert into Hoteles(id,categoria,ubicacion,registroSI,registroCamara) values (304, 5, 'Al lado de la  estacion las  aguas','219543532131219','368127382173');
+
+			Ofertas;
+  
+insert into Ofertas(id, longitudEstadia, precioEstadia,nombre,ubicacion,descripccion,fechaPublicacion,operador,habitacion,apartamento,vivienda) values (10, 4,894324,'Torres Guada','Cerca de la estacion aguas','lugar cercano','12/12/17',300,101,Null,Null);
+insert into Ofertas(id, longitudEstadia, precioEstadia,nombre,ubicacion,descripccion,fechaPublicacion,operador,habitacion,apartamento,vivienda) values (11, 108,8943243324,'Torres Gabard’,’Cerca de la estacion universidades','lugar cercano','12/01/18',204,104,Null,Null);
+insert into Ofertas(id, longitudEstadia, precioEstadia,nombre,ubicacion,descripccion,fechaPublicacion,operador,habitacion,apartamento,vivienda) values (12, 43,8943624,'Intercontinental','Cerca de la estacion aguas','lugar hermoso','12/02/18',302,102,Null,Null);
+insert into Ofertas(id, longitudEstadia, precioEstadia,nombre,ubicacion,descripccion,fechaPublicacion,operador,habitacion,apartamento,vivienda) values (13, 66,894323214,'Fenicia','Cerca de la estacion aguas','lugar cercano','12/12/17',100,209,Null,Null);
+
+			OfertasOfrecidas
+insert into OfertasOfrecidas(oferta, aloha) values (10,999);
+insert into OfertasOfrecidas(oferta, aloha) values (11,999);
+insert into OfertasOfrecidas(oferta, aloha) values (12,999);
+insert into OfertasOfrecidas(oferta, aloha) values (13,999);
+
+
+			 Operadores
+insert into Operadores(id,nombre) values ( 300, 'Hotel g');
+insert into Operadores(id,nombre) values ( 301, 'Hotel a');
+insert into Operadores(id,nombre) values ( 302, 'Hotel b');
+insert into Operadores(id,nombre) values ( 303, 'Hotel c');
+insert into Operadores(id,nombre) values ( 304, 'Hotel d');
+insert into Operadores(id,nombre) values ( 305, 'Hostal  g');
+insert into Operadores(id,nombre) values ( 306, 'Hostal  a');
+insert into Operadores(id,nombre) values ( 307, 'Hostal  b');
+insert into Operadores(id,nombre) values ( 308, 'Hostal  c');
+insert into Operadores(id,nombre) values ( 309, 'Hostal  d');
+insert into Operadores(id,nombre) values ( 204, 'ViviendaU A');
+insert into Operadores(id,nombre) values ( 205, 'ViviendaU Ab');
+insert into Operadores(id,nombre) values ( 206, 'ViviendaU Ac');
+insert into Operadores(id,nombre) values ( 207, 'ViviendaU Ad');
+insert into Operadores(id,nombre) values ( 208, 'ViviendaU Ae');
+insert into Operadores(id,nombre) values ( 209, 'Vivienda A');
+insert into Operadores(id,nombre) values ( 210, 'Vivienda Ab');
+insert into Operadores(id,nombre) values ( 211, 'Vivienda Ac');
+insert into Operadores(id,nombre) values ( 212, 'Vivienda Ad');
+insert into Operadores(id,nombre) values ( 213, 'Vivienda Ae');
+insert into Operadores(id,nombre) values ( 199, 'apartamento A');
+insert into Operadores(id,nombre) values ( 200, 'apartamento  Ab');
+insert into Operadores(id,nombre) values ( 202, 'apartamento  Ac');
+insert into Operadores(id,nombre) values ( 203, 'apartamento  Ad');
+insert into Operadores(id,nombre) values ( 201, 'apartamento  Ae');
+
+		OperadoresRegistrados
+insert into OperadoresRegistrados(operador, aloha) values (199,999);
+insert into OperadoresRegistrados(operador, aloha) values (200,999);
+insert into OperadoresRegistrados(operador, aloha) values (201,999);
+insert into OperadoresRegistrados(operador, aloha) values (202,999);
+insert into OperadoresRegistrados(operador, aloha) values (203,999);
+insert into OperadoresRegistrados(operador, aloha) values (204,999);
+insert into OperadoresRegistrados(operador, aloha) values (205,999);
+insert into OperadoresRegistrados(operador, aloha) values (206,999);
+insert into OperadoresRegistrados(operador, aloha) values (207,999);
+insert into OperadoresRegistrados(operador, aloha) values (208,999);
+insert into OperadoresRegistrados(operador, aloha) values (209,999);
+insert into OperadoresRegistrados(operador, aloha) values (210,999);
+insert into OperadoresRegistrados(operador, aloha) values (211,999);
+insert into OperadoresRegistrados(operador, aloha) values (212,999);
+insert into OperadoresRegistrados(operador, aloha) values (213,999);
+insert into OperadoresRegistrados(operador, aloha) values (300,999);
+insert into OperadoresRegistrados(operador, aloha) values (301,999);
+insert into OperadoresRegistrados(operador, aloha) values (302,999);
+insert into OperadoresRegistrados(operador, aloha) values (303,999);
+insert into OperadoresRegistrados(operador, aloha) values (304,999);
+insert into OperadoresRegistrados(operador, aloha) values (305,999);
+insert into OperadoresRegistrados(operador, aloha) values (306,999);
+insert into OperadoresRegistrados(operador, aloha) values (307,999);
+insert into OperadoresRegistrados(operador, aloha) values (308,999);
+insert into OperadoresRegistrados(operador, aloha) values (309,999);
+
+		 PersonaNatural
+insert into PersonaNatural(id ,documento, vinculo) values (199,'23131','estudiante');
+insert into PersonaNatural(id ,documento, vinculo) values (200,'233131','estudiante');
+insert into PersonaNatural(id ,documento, vinculo) values (201,'231431','profesor');
+insert into PersonaNatural(id ,documento, vinculo) values (202,'231351','estudiante');
+insert into PersonaNatural(id ,documento, vinculo) values (203,'231361','estudiante');
+insert into PersonaNatural(id ,documento, vinculo) values (204,'213213131','estudiante');
+insert into PersonaNatural(id ,documento, vinculo) values (205,'232133131','estudiante');
+insert into PersonaNatural(id ,documento, vinculo) values (206,'23311441231','profesor');
+insert into PersonaNatural(id ,documento, vinculo) values (207,'231331251','estudiante');
+insert into PersonaNatural(id ,documento, vinculo) values (208,'3231361','estudiante');
+insert into PersonaNatural(id ,documento, vinculo) values (209,'231233131','estudiante');
+insert into PersonaNatural(id ,documento, vinculo) values (210,'3123233131','estudiante');
+insert into PersonaNatural(id ,documento, vinculo) values (211,'313123231431','profesor');
+insert into PersonaNatural(id ,documento, vinculo) values (212,'4124231351','estudiante');
+insert into PersonaNatural(id ,documento, vinculo) values (213,'23123131361','estudiante');
+
+		 ReservaCliente
+insert into ReservaCliente(cliente, reserva) values (1,400);
+insert into ReservaCliente(cliente, reserva) values (2,401);
+insert into ReservaCliente(cliente, reserva) values (3,402);
+insert into ReservaCliente(cliente, reserva) values (4,403);
+insert into ReservaCliente(cliente, reserva) values (5,404);
+
+
+		 Reservas
+insert into Reservas(id, diaLlegada, diaSalida,cencelada,costo) values (400,'10/03/18','11/03/18','N',312321);
+insert into Reservas(id, diaLlegada, diaSalida,cencelada,costo) values (401,'11/03/18','11/04/18','N',3131232321);
+insert into Reservas(id, diaLlegada, diaSalida,cencelada,costo) values (402,'12/04/18','12/06/18','N',312324121);
+insert into Reservas(id, diaLlegada, diaSalida,cencelada,costo) values (403,'13/05/18','13/08/18','N',312341221);
+insert into Reservas(id, diaLlegada, diaSalida,cencelada,costo) values (404,'14/05/18','14/10/18','N',3123414221);
+
+		 ReservasOferta
+insert into ReservasOfertas(oferta, reserva) values (10,400);
+insert into ReservasOfertas(oferta, reserva) values (11,401);
+insert into ReservasOfertas(oferta, reserva) values (12,402);
+insert into ReservasOfertas(oferta, reserva) values (13,403);
+insert into ReservasOfertas(oferta, reserva) values (13,404);
+
+		SERVICIOS
+insert into Servicios(id,tipo,nombre,descripccion,costo) values (500, 'Inmueble','Luz', 'Hagase la luz',32131);
+insert into Servicios(id,tipo,nombre,descripccion,costo) values (501, 'Comida','Restaurante', 'Yumi',0);
+insert into Servicios(id,tipo,nombre,descripccion,costo) values (502, 'Entretenimiento’,’Videojuegos', 'quiero vagar',0);
+insert into Servicios(id,tipo,nombre,descripccion,costo) values (503, 'Profesional','Office', 'Plus ',3231131);
+insert into Servicios(id,tipo,nombre,descripccion,costo) values (504, 'Entretenimiento','Wifi', 'Conexion inalambrica',0);
+
+		ServiciosHabitaciones
+insert into ServiciosHabitaciones(servicio, habitacion) values (500,101);
+insert into ServiciosHabitaciones(servicio, habitacion) values (501,102);
+insert into ServiciosHabitaciones(servicio, habitacion) values (502,103);
+insert into ServiciosHabitaciones(servicio, habitacion) values (503,104);
+
+		 ServiciosOperadores
+insert into ServiciosOperador(servicio, operador) values (199,500);
+insert into ServiciosOperador(servicio, operador) values (200,501);
+insert into ServiciosOperador(servicio, operador) values (201,502);
+insert into ServiciosOperador(servicio, operador) values (202,503);
+insert into ServiciosOperador(servicio, operador) values (202,500);
+
+
+		 Viviendas
+insert into Viviendas(operador, precio) values (209, 23131);
+insert into Viviendas(operador, precio) values (210, 312131);
+insert into Viviendas(operador, precio) values (211, 2431);
+insert into Viviendas(operador, precio) values (212, 53131);
+insert into Viviendas(operador, precio) values (213, 3123131);
+
+		 ViviendaUniversitaria
+insert into ViviendaUniversitaria(id, ubicacion,capacidad) values (204,'CityU',3);
+insert into ViviendaUniversitaria(id, ubicacion,capacidad) values (205,'Ml esquina',3);
+insert into ViviendaUniversitaria(id, ubicacion,capacidad) values (206,'Bacatan',2);
+insert into ViviendaUniversitaria(id, ubicacion,capacidad) values (207,'Pola',1);
+insert into ViviendaUniversitaria(id, ubicacion,capacidad) values (208,'Iglesia',3);
+
+
+ID DE LOS CLIENTES: 1,2,3,4,5
+ID DE ALOHANDES : 999
+ID DE LOS SERVICIOS: 500,501,502,503,504
+ID DE LAS  RESERVAS:  400,401,402,403,404
+ID DE LOS OPERADORES:    
+			Persona Natural : 
+					Apartamento: 199 , 200, 201,202,203
+					ViviendaUniversitaria: 204,205,206,207,208
+					HabitacionesVivienda: 209,210,211,212,213
+			Hotel:300,301,302,303,304
+			Hostal:305,306,307,308,309
+ID DE LAS OFERTAS: 10,11,12,13
+ID DE LAS  HABITAICONES:
+			HabitacionH: 101,102,103
+			HabitacionUniversitaria: 104
+			HabitacionVivienda: 100

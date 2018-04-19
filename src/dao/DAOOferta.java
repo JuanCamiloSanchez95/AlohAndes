@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import vos.Bebedor;
 import vos.Oferta;
 import vos.Reserva;;
 
@@ -128,7 +127,7 @@ public class DAOOferta {
 	public ArrayList<Oferta> getOfertasMasPopu() throws SQLException, Exception {
 		ArrayList<Oferta> ofertas = new ArrayList<Oferta>();
 		//Aclaracion: Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
-		String sql = String.format("SELECT OFERTAS.ID FROM OFERTAS,RESERVASOFERTA WHERE RESERVASOFERTA.OFERTA=OFERTAS.ID AND ROWNUM <=20 GROUP BY OFERTAS.IDORDER BY COUNT(OFERTAS) DESC");
+		String sql = String.format("SELECT OFERTAS.ID FROM OFERTAS,RESERVASOFERTA WHERE RESERVASOFERTA.OFERTA=OFERTAS.ID AND ROWNUM <=20 GROUP BY OFERTAS.IDORDER BY COUNT(OFERTAS.ID) DESC");
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();

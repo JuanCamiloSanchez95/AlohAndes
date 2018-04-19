@@ -22,12 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import dao.DAOBebedor;
+
 import dao.DAOCliente;
 import dao.DAOOferta;
 import dao.DAOOperador;
 import dao.DAOReserva;
-import vos.Bebedor;
 import vos.Oferta;
 import vos.Reserva;
 
