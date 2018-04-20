@@ -28,7 +28,7 @@ public class Vivienda {
 			/**
 			 * Persona  encargada de la vivienda
 			 */
-			private PersonaNatural persona;
+			private Persona persona;
 			
 			/**
 			 * Lista de ofertas de la vivienda 
@@ -71,11 +71,11 @@ public class Vivienda {
 				this.precio = precio;
 			}
 
-			public PersonaNatural getPersona() {
+			public Persona getPersona() {
 				return persona;
 			}
 
-			public void setPersona(PersonaNatural persona) {
+			public void setPersona(Persona persona) {
 				this.persona = persona;
 			}
 

@@ -42,7 +42,7 @@ public class Apartamento
 		/**
 		 * Persona  encargada del apartamento
 		 */
-		private PersonaNatural persona;
+		private Persona persona;
 		
 		/**
 		 * Lista de ofertas del apartamento 
@@ -106,11 +106,11 @@ public class Apartamento
 			this.administracion = administracion;
 		}
 
-		public PersonaNatural getPersona() {
+		public Persona getPersona() {
 			return persona;
 		}
 
-		public void setPersona(PersonaNatural persona) {
+		public void setPersona(Persona persona) {
 			this.persona = persona;
 		}
 

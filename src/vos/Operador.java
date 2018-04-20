@@ -7,7 +7,6 @@ import org.codehaus.jackson.annotate.JsonProperty;
 /**
  * 
  * @author Juan
- * @author Laura 
  * Clase que representa un operador 
  */
 public class Operador {
@@ -27,16 +26,28 @@ public class Operador {
 	private String nombre;
 
 	/**
-	 * lista de servicios del operador
+	 * Tipo del operador
+	 */
+	@JsonProperty(value="tipo")
+	private String tipo;
+	
+	/**
+	 * Lista de servicios del operador
 	 */
 	@JsonProperty(value="servicios")
 	private ArrayList<Servicio> servicios;
 	
 	/**
-	 * ofertas del operador
+	 * Ofertas del operador
 	 */
 	@JsonProperty(value="ofertas")
 	private ArrayList<Oferta> ofertas;
+	
+	/**
+	 * Alojamientos que ofrece  el operador
+	 */
+	@JsonProperty(value="alojamientjos")
+	private ArrayList<Alojamiento> alojamientos;
 	
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODO CONSTRUCTOR
@@ -48,12 +59,14 @@ public class Operador {
 		 * @param id - Id del operador.
 		 * @param nombre - Nombre del operador.
 		 */
-		public Operador(@JsonProperty(value="id") Integer id,@JsonProperty(value="nombre") String nombre) 
+		public Operador(@JsonProperty(value="id") Integer id,@JsonProperty(value="nombre") String nombre, @JsonProperty(value="tipo") String tipo) 
 		{
 			this.id= id;
 			this.nombre=nombre;
+			this.tipo=tipo;
 			servicios=new ArrayList<>();
 			ofertas= new ArrayList<>();
+			alojamientos= new ArrayList<>();
 		}
  
 
@@ -95,6 +108,16 @@ public class Operador {
 		}
 
 
+		public String getTipo() {
+			return tipo;
+		}
+
+
+		public void setTipo(String tipo) {
+			this.tipo = tipo;
+		}
+
+
 		public ArrayList<Servicio> getServicios() {
 			return servicios;
 		}
@@ -112,6 +135,16 @@ public class Operador {
 
 		public void setOfertas(ArrayList<Oferta> ofertas) {
 			this.ofertas = ofertas;
+		}
+
+
+		public ArrayList<Alojamiento> getAlojamientos() {
+			return alojamientos;
+		}
+
+
+		public void setAlojamientos(ArrayList<Alojamiento> alojamientos) {
+			this.alojamientos = alojamientos;
 		}
 		
 

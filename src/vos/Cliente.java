@@ -5,7 +5,11 @@ import java.util.ArrayList;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 
-
+/**
+ * 
+ * @author Juan
+ * Clase que representa un hotel  
+ */
 public class Cliente 
 {
 	//----------------------------------------------------------------------------------------------------------------------------------

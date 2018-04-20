@@ -7,7 +7,6 @@ import org.codehaus.jackson.annotate.JsonProperty;
 /**
  * 
  * @author Juan
- * @author Laura 
  * Clase que representa el negocio de AlhoAlpes 
  */
 public class AlohAlpes 
@@ -20,6 +19,12 @@ public class AlohAlpes
 		 */
 		@JsonProperty(value="id")
 		private int id;
+		
+		/**
+		 * Nombre del negocio
+		 */
+		@JsonProperty(value="nombre")
+		private String nombre;
 		
 		/**
 		 * lista de operadores del negocio
@@ -60,6 +65,17 @@ public class AlohAlpes
 			public void setId(int id) {
 				this.id = id;
 			}
+			
+
+			public String getNombre() {
+				return nombre;
+			}
+
+
+			public void setNombre(String nombre) {
+				this.nombre = nombre;
+			}
+
 
 			public ArrayList<Operador> getOperadores() {
 				return operadores;

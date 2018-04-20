@@ -30,7 +30,7 @@ public class HabitacionVivienda extends Habitacion
 	 * Persona a cargo de la  habitacionvivienda
 	 */
 	@JsonProperty(value="persona")
-	private PersonaNatural persona;
+	private Persona persona;
 	
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODO CONSTRUCTOR
@@ -73,11 +73,11 @@ public class HabitacionVivienda extends Habitacion
 				this.compartida = compartida;
 			}
 
-			public PersonaNatural getPersona() {
+			public Persona getPersona() {
 				return persona;
 			}
 
-			public void setPersona(PersonaNatural persona) {
+			public void setPersona(Persona persona) {
 				this.persona = persona;
 			}
 
