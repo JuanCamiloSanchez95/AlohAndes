@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 import tm.AlohAndesTransactionManager;
 import vos.Oferta;
-import vos.Reserva;;
 
 public class DAOOferta {
 

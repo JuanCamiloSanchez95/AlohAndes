@@ -53,10 +53,10 @@ public class OperadorService {
 	
 	
 	/**
-	 * Metodo GET que trae a todos los operadores en la Base de datos. <br/>
-	 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
-	 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/operadores <br/>
-	 * @return	<b>Response Status 200</b> - JSON que contiene a todas los operadores que estan en la Base de Datos <br/>
+	 * Metodo GET que trae a todos los operadores en la Base de datos.
+	 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario.
+	 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/operadores
+	 * @return	<b>Response Status 200</b> - JSON que contiene a todas los operadores que estan en la Base de Datos
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */			
 	@GET
