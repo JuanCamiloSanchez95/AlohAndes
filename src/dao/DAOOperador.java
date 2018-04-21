@@ -119,7 +119,8 @@ public class DAOOperador {
 		public Operador convertResultSetToOperador(ResultSet resultSet) throws SQLException {
 			Integer id = resultSet.getInt("ID");
 			String nombre = resultSet.getString("NOMBRE");
-			Operador op = new Operador(id, nombre);
+			String tipo = resultSet.getString("TIPO");
+			Operador op = new Operador(id, nombre,tipo);
 			return op;
 		}
 

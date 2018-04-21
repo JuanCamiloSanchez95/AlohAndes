@@ -32,7 +32,7 @@ import vos.Reserva;
 
 /**
  * @author Cristian M. Amaya	- 	cm.amaya10@uniandes.edu.co
- * @author Juan David Vega Guzman		-	jd.vega11@uniandes.edu.co
+ * @author Juan Camilo Sanchez	-	jc.sanchez12@uniandes.edu.co
  * 
  * Clase que representa al Manejador de Transacciones de la Aplicacion (Fachada en patron singleton de la aplicacion)
  * Responsabilidades de la clase: 
@@ -95,13 +95,11 @@ public class AlohAndesTransactionManager {
 	//----------------------------------------------------------------------------------------------------------------------------------
 
 	/**
-	 * <b>Metodo Contructor de la Clase AlohAndesTransactionManager</b> <br/>
+	 * <b>Metodo Contructor de la Clase AlohAndesTransactionManager</b>
 	 * <b>Postcondicion: </b>	Se crea un objeto  AlohAndesTransactionManager,
 	 * 						 	Se inicializa el path absoluto del archivo de conexion,
 	 * 							Se inicializna los atributos para la conexion con la Base de Datos
 	 * @param contextPathP Path absoluto que se encuentra en el servidor del contexto del deploy actual
-	 * @throws IOException Se genera una excepcion al tener dificultades con la inicializacion de la conexion<br/>
-	 * @throws ClassNotFoundException 
 	 */
 	public AlohAndesTransactionManager(String contextPathP) {
 
@@ -118,10 +116,10 @@ public class AlohAndesTransactionManager {
 	}
 
 	/**
-	 * Metodo encargado de inicializar los atributos utilizados para la conexion con la Base de Datos.<br/>
-	 * <b>post: </b> Se inicializan los atributos para la conexion<br/>
-	 * @throws IOException Se genera una excepcion al no encontrar el archivo o al tener dificultades durante su lectura<br/>
-	 * @throws ClassNotFoundException 
+	 * Metodo encargado de inicializar los atributos utilizados para la conexion con la Base de Datos.
+	 * <b>post: </b> Se inicializan los atributos para la conexion
+	 * @throws IOException Se genera una excepcion al no encontrar el archivo o al tener dificultades durante su lectura
+	 * @throws ClassNotFoundException Se genera una excepcion si no se encuentra la clase
 	 */
 	private void initializeConnectionData() throws IOException, ClassNotFoundException {
 
@@ -140,8 +138,8 @@ public class AlohAndesTransactionManager {
 	}
 
 	/**
-	 * Metodo encargado de generar una conexion con la Base de Datos.<br/>
-	 * <b>Precondicion: </b>Los atributos para la conexion con la Base de Datos han sido inicializados<br/>
+	 * Metodo encargado de generar una conexion con la Base de Datos.
+	 * <b>Precondicion: </b>Los atributos para la conexion con la Base de Datos han sido inicializados
 	 * @return Objeto Connection, el cual hace referencia a la conexion a la base de datos
 	 * @throws SQLException Cualquier error que se pueda llegar a generar durante la conexion a la base de datos
 	 */
@@ -155,8 +153,8 @@ public class AlohAndesTransactionManager {
 	// METODOS TRANSACCIONALES
 	//----------------------------------------------------------------------------------------------------------------------------------
 	/**
-	 * Metodo que modela la transaccion que agrega una reserva a la base de datos. <br/>
-	 * <b> post: </b> se ha agregado la reserva que entra como parametro <br/>
+	 * Metodo que modela la transaccion que agrega una reserva a la base de datos.
+	 * <b> post: </b> se ha agregado la reserva que entra como parametro
 	 * @param reserva - la reserva a agregar. reserva != null
 	 * @throws Exception - Cualquier error que se genere agregando la reserva
 	 */
@@ -168,7 +166,6 @@ public class AlohAndesTransactionManager {
 		DAOOferta daoOferta = new DAOOferta();
 		try
 		{
-
 			if(daoReserva.findReservaById(reserva.getId())!=null)
 			{
 				throw new Exception("Ya existe una reserva con el id indicado");
@@ -181,9 +178,7 @@ public class AlohAndesTransactionManager {
 			{
 				throw new Exception("La oferta de la reserva no existe");
 			}
-			daoReserva.addReserva(reserva);
-			
-
+			daoReserva.addReserva(reserva);	
 		}
 		catch (SQLException sqlException) {
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
@@ -211,10 +206,10 @@ public class AlohAndesTransactionManager {
 	}
 
 	/**
-	 * Metodo que modela la transaccion que elimina de la base de datos a la reserva que entra por parametro. <br/>
-	 * Solamente se elimina si existe la reserva en la Base de Datos <br/>
-	 * <b> post: </b> se ha eliminado la reserva que entra por parametro <br/>
-	 * @param Reserva - reserva a eliminar. reserva != null
+	 * Metodo que modela la transaccion que elimina de la base de datos a la reserva que entra por parametro.
+	 * Solamente se elimina si existe la reserva en la Base de Datos
+	 * <b> post: </b> se ha eliminado la reserva que entra por parametro
+	 * @param reserva - Reserva a eliminar. reserva != null
 	 * @throws Exception - Cualquier error que se genere eliminando la reseva.
 	 */
 	public void deleteReserva(Reserva reserva) throws Exception 
@@ -258,10 +253,10 @@ public class AlohAndesTransactionManager {
 	}
 	
 	/**
-	 * Metodo que modela la transaccion que elimina de la base de datos a la oferta que entra por parametro. <br/>
-	 * Solamente se actualiza si existe la oferta en la Base de Datos <br/>
-	 * <b> post: </b> se ha eliminado la oferta que entra por parametro <br/>
-	 * @param Oferta - oferta a eliminar. oferta != null
+	 * Metodo que modela la transaccion que elimina de la base de datos a la oferta que entra por parametro.
+	 * Solamente se actualiza si existe la oferta en la Base de Datos
+	 * <b> post: </b> se ha eliminado la oferta que entra por parametro
+	 * @param oferta - Oferta a eliminar. oferta != null
 	 * @throws Exception - Cualquier error que se genere eliminando a la oferta.
 	 */
 	public void deleteOferta(Oferta oferta) throws Exception 
@@ -308,12 +303,12 @@ public class AlohAndesTransactionManager {
 			}
 		}	
 	}
+	
 	/**
-	 * Metodo que modela la transaccion que encuentra la oferta mas popular. <br/>
-	 * Solamente se actualiza si existe el bebedor en la Base de Datos <br/>
-	 * <b> post: </b> se ha eliminado el bebedor que entra por parametro <br/>
-	 * @param Bebedor - bebedor a eliminar. bebedor != null
-	 * @throws Exception - Cualquier error que se genere eliminando al bebedor.
+	 * Metodo que modela la transaccion que encuentra las ofertas mas populares.
+	 * <b> post: </b> se ha encontrado las ofertas mas populares
+	 * @return Lista de Ofertas mas populares en la base de datos
+	 * @throws Exception - Cualquier error que se genere buscando las ofertas.
 	 */
 	public ArrayList<Oferta> getOfertasMasPopu() throws Exception 
 	{
