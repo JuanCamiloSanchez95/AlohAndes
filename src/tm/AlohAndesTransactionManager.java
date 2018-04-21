@@ -145,7 +145,7 @@ public class AlohAndesTransactionManager {
 	 * @throws SQLException Cualquier error que se pueda llegar a generar durante la conexion a la base de datos
 	 */
 	private Connection darConexion() throws SQLException {
-		System.out.println("[PARRANDEROS APP] Attempting Connection to: " + url + " - By User: " + user);
+		System.out.println("[ALOHANDES APP] Attempting Connection to: " + url + " - By User: " + user);
 		return DriverManager.getConnection(url, user, password);
 	}
 
