@@ -33,7 +33,7 @@ public class DAOOferta {
 	//----------------------------------------------------------------------------------------------------------------------------------
 
 	/**
-	 * Metodo constructor de la clase DAOReserva <br/>
+	 * Metodo constructor de la clase DAOReserva
 	 */
 	public DAOOferta() {
 		recursos = new ArrayList<Object>();
@@ -94,8 +94,8 @@ public class DAOOferta {
 
 	
 	/**
-	 * Metodo que elimina la oferta, en la Base de Datos, que tiene el identificador dado por parametro<br/>
-	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>  
+	 * Metodo que elimina la oferta, en la Base de Datos, que tiene el identificador dado por parametr
+	 * <b>Precondicion: </b> la conexion a sido inicializado
 	 * @param oferta Oferta que se desea eliminar de la Base de Datos
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
@@ -113,8 +113,8 @@ public class DAOOferta {
 	
 
 	/**
-	 * Metodo que obtiene la informacion de todos los bebedores en la Base de Datos <br/>
-	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
+	 * Metodo que obtiene la informacion de todos los bebedores en la Base de Datos 
+	 * <b>Precondicion: </b> la conexion a sido inicializado
 	 * @return	lista con la informacion de todos los bebedores que se encuentran en la Base de Datos
 	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
@@ -136,8 +136,8 @@ public class DAOOferta {
 	//----------------------------------------------------------------------------------------------------------------------------------
 
 	/**
-	 * Metodo encargado de inicializar la conexion del DAO a la Base de Datos a partir del parametro <br/>
-	 * <b>Postcondicion: </b> el atributo conn es inicializado <br/>
+	 * Metodo encargado de inicializar la conexion del DAO a la Base de Datos a partir del parametro
+	 * <b>Postcondicion: </b> el atributo conn es inicializado 
 	 * @param connection la conexion generada en el TransactionManager para la comunicacion con la Base de Datos
 	 */
 	public void setConn(Connection connection){
@@ -145,7 +145,7 @@ public class DAOOferta {
 	}
 
 	/**
-	 * Metodo que cierra todos los recursos que se encuentran en el arreglo de recursos<br/>
+	 * Metodo que cierra todos los recursos que se encuentran en el arreglo de recursos
 	 * <b>Postcondicion: </b> Todos los recurso del arreglo de recursos han sido cerrados.
 	 */
 	public void cerrarRecursos() {
