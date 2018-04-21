@@ -72,18 +72,17 @@ public class DAOReserva {
 	/**
 	 * Metodo que obtiene la informacion de todas las reservas en la Base de Datos que pertenecen a una oferta dada por parametro<br/>
 	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
-	 * @param oferta 
+	 * @param id Id de la Oferta 
 	 * @return lista con la informacion de todas las reservas que se encuentran en la Base de Datos que cumplen con los criterios de la sentencia SQL
 	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-
-	public ArrayList<Reserva> getReservasByOferta(String oferta) throws SQLException, Exception{
+	public ArrayList<Reserva> getReservasOfertaById(int id) throws SQLException, Exception {
 		ArrayList<Reserva> reservas = new ArrayList<Reserva>();
-		
-		String sql = String.format("SELECT * FROM %1$s.RESERVAS WHERE CIUDAD = '%2$s'", AlohAndesTransactionManager.USUARIO, oferta);
+		DAOReserva daoReserva = new DAOReserva();
+		String sql = String.format("SELECT RESERVA FROM %1$s.RESERVA WHERE OFERTA = %2$d", AlohAndesTransactionManager.USUARIO, id);
+
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
-		
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
 
@@ -92,7 +91,7 @@ public class DAOReserva {
 		}
 		return reservas;
 	}
-
+	
 	/**
 	 * Metodo que agregar la informacion de una nueva reserva en la Base de Datos a partir del parametro ingresado<br/>
 	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>  

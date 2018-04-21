@@ -28,6 +28,7 @@ import dao.DAOOferta;
 import dao.DAOOperador;
 import dao.DAOReserva;
 import vos.Oferta;
+import vos.Operador;
 import vos.Reserva;
 
 /**
@@ -48,7 +49,7 @@ public class AlohAndesTransactionManager {
 	/**
 	 * Constante para indicar el usuario Oracle del estudiante
 	 */
-	public final static String USUARIO = "ISIS2304A301810";
+	public final static String USUARIO = "ISIS2304A021810";
 	
 	/**
 	 * Constante que contiene el path relativo del archivo que tiene los datos de la conexion
@@ -160,7 +161,6 @@ public class AlohAndesTransactionManager {
 	 */
 	public void addReserva(Reserva reserva) throws Exception 
 	{
-
 		DAOReserva daoReserva= new DAOReserva( );
 		DAOCliente daoCliente = new DAOCliente();
 		DAOOferta daoOferta = new DAOOferta();
@@ -225,7 +225,6 @@ public class AlohAndesTransactionManager {
 			}
 			daoReserva.deleteReserva(reserva);
 
-
 		}
 		catch (SQLException sqlException) {
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
@@ -261,22 +260,22 @@ public class AlohAndesTransactionManager {
 	 */
 	public void deleteOferta(Oferta oferta) throws Exception 
 	{
+		DAOReserva daoReserva = new DAOReserva( );
 		DAOOferta daoOferta = new DAOOferta( );
 		try
 		{
 			this.conn = darConexion();
 			daoOferta.setConn( conn );
-
+			daoReserva.setConn( conn );
 			if(daoOferta.findOfertaById(oferta.getId())==null)
 			{
 				throw new Exception("No existe una reserva con el id indicado para eliminar");
 			}
-			if(!daoOferta.getReservasOfertaById(oferta.getId()).isEmpty())
+			if(!daoReserva.getReservasOfertaById(oferta.getId()).isEmpty())
 			{
 				throw new Exception("La oferta tiene reservas y no puede ser eliminada");
 			}
 			daoOferta.deleteOferta(oferta);
-
 
 		}
 		catch (SQLException sqlException) {
@@ -305,6 +304,76 @@ public class AlohAndesTransactionManager {
 	}
 	
 	/**
+	 * Metodo que modela la transaccion que retorna todas los operadores de la base de datos. 
+	 * @return List<Operador> - Lista de operadores que contiene el resultado de la consulta.
+	 * @throws Exception - Cualquier error que se genere durante la transaccion
+	 */
+	public List<Operador> getAllOperadores() throws Exception {
+		DAOOperador daoOperador = new DAOOperador();
+		List<Operador> operadores;
+		try {
+			this.conn = darConexion();
+			daoOperador.setConn(conn);
+			operadores = daoOperador.getOperadores();
+		} catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} finally {
+			try {
+				daoOperador.cerrarRecursos();
+				if (this.conn != null) {
+					this.conn.close();
+				}
+			} catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return operadores;
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que retorna todas los ofertas de la base de datos. 
+	 * @return List<Operador> - Lista de ofertas que contiene el resultado de la consulta.
+	 * @throws Exception - Cualquier error que se genere durante la transaccion
+	 */
+	public List<Oferta> getAllOfertas() throws Exception {
+		DAOOferta daoOferta = new DAOOferta();
+		List<Oferta> ofertas;
+		try {
+			this.conn = darConexion();
+			daoOferta.setConn(conn);
+			ofertas = daoOferta.getOfertas();
+		} catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} finally {
+			try {
+				daoOferta.cerrarRecursos();
+				if (this.conn != null) {
+					this.conn.close();
+				}
+			} catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return ofertas;
+	}
+	
+	/**
 	 * Metodo que modela la transaccion que encuentra las ofertas mas populares.
 	 * <b> post: </b> se ha encontrado las ofertas mas populares
 	 * @return Lista de Ofertas mas populares en la base de datos
@@ -317,7 +386,7 @@ public class AlohAndesTransactionManager {
 		{
 			this.conn = darConexion();
 			daoOferta.setConn( conn );
-			return daoOferta.getOfertasMasPopu();
+			return daoOferta.getOfertasMasPopulares();
 
 		}
 		catch (SQLException sqlException) {

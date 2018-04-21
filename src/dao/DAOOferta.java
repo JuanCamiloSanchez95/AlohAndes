@@ -41,9 +41,34 @@ public class DAOOferta {
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODOS DE COMUNICACION CON LA BASE DE DATOS
 	//----------------------------------------------------------------------------------------------------------------------------------
+	
 	/**
-	 * Metodo que obtiene la informacion de la oferta en la Base de Datos que tiene el identificador dado por parametro<br/>
-	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/> 
+	 * Metodo que obtiene la informacion de todos las ofertas en la Base de Datos
+	 * <b>Precondicion: </b> la conexion a sido inicializada
+	 * @return	lista con la informacion de todos las ofertas que se encuentran en la Base de Datos
+	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
+	 */
+	public ArrayList<Oferta> getOfertas() throws SQLException, Exception {
+		ArrayList<Oferta> ofertas = new ArrayList<Oferta>();
+
+		String sql = String.format("SELECT * FROM %1$s.OFERTA", AlohAndesTransactionManager.USUARIO);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			ofertas.add(convertResultSetToOferta(rs));
+		}
+		return ofertas;
+	}
+	
+	
+	
+	/**
+	 * Metodo que obtiene la informacion de la oferta en la Base de Datos que tiene el identificador dado por parametro
+	 * <b>Precondicion: </b> la conexion a sido inicializada
 	 * @param id el identificador de la reserva
 	 * @return la informacion de la oferta que cumple con los criterios de la sentecia SQL
 	 * 			Null si no existe la oferta con los criterios establecidos
@@ -86,6 +111,7 @@ public class DAOOferta {
 		prepStmt.executeQuery();
 	}
 	
+
 	/**
 	 * Metodo que obtiene la informacion de todos los bebedores en la Base de Datos <br/>
 	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
@@ -93,28 +119,7 @@ public class DAOOferta {
 	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public ArrayList<Reserva> getReservasOfertaById(int id) throws SQLException, Exception {
-		ArrayList<Reserva> reservas = new ArrayList<Reserva>();
-		DAOReserva daoReserva = new DAOReserva();
-		String sql = String.format("SELECT RESERVA FROM %1$s.RESERVASOFERTA WHERE OFERTA = %2$d", AlohAndesTransactionManager.USUARIO, id);
-
-		PreparedStatement prepStmt = conn.prepareStatement(sql);
-		recursos.add(prepStmt);
-		ResultSet rs = prepStmt.executeQuery();
-
-		while (rs.next()) {
-			reservas.add(daoReserva.findReservaById(rs.getInt("RESERVA")));
-		}
-		return reservas;
-	}
-	/**
-	 * Metodo que obtiene la informacion de todos los bebedores en la Base de Datos <br/>
-	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
-	 * @return	lista con la informacion de todos los bebedores que se encuentran en la Base de Datos
-	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
-	 * @throws Exception Si se genera un error dentro del metodo.
-	 */
-	public ArrayList<Oferta> getOfertasMasPopu() throws SQLException, Exception {
+	public ArrayList<Oferta> getOfertasMasPopulares() throws SQLException, Exception {
 		ArrayList<Oferta> ofertas = new ArrayList<Oferta>();
 		String sql = String.format("SELECT OFERTAS.ID FROM OFERTAS,RESERVASOFERTA WHERE RESERVASOFERTA.OFERTA=OFERTAS.ID AND ROWNUM <=20 GROUP BY OFERTAS.IDORDER BY COUNT(OFERTAS.ID) DESC");
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
