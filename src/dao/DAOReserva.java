@@ -68,6 +68,30 @@ public class DAOReserva {
 
 		return reserva;
 	}
+	
+	/**
+	 * Metodo que obtiene la informacion de todas las reservas en la Base de Datos que pertenecen a una oferta dada por parametro<br/>
+	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
+	 * @param oferta 
+	 * @return lista con la informacion de todas las reservas que se encuentran en la Base de Datos que cumplen con los criterios de la sentencia SQL
+	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
+	 */
+
+	public ArrayList<Reserva> getReservasByOferta(String oferta) throws SQLException, Exception{
+		ArrayList<Reserva> reservas = new ArrayList<Reserva>();
+		
+		String sql = String.format("SELECT * FROM %1$s.RESERVAS WHERE CIUDAD = '%2$s'", AlohAndesTransactionManager.USUARIO, oferta);
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			reservas.add(convertResultSetToReserva(rs));
+		}
+		return reservas;
+	}
 
 	/**
 	 * Metodo que agregar la informacion de una nueva reserva en la Base de Datos a partir del parametro ingresado<br/>

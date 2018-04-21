@@ -41,6 +41,28 @@ public class DAOOperador {
 		//----------------------------------------------------------------------------------------------------------------------------------
 		
 		/**
+		 * Metodo que obtiene la informacion de todos los operadores en la Base de Datos <br/>
+		 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
+		 * @return	lista con la informacion de todos los operadores que se encuentran en la Base de Datos
+		 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+		 * @throws Exception Si se genera un error dentro del metodo.
+		 */
+		public ArrayList<Operador> getOperadores()throws SQLException, Exception{
+			ArrayList<Operador> operadores = new ArrayList<Operador>();
+			String sql = String.format("SELECT * FROM %1$s.OPERADORES", AlohAndesTransactionManager.USUARIO);
+
+			PreparedStatement prepStmt = conn.prepareStatement(sql);
+			recursos.add(prepStmt);
+			ResultSet rs = prepStmt.executeQuery();
+			
+			while (rs.next()) {
+				operadores.add(convertResultSetToOperador(rs));
+			}
+			
+			return operadores;
+		}
+		
+		/**
 		 * Metodo que obtiene la informacion del operador en la Base de Datos que tiene el identificador dado por parametro<br/>
 		 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/> 
 		 * @param id el identificador de la reserva
