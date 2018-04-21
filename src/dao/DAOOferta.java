@@ -63,6 +63,28 @@ public class DAOOferta {
 		return ofertas;
 	}
 	
+	/**
+	 * Metodo que obtiene la informacion de todos las ofertas de un operador en la Base de Datos
+	 * <b>Precondicion: </b> la conexion a sido inicializada
+	 * @param idOperador id del Operador cuyas ofertas se quieren buscar
+	 * @return	lista con la informacion de todos las ofertas que se encuentran en la Base de Datos
+	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
+	 */
+	public ArrayList<Oferta> getOfertasByOperador(int idOperador) throws SQLException, Exception {
+		ArrayList<Oferta> ofertas = new ArrayList<Oferta>();
+
+		String sql = String.format("SELECT * FROM %1$s.OFERTA WHERE OPERADOR = %2$d", AlohAndesTransactionManager.USUARIO, idOperador);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			ofertas.add(convertResultSetToOferta(rs));
+		}
+		return ofertas;
+	}
 	
 	
 	/**
