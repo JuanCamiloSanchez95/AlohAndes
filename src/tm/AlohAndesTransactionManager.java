@@ -251,6 +251,42 @@ public class AlohAndesTransactionManager {
 		}	
 	}
 	
+	
+	/**
+	 * Metodo que modela la transaccion que retorna todas las reservas de la base de datos. 
+	 * @return List<Reserva> - Lista de reservas que contiene el resultado de la consulta.
+	 * @throws Exception - Cualquier error que se genere durante la transaccion
+	 */
+	public List<Reserva> getAllReservas() throws Exception {
+		DAOReserva daoReserva = new DAOReserva();
+		List<Reserva> reservas;
+		try {
+			this.conn = darConexion();
+			daoReserva.setConn(conn);
+			reservas = daoReserva.getReservas();
+		} catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} finally {
+			try {
+				daoReserva.cerrarRecursos();
+				if (this.conn != null) {
+					this.conn.close();
+				}
+			} catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return reservas;
+	}
+	
 	/**
 	 * Metodo que modela la transaccion que elimina de la base de datos a la oferta que entra por parametro.
 	 * Solamente se actualiza si existe la oferta en la Base de Datos
@@ -379,7 +415,7 @@ public class AlohAndesTransactionManager {
 	 * @return Lista de Ofertas mas populares en la base de datos
 	 * @throws Exception - Cualquier error que se genere buscando las ofertas.
 	 */
-	public ArrayList<Oferta> getOfertasMasPopu() throws Exception 
+	public ArrayList<Oferta> getOfertasMasPopulares() throws Exception 
 	{
 		DAOOferta daoOferta= new DAOOferta( );
 		try

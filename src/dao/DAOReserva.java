@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import tm.AlohAndesTransactionManager;
+import vos.Oferta;
 import vos.Reserva; 
 /**
  * Clase DAO que se conecta la base de datos usando JDBC para resolver los requerimientos de la aplicacion
@@ -43,9 +44,32 @@ public class DAOReserva {
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODOS DE COMUNICACION CON LA BASE DE DATOS
 	//----------------------------------------------------------------------------------------------------------------------------------
+	
 	/**
-	 * Metodo que obtiene la informacion de la reserva en la Base de Datos que tiene el identificador dado por parametro<br/>
-	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/> 
+	 * Metodo que obtiene la informacion de todos las reservas en la Base de Datos
+	 * <b>Precondicion: </b> la conexion a sido inicializada
+	 * @return	lista con la informacion de todos las reservas que se encuentran en la Base de Datos
+	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
+	 */
+	public ArrayList<Reserva> getReservas() throws SQLException, Exception {
+		ArrayList<Reserva> reservas = new ArrayList<Reserva>();
+
+		String sql = String.format("SELECT * FROM %1$s.RESERVA", AlohAndesTransactionManager.USUARIO);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			reservas.add(convertResultSetToReserva(rs));
+		}
+		return reservas;
+	}
+	
+	/**
+	 * Metodo que obtiene la informacion de la reserva en la Base de Datos que tiene el identificador dado por parametro
+	 * <b>Precondicion: </b> la conexion a sido inicializado
 	 * @param id el identificador de la reserva
 	 * @return la informacion de la reserva que cumple con los criterios de la sentecia SQL
 	 * 			Null si no existe el bebedor conlos criterios establecidos
@@ -70,8 +94,8 @@ public class DAOReserva {
 	}
 	
 	/**
-	 * Metodo que obtiene la informacion de todas las reservas en la Base de Datos que pertenecen a una oferta dada por parametro<br/>
-	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
+	 * Metodo que obtiene la informacion de todas las reservas en la Base de Datos que pertenecen a una oferta dada por parametro
+	 * <b>Precondicion: </b> la conexion a sido inicializado
 	 * @param id Id de la Oferta 
 	 * @return lista con la informacion de todas las reservas que se encuentran en la Base de Datos que cumplen con los criterios de la sentencia SQL
 	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
