@@ -31,7 +31,7 @@ import vos.Oferta;
 import vos.Reserva;
 
 /**
- * @author Santiago Cortes Fernandez 	- 	s.cortes@uniandes.edu.co
+ * @author Cristian M. Amaya	- 	cm.amaya10@uniandes.edu.co
  * @author Juan David Vega Guzman		-	jd.vega11@uniandes.edu.co
  * 
  * Clase que representa al Manejador de Transacciones de la Aplicacion (Fachada en patron singleton de la aplicacion)
@@ -45,6 +45,11 @@ public class AlohAndesTransactionManager {
 	// CONSTANTES
 	//----------------------------------------------------------------------------------------------------------------------------------
 
+	/**
+	 * Constante para indicar el usuario Oracle del estudiante
+	 */
+	public final static String USUARIO = "ISIS2304A301810";
+	
 	/**
 	 * Constante que contiene el path relativo del archivo que tiene los datos de la conexion
 	 */
@@ -90,8 +95,8 @@ public class AlohAndesTransactionManager {
 	//----------------------------------------------------------------------------------------------------------------------------------
 
 	/**
-	 * <b>Metodo Contructor de la Clase ParranderosTransactionManager</b> <br/>
-	 * <b>Postcondicion: </b>	Se crea un objeto  ParranderosTransactionManager,
+	 * <b>Metodo Contructor de la Clase AlohAndesTransactionManager</b> <br/>
+	 * <b>Postcondicion: </b>	Se crea un objeto  AlohAndesTransactionManager,
 	 * 						 	Se inicializa el path absoluto del archivo de conexion,
 	 * 							Se inicializna los atributos para la conexion con la Base de Datos
 	 * @param contextPathP Path absoluto que se encuentra en el servidor del contexto del deploy actual
@@ -150,10 +155,10 @@ public class AlohAndesTransactionManager {
 	// METODOS TRANSACCIONALES
 	//----------------------------------------------------------------------------------------------------------------------------------
 	/**
-	 * Metodo que modela la transaccion que agrega un bebedor a la base de datos. <br/>
-	 * <b> post: </b> se ha agregado el bebedor que entra como parametro <br/>
-	 * @param bebedor - el bebedor a agregar. bebedor != null
-	 * @throws Exception - Cualquier error que se genere agregando el bebedor
+	 * Metodo que modela la transaccion que agrega una reserva a la base de datos. <br/>
+	 * <b> post: </b> se ha agregado la reserva que entra como parametro <br/>
+	 * @param reserva - la reserva a agregar. reserva != null
+	 * @throws Exception - Cualquier error que se genere agregando la reserva
 	 */
 	public void addReserva(Reserva reserva) throws Exception 
 	{
@@ -163,15 +168,12 @@ public class AlohAndesTransactionManager {
 		DAOOferta daoOferta = new DAOOferta();
 		try
 		{
-			//TODO Requerimiento 3D: Obtenga la conexion a la Base de Datos (revise los metodos de la clase)
-
-			//TODO Requerimiento 3E: Establezca la conexion en el objeto DAOBebedor (revise los metodos de la clase DAOBebedor)
 
 			if(daoReserva.findReservaById(reserva.getId())!=null)
 			{
 				throw new Exception("Ya existe una reserva con el id indicado");
 			}
-			if(daoCliente.findReservaByDocument(reserva.getCliente().getDocumento())==null)
+			if(daoCliente.findClienteByDocument(reserva.getCliente().getDocumento())==null)
 			{
 				throw new Exception("El cliente de la reserva no existe");
 			}
@@ -209,11 +211,11 @@ public class AlohAndesTransactionManager {
 	}
 
 	/**
-	 * Metodo que modela la transaccion que elimina de la base de datos al bebedor que entra por parametro. <br/>
-	 * Solamente se actualiza si existe el bebedor en la Base de Datos <br/>
-	 * <b> post: </b> se ha eliminado el bebedor que entra por parametro <br/>
-	 * @param Bebedor - bebedor a eliminar. bebedor != null
-	 * @throws Exception - Cualquier error que se genere eliminando al bebedor.
+	 * Metodo que modela la transaccion que elimina de la base de datos a la reserva que entra por parametro. <br/>
+	 * Solamente se elimina si existe la reserva en la Base de Datos <br/>
+	 * <b> post: </b> se ha eliminado la reserva que entra por parametro <br/>
+	 * @param Reserva - reserva a eliminar. reserva != null
+	 * @throws Exception - Cualquier error que se genere eliminando la reseva.
 	 */
 	public void deleteReserva(Reserva reserva) throws Exception 
 	{
@@ -222,9 +224,6 @@ public class AlohAndesTransactionManager {
 		{
 			this.conn = darConexion();
 			daoReserva.setConn( conn );
-			//TODO Requerimiento 6D: Utilizando los Metodos de DaoBebedor, verifique que exista el bebedor con el ID dado en el parametro. 
-			//						 Si no existe un bebedor con el ID ingresado, lance una excepcion en donde se explique lo sucedido
-			//						 De lo contrario, se elimina la informacion del bebedor de la Base de Datos
 			if(daoReserva.findReservaById(reserva.getId())==null)
 			{
 				throw new Exception("No existe una reserva con el id indicado");
@@ -259,11 +258,11 @@ public class AlohAndesTransactionManager {
 	}
 	
 	/**
-	 * Metodo que modela la transaccion que elimina de la base de datos al bebedor que entra por parametro. <br/>
-	 * Solamente se actualiza si existe el bebedor en la Base de Datos <br/>
-	 * <b> post: </b> se ha eliminado el bebedor que entra por parametro <br/>
-	 * @param Bebedor - bebedor a eliminar. bebedor != null
-	 * @throws Exception - Cualquier error que se genere eliminando al bebedor.
+	 * Metodo que modela la transaccion que elimina de la base de datos a la oferta que entra por parametro. <br/>
+	 * Solamente se actualiza si existe la oferta en la Base de Datos <br/>
+	 * <b> post: </b> se ha eliminado la oferta que entra por parametro <br/>
+	 * @param Oferta - oferta a eliminar. oferta != null
+	 * @throws Exception - Cualquier error que se genere eliminando a la oferta.
 	 */
 	public void deleteOferta(Oferta oferta) throws Exception 
 	{
@@ -277,7 +276,7 @@ public class AlohAndesTransactionManager {
 			{
 				throw new Exception("No existe una reserva con el id indicado para eliminar");
 			}
-			if(!daoOferta.getReservasOfertaByid(oferta.getId()).isEmpty())
+			if(!daoOferta.getReservasOfertaById(oferta.getId()).isEmpty())
 			{
 				throw new Exception("La oferta tiene reservas y no puede ser eliminada");
 			}
@@ -323,10 +322,6 @@ public class AlohAndesTransactionManager {
 		{
 			this.conn = darConexion();
 			daoOferta.setConn( conn );
-			//TODO Requerimiento 6D: Utilizando los Metodos de DaoBebedor, verifique que exista el bebedor con el ID dado en el parametro. 
-			//						 Si no existe un bebedor con el ID ingresado, lance una excepcion en donde se explique lo sucedido
-			//						 De lo contrario, se elimina la informacion del bebedor de la Base de Datos
-
 			return daoOferta.getOfertasMasPopu();
 
 		}
@@ -354,6 +349,7 @@ public class AlohAndesTransactionManager {
 			}
 		}	
 	}
+	
 	public ArrayList<String> getDineroRecibidoOperadores() throws Exception 
 	{
 		DAOOperador daoOperador= new DAOOperador( );
@@ -361,10 +357,6 @@ public class AlohAndesTransactionManager {
 		{
 			this.conn = darConexion();
 			daoOperador.setConn( conn );
-			//TODO Requerimiento 6D: Utilizando los Metodos de DaoBebedor, verifique que exista el bebedor con el ID dado en el parametro. 
-			//						 Si no existe un bebedor con el ID ingresado, lance una excepcion en donde se explique lo sucedido
-			//						 De lo contrario, se elimina la informacion del bebedor de la Base de Datos
-
 			return daoOperador.getDineroRecibidoOperadores();
 
 		}

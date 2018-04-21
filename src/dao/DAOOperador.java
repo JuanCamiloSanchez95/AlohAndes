@@ -8,18 +8,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import vos.Operador;
+import tm.AlohAndesTransactionManager;
 
 public class DAOOperador {
-	//----------------------------------------------------------------------------------------------------------------------------------
-		// CONSTANTES
-		//----------------------------------------------------------------------------------------------------------------------------------
-
-		/**
-		 * Constante para indicar el usuario Oracle del estudiante
-		 */
-		//TODO Requerimiento 1H: Modifique la constante, reemplazando al ususario PARRANDEROS por su ususario de Oracle
-		public final static String USUARIO = "ISIS2304A301810";
-
 
 		//----------------------------------------------------------------------------------------------------------------------------------
 		// ATRIBUTOS
@@ -48,12 +39,13 @@ public class DAOOperador {
 		//----------------------------------------------------------------------------------------------------------------------------------
 		// METODOS DE COMUNICACION CON LA BASE DE DATOS
 		//----------------------------------------------------------------------------------------------------------------------------------
+		
 		/**
-		 * Metodo que obtiene la informacion de la reserva en la Base de Datos que tiene el identificador dado por parametro<br/>
+		 * Metodo que obtiene la informacion del operador en la Base de Datos que tiene el identificador dado por parametro<br/>
 		 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/> 
 		 * @param id el identificador de la reserva
-		 * @return la informacion de la reserva que cumple con los criterios de la sentecia SQL
-		 * 			Null si no existe el bebedor conlos criterios establecidos
+		 * @return la informacion del operador que cumple con los criterios de la sentecia SQL
+		 * 			Null si no existe el operador con los criterios establecidos
 		 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 		 * @throws Exception Si se genera un error dentro del metodo.
 		 */
@@ -61,7 +53,7 @@ public class DAOOperador {
 		{
 			Operador operador = null;
 
-			String sql = String.format("SELECT * FROM %1$s.OPERADORES WHERE ID = %2$d", USUARIO, id); 
+			String sql = String.format("SELECT * FROM %1$s.OPERADORES WHERE ID = %2$d",AlohAndesTransactionManager.USUARIO, id); 
 
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
@@ -78,7 +70,6 @@ public class DAOOperador {
 		
 		public ArrayList<String> getDineroRecibidoOperadores() throws SQLException, Exception {
 			ArrayList<String> reservas = new ArrayList<String>();
-			//Aclaracion: Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
 			String sql = String.format("SELECT OPERADORES.NOMBRE AS OP,SUM(RESERVAS.COSTO) AS MONEY FROM OPERADORES,OFERTAS,RESERVASOFERTA,RESERVASWHERE OFERTAS.ID=RESERVASOFERTA.OFERTA AND RESERVAS.ID=RESERVASOFERTA.RESERVA  AND OPERADORES.ID=OFERTAS.OPERADOR AND  EXTRACT(year FROM RESERVAS.DIASALIDA) =(select to_char(sysdate, 'YYYY') from dual) AND RESERVAS.DIASALIDA<CURRENT_DATE GROUP BY OPERADORES.NOMBRE");
 
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -126,9 +117,6 @@ public class DAOOperador {
 		 * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
 		 */
 		public Operador convertResultSetToOperador(ResultSet resultSet) throws SQLException {
-			//TODO Requerimiento 1G: Complete el metodo con los atributos agregados previamente en la clase Bebedor. 
-			//						 Tenga en cuenta los nombres de las columnas de la Tabla en la Base de Datos (ID, NOMBRE, PRESUPUESTO, CIUDAD)
-
 			Integer id = resultSet.getInt("ID");
 			String nombre = resultSet.getString("NOMBRE");
 			Operador op = new Operador(id, nombre);

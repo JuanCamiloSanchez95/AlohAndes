@@ -8,20 +8,12 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import tm.AlohAndesTransactionManager;
 import vos.Reserva; 
 /**
  * Clase DAO que se conecta la base de datos usando JDBC para resolver los requerimientos de la aplicacion
  */
 public class DAOReserva {
-	//----------------------------------------------------------------------------------------------------------------------------------
-	// CONSTANTES
-	//----------------------------------------------------------------------------------------------------------------------------------
-
-	/**
-	 * Constante para indicar el usuario Oracle del estudiante
-	 */
-	//TODO Requerimiento 1H: Modifique la constante, reemplazando al ususario PARRANDEROS por su ususario de Oracle
-	public final static String USUARIO = "ISIS2304A301810";
 
 
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -64,7 +56,7 @@ public class DAOReserva {
 	{
 		Reserva reserva = null;
 
-		String sql = String.format("SELECT * FROM %1$s.RESERVAS WHERE ID = %2$d", USUARIO, id); 
+		String sql = String.format("SELECT * FROM %1$s.RESERVAS WHERE ID = %2$d", AlohAndesTransactionManager.USUARIO, id); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -103,15 +95,15 @@ public class DAOReserva {
 	}
 	
 	/**
-	 * Metodo que actualiza la informacion del bebedor en la Base de Datos que tiene el identificador dado por parametro<br/>
+	 * Metodo que elimina la reserva, en la Base de Datos, que tiene el identificador dado por parametro<br/>
 	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>  
-	 * @param bebedor Bebedor que desea actualizar a la Base de Datos
+	 * @param reserva Reserva que se desea eliminar de la Base de Datos
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
 	public void deleteReserva(Reserva reserva) throws SQLException, Exception {
 
-		String sql = String.format("DELETE FROM %1$s.RESERVAS WHERE ID = %2$d", USUARIO, reserva.getId());
+		String sql = String.format("DELETE FROM %1$s.RESERVAS WHERE ID = %2$d", AlohAndesTransactionManager.USUARIO, reserva.getId());
 
 		System.out.println(sql);
 		
@@ -149,15 +141,12 @@ public class DAOReserva {
 	}
 
 	/**
-	 * Metodo que transforma el resultado obtenido de una consulta SQL (sobre la tabla BEBEDORES) en una instancia de la clase Bebedor.
+	 * Metodo que transforma el resultado obtenido de una consulta SQL (sobre la tabla RESERVAS) en una instancia de la clase Reserva.
 	 * @param resultSet ResultSet con la informacion de un bebedor que se obtuvo de la base de datos.
-	 * @return Bebedor cuyos atributos corresponden a los valores asociados a un registro particular de la tabla BEBEDORES.
+	 * @return Resulta cuyos atributos corresponden a los valores asociados a un registro particular de la tabla RESERVAS.
 	 * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
 	 */
 	public Reserva convertResultSetToReserva(ResultSet resultSet) throws SQLException {
-		//TODO Requerimiento 1G: Complete el metodo con los atributos agregados previamente en la clase Bebedor. 
-		//						 Tenga en cuenta los nombres de las columnas de la Tabla en la Base de Datos (ID, NOMBRE, PRESUPUESTO, CIUDAD)
-
 		try
 		{
 			Integer id= resultSet.getInt("ID");

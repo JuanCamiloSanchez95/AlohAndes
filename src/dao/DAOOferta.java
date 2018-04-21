@@ -8,20 +8,11 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import tm.AlohAndesTransactionManager;
 import vos.Oferta;
 import vos.Reserva;;
 
 public class DAOOferta {
-	//----------------------------------------------------------------------------------------------------------------------------------
-	// CONSTANTES
-	//----------------------------------------------------------------------------------------------------------------------------------
-
-	/**
-	 * Constante para indicar el usuario Oracle del estudiante
-	 */
-	//TODO Requerimiento 1H: Modifique la constante, reemplazando al ususario PARRANDEROS por su ususario de Oracle
-	public final static String USUARIO = "ISIS2304A301810";
-
 
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// ATRIBUTOS
@@ -51,11 +42,11 @@ public class DAOOferta {
 	// METODOS DE COMUNICACION CON LA BASE DE DATOS
 	//----------------------------------------------------------------------------------------------------------------------------------
 	/**
-	 * Metodo que obtiene la informacion de la reserva en la Base de Datos que tiene el identificador dado por parametro<br/>
+	 * Metodo que obtiene la informacion de la oferta en la Base de Datos que tiene el identificador dado por parametro<br/>
 	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/> 
 	 * @param id el identificador de la reserva
-	 * @return la informacion de la reserva que cumple con los criterios de la sentecia SQL
-	 * 			Null si no existe el bebedor conlos criterios establecidos
+	 * @return la informacion de la oferta que cumple con los criterios de la sentecia SQL
+	 * 			Null si no existe la oferta con los criterios establecidos
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
@@ -63,7 +54,7 @@ public class DAOOferta {
 	{
 		Oferta oferta = null;
 
-		String sql = String.format("SELECT * FROM %1$s.OFERTAS WHERE ID = %2$d", USUARIO, id); 
+		String sql = String.format("SELECT * FROM %1$s.OFERTAS WHERE ID = %2$d", AlohAndesTransactionManager.USUARIO, id); 
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -78,15 +69,15 @@ public class DAOOferta {
 
 	
 	/**
-	 * Metodo que actualiza la informacion del bebedor en la Base de Datos que tiene el identificador dado por parametro<br/>
+	 * Metodo que elimina la oferta, en la Base de Datos, que tiene el identificador dado por parametro<br/>
 	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>  
-	 * @param bebedor Bebedor que desea actualizar a la Base de Datos
+	 * @param oferta Oferta que se desea eliminar de la Base de Datos
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
 	public void deleteOferta(Oferta oferta) throws SQLException, Exception {
 
-		String sql = String.format("DELETE FROM %1$s.OFERTAS WHERE ID = %2$d", USUARIO, oferta.getId());
+		String sql = String.format("DELETE FROM %1$s.OFERTAS WHERE ID = %2$d", AlohAndesTransactionManager.USUARIO, oferta.getId());
 
 		System.out.println(sql);
 		
@@ -102,11 +93,10 @@ public class DAOOferta {
 	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public ArrayList<Reserva> getReservasOfertaByid(int id) throws SQLException, Exception {
+	public ArrayList<Reserva> getReservasOfertaById(int id) throws SQLException, Exception {
 		ArrayList<Reserva> reservas = new ArrayList<Reserva>();
 		DAOReserva daoReserva = new DAOReserva();
-		//Aclaracion: Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
-		String sql = String.format("SELECT RESERVA FROM %1$s.RESERVASOFERTA WHERE OFERTA = %2$d", USUARIO, id);
+		String sql = String.format("SELECT RESERVA FROM %1$s.RESERVASOFERTA WHERE OFERTA = %2$d", AlohAndesTransactionManager.USUARIO, id);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -126,7 +116,6 @@ public class DAOOferta {
 	 */
 	public ArrayList<Oferta> getOfertasMasPopu() throws SQLException, Exception {
 		ArrayList<Oferta> ofertas = new ArrayList<Oferta>();
-		//Aclaracion: Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
 		String sql = String.format("SELECT OFERTAS.ID FROM OFERTAS,RESERVASOFERTA WHERE RESERVASOFERTA.OFERTA=OFERTAS.ID AND ROWNUM <=20 GROUP BY OFERTAS.IDORDER BY COUNT(OFERTAS.ID) DESC");
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -166,14 +155,12 @@ public class DAOOferta {
 	}
 
 	/**
-	 * Metodo que transforma el resultado obtenido de una consulta SQL (sobre la tabla BEBEDORES) en una instancia de la clase Bebedor.
+	 * Metodo que transforma el resultado obtenido de una consulta SQL (sobre la tabla OFERTAS) en una instancia de la clase Oferta.
 	 * @param resultSet ResultSet con la informacion de un bebedor que se obtuvo de la base de datos.
-	 * @return Bebedor cuyos atributos corresponden a los valores asociados a un registro particular de la tabla BEBEDORES.
+	 * @return Oferta cuyos atributos corresponden a los valores asociados a un registro particular de la tabla OFERTAS.
 	 * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
 	 */
 	public Oferta convertResultSetToOferta(ResultSet resultSet) throws SQLException {
-		//TODO Requerimiento 1G: Complete el metodo con los atributos agregados previamente en la clase Bebedor. 
-		//						 Tenga en cuenta los nombres de las columnas de la Tabla en la Base de Datos (ID, NOMBRE, PRESUPUESTO, CIUDAD)
 
 		try
 		{
