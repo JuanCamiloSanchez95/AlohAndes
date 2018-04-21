@@ -74,7 +74,7 @@ public class DAOOferta {
 	public ArrayList<Oferta> getOfertasByOperador(int idOperador) throws SQLException, Exception {
 		ArrayList<Oferta> ofertas = new ArrayList<Oferta>();
 
-		String sql = String.format("SELECT * FROM %1$s.OFERTA WHERE OPERADOR = %2$d", AlohAndesTransactionManager.USUARIO, idOperador);
+		String sql = String.format("SELECT * FROM %1$s.OFERTAS WHERE OPERADOR = %2$d", AlohAndesTransactionManager.USUARIO, idOperador);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -86,11 +86,13 @@ public class DAOOferta {
 		return ofertas;
 	}
 	
+
+	
 	
 	/**
 	 * Metodo que obtiene la informacion de la oferta en la Base de Datos que tiene el identificador dado por parametro
 	 * <b>Precondicion: </b> la conexion a sido inicializada
-	 * @param id el identificador de la reserva
+	 * @param id el identificador de la oferta
 	 * @return la informacion de la oferta que cumple con los criterios de la sentecia SQL
 	 * 			Null si no existe la oferta con los criterios establecidos
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL

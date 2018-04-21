@@ -49,6 +49,10 @@ public class Operador {
 	@JsonProperty(value="alojamientjos")
 	private ArrayList<Alojamiento> alojamientos;
 	
+	/**
+	 * Dinero ganado en el año actual
+	 */
+	private double dineroGanado;
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODO CONSTRUCTOR
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -146,6 +150,16 @@ public class Operador {
 
 		public void setAlojamientos(ArrayList<Alojamiento> alojamientos) {
 			this.alojamientos = alojamientos;
+		}
+
+
+		public double getDineroGanado() {
+			return dineroGanado;
+		}
+
+
+		public void setDineroGanado(double dineroGanado) {
+			this.dineroGanado = dineroGanado;
 		}
 		
 

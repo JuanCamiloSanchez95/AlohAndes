@@ -19,6 +19,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
 
@@ -450,14 +451,21 @@ public class AlohAndesTransactionManager {
 		}	
 	}
 	
-	public ArrayList<String> getDineroRecibidoOperadores() throws Exception 
+	/**
+	 * Metodo que modela la transaccion que encuentra el dinero obtenido por los operadores en el año actual.
+	 * <b> post: </b> se ha encontrado el dinero ganado por cada operador
+	 * @return Lista de cadenas con la informacion del dinero ganado por cada operador
+	 * @throws Exception - Cualquier error que se genere buscando las reservas y ofertas de los operadores.
+	 */
+	public ArrayList<Operador> getDineroRecibidoOperadores() throws Exception 
 	{
 		DAOOperador daoOperador= new DAOOperador( );
 		try
 		{
 			this.conn = darConexion();
 			daoOperador.setConn( conn );
-			return daoOperador.getDineroRecibidoOperadores();
+			int year = Calendar.getInstance().get(Calendar.YEAR);
+			return daoOperador.getDineroRecibidoOperadores(year);
 
 		}
 		catch (SQLException sqlException) {
