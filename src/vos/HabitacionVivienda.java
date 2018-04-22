@@ -5,20 +5,19 @@ import org.codehaus.jackson.annotate.JsonProperty;
 /**
  * 
  * @author Juan
- * @author Laura 
  * Clase que representa una habitacionVivienda  
  */
-public class HabitacionVivienda extends Habitacion
+public class HabitacionVivienda extends Alojamiento
 {
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// ATRIBUTOS
 	//----------------------------------------------------------------------------------------------------------------------------------
 		
 	/**
-	 * nombre de la habitacion
+	 * urlEsquema de la habitacion
 	 */
-	@JsonProperty(value="nombre")
-	private String nombre;
+	@JsonProperty(value="urlEsquema")
+	private String urlEsquema;
 
 	/**
 	 * indicador si  la habitacion es compartida
@@ -26,61 +25,58 @@ public class HabitacionVivienda extends Habitacion
 	@JsonProperty(value="compartida")
 	private boolean compartida;
 	
-	/**
-	 * Persona a cargo de la  habitacionvivienda
-	 */
-	@JsonProperty(value="persona")
-	private Persona persona;
+	 
 	
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODO CONSTRUCTOR
 	//----------------------------------------------------------------------------------------------------------------------------------
 
-			/**
-			 * Metodo constructor de la clase habitacion
-			 * <b>post: </b> Crea la habitacion con los valores que entran por parametro
-			 * @param id - Id de la habitacion.
-			 * @param descripccion - descipccion de la habitacion.
-			 * @param precio -precio de la habitacion
-			 * @param periodoFacturacion - periodo en el que factura  la  habitacion
-			 * @param compartida - verificador  de la habitacio si es compartida
-			 * @param tipo - tipo de la habitacion
-			 */
-			public HabitacionVivienda(@JsonProperty(value="id") Integer id,@JsonProperty(value="precio") Double precio,@JsonProperty(value="nombre") String nombre,@JsonProperty(value="descripccion") String descripccion,@JsonProperty(value="periodoFacturacion") int periodoFacturacion,@JsonProperty(value="compartida") boolean  compartida)
-			{
-				super(id, descripccion, precio, periodoFacturacion);
-				this.nombre=nombre;
-				this.compartida=compartida;
-				persona=null;
-			}
+	/**
+	 * 
+	 * @param id
+	 * @param nombre
+	 * @param tipo
+	 * @param ubicacion
+	 * @param descripcion
+	 * @param costo
+	 * @param minimoPeriodo
+	 * @param compartida
+	 * @param urlEsquema
+	 */
+	public HabitacionVivienda(@JsonProperty(value="id") Integer id,@JsonProperty(value="nombre") String nombre, @JsonProperty(value="tipo") String tipo,@JsonProperty(value="ubicacion") String ubicacion,@JsonProperty(value="descripcion") String descripcion,@JsonProperty(value="costo") double costo, @JsonProperty(value="minimoPeriodo")int minimoPeriodo,@JsonProperty(value="compartida")boolean compartida,@JsonProperty(value="urlEsquema")String urlEsquema) 
+	{
+		super(id, nombre, tipo, ubicacion, descripcion, costo, minimoPeriodo);
+		this.compartida=compartida;
+		this.urlEsquema=urlEsquema;
+	}
 			//----------------------------------------------------------------------------------------------------------------------------------
 			// METODOS DE LA CLASE
 			//----------------------------------------------------------------------------------------------------------------------------------
+
+
+
+	public String getUrlEsquema() {
+		return urlEsquema;
+	}
+
+
+
+	public void setUrlEsquema(String urlEsquema) {
+		this.urlEsquema = urlEsquema;
+	}
+
+
+
+	public boolean isCompartida() {
+		return compartida;
+	}
+
+
+
+	public void setCompartida(boolean compartida) {
+		this.compartida = compartida;
+	}
 			
-			public String getNombre() {
-				return nombre;
-			}
 
-			public void setNombre(String nombre) {
-				this.nombre = nombre;
-			}
-
-			public boolean isCompartida() {
-				return compartida;
-			}
-
-			public void setCompartida(boolean compartida) {
-				this.compartida = compartida;
-			}
-
-			public Persona getPersona() {
-				return persona;
-			}
-
-			public void setPersona(Persona persona) {
-				this.persona = persona;
-			}
-
-	
 
 }

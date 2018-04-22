@@ -1,37 +1,26 @@
 package vos;
 
-import java.util.ArrayList;
 
 
 import org.codehaus.jackson.annotate.JsonProperty;
 /**
  * 
  * @author Juan
- * @author Laura 
  * Clase que representa un aparatamento 
  */
-public class Apartamento  
+public class Apartamento extends Alojamiento
 {
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// ATRIBUTOS
 	//----------------------------------------------------------------------------------------------------------------------------------
-		/**
-		 * Id del apartamento 
-		 */
-		@JsonProperty(value="id")
-		private int id;
+
 		
 		/**
 		 * Verificador de si esta amoblado el apartamento 
 		 */
 		@JsonProperty(value="amoblado")
 		private boolean amoblado;
-		
-		/**
-		 *  precio del apartamento 
-		 */
-		@JsonProperty(value="precio")
-		private double precio;
+
 		
 		/**
 		 *  precio de la adminsitracion del apartamento 
@@ -39,48 +28,33 @@ public class Apartamento
 		@JsonProperty(value="administracion")
 		private double administracion;
 		
-		/**
-		 * Persona  encargada del apartamento
-		 */
-		private Persona persona;
-		
-		/**
-		 * Lista de ofertas del apartamento 
-		 */
-		private ArrayList<Oferta> ofertas;
+
 		
 		//----------------------------------------------------------------------------------------------------------------------------------
 		// METODO CONSTRUCTOR
 		//----------------------------------------------------------------------------------------------------------------------------------
-		/**
-		 * Metodo constructor de la clase apartamento
-		 * <b>post: </b> Crea el apartamento con los valores que entran por parametro
-		 * @param id - Id del apartamento.
-		 * @param amoblado - descipccion de si el  apartamento esta amobaldo .
-		 * @param precio -precio del apartamento
-		 * @param administracion - precio de la adminsitracion del apartamento 
-		 */
-		public Apartamento(@JsonProperty(value="id") Integer id,@JsonProperty(value="amoblado") boolean amoblado,@JsonProperty(value="precio") Double precio,@JsonProperty(value="adminsitracion") double adminsitracion)
+	/**
+	 * 
+	 * @param id
+	 * @param nombre
+	 * @param tipo
+	 * @param ubicacion
+	 * @param descripcion
+	 * @param costo
+	 * @param minimoPeriodo
+	 * @param amoblado
+	 * @param administracion
+	 */
+		public Apartamento(@JsonProperty(value="id") Integer id,@JsonProperty(value="nombre") String nombre, @JsonProperty(value="tipo") String tipo,@JsonProperty(value="ubicacion") String ubicacion,@JsonProperty(value="descripcion") String descripcion,@JsonProperty(value="costo") double costo, @JsonProperty(value="minimoPeriodo")int minimoPeriodo,@JsonProperty(value="amoblado")boolean amoblado,@JsonProperty(value="administracion")double administracion) 
 		{
-			this.id=id;
+			super(id, nombre, tipo, ubicacion, descripcion, costo, minimoPeriodo);
 			this.amoblado=amoblado;
-			this.precio=precio;
-			this.administracion=adminsitracion;
-			persona=null;
-			ofertas=new ArrayList<>();
+			this.administracion=administracion;
 		}
 		//----------------------------------------------------------------------------------------------------------------------------------
 		// METODOS DE LA CLASE
 		//----------------------------------------------------------------------------------------------------------------------------------
-					
 
-		public int getId() {
-			return id;
-		}
-
-		public void setId(int id) {
-			this.id = id;
-		}
 
 		public boolean isAmoblado() {
 			return amoblado;
@@ -88,14 +62,6 @@ public class Apartamento
 
 		public void setAmoblado(boolean amoblado) {
 			this.amoblado = amoblado;
-		}
-
-		public double getPrecio() {
-			return precio;
-		}
-
-		public void setPrecio(double precio) {
-			this.precio = precio;
 		}
 
 		public double getAdministracion() {
@@ -106,21 +72,6 @@ public class Apartamento
 			this.administracion = administracion;
 		}
 
-		public Persona getPersona() {
-			return persona;
-		}
 
-		public void setPersona(Persona persona) {
-			this.persona = persona;
-		}
-
-		public ArrayList<Oferta> getOfertas() {
-			return ofertas;
-		}
-
-		public void setOfertas(ArrayList<Oferta> ofertas) {
-			this.ofertas = ofertas;
-		}
-		
 		
 }

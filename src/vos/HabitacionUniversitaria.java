@@ -5,10 +5,9 @@ import org.codehaus.jackson.annotate.JsonProperty;
 /**
  * 
  * @author Juan
- * @author Laura 
  * Clase que representa una habitacionUniversitaria  
  */
-public class HabitacionUniversitaria extends Habitacion
+public class HabitacionUniversitaria extends Alojamiento
 {
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// ATRIBUTOS
@@ -17,8 +16,8 @@ public class HabitacionUniversitaria extends Habitacion
 	/**
 	 * ubicacion de la habitacion
 	 */
-	@JsonProperty(value="ubicacion")
-	private String ubicacion;
+	@JsonProperty(value="ubicacionH")
+	private String ubicacionH;
 	
 	
 	/**
@@ -28,30 +27,51 @@ public class HabitacionUniversitaria extends Habitacion
 	private boolean compartida;
 	
 	/**
-	 * ViviendaUniversitaria a la que pertenece la  habitacion
+	 * Capacidad de la habitacion
 	 */
-	@JsonProperty(value="viviendaU")
-	private ViviendaUniversitaria viviendaU;
+	@JsonProperty(value="capacidad")
+	private int capacidad;
+	
+	/**
+	 * indicador menaje de  la habitacion 
+	 */
+	@JsonProperty(value="menaje")
+	private String menaje;
+	
+	/**
+	 * indicador numHabitacion de  la habitacion 
+	 */
+	@JsonProperty(value="numHabitacion")
+	private int numHabitacion;
+	
 	//----------------------------------------------------------------------------------------------------------------------------------
 		// METODO CONSTRUCTOR
 		//----------------------------------------------------------------------------------------------------------------------------------
 
-		/**
-		 * Metodo constructor de la clase habitacion
-		 * <b>post: </b> Crea la habitacion con los valores que entran por parametro
-		 * @param id - Id de la habitacion.
-		 * @param descripccion - descipccion de la habitacion.
-		 * @param precio -precio de la habitacion
-		 * @param periodoFacturacion - periodo en el que factura  la  habitacion
-		 * @param capacidad - capacidad de la habitacio
-		 * @param tipo - tipo de la habitacion
-		 */
-		public HabitacionUniversitaria(@JsonProperty(value="id") Integer id,@JsonProperty(value="precio") Double precio,@JsonProperty(value="ubicacion") String ubicacion,@JsonProperty(value="descripccion") String descripccion,@JsonProperty(value="periodoFacturacion") int periodoFacturacion,@JsonProperty(value="compartida") boolean  compartida)
+	
+	/**
+	 * 
+	 * @param id
+	 * @param nombre
+	 * @param tipo
+	 * @param ubicacion
+	 * @param descripcion
+	 * @param costo
+	 * @param minimoPeriodo
+	 * @param ubicacionH
+	 * @param compartida
+	 * @param capacidad
+	 * @param menaje
+	 * @param numHabitacion
+	 */
+		public HabitacionUniversitaria(@JsonProperty(value="id") Integer id,@JsonProperty(value="nombre") String nombre, @JsonProperty(value="tipo") String tipo,@JsonProperty(value="ubicacion") String ubicacion,@JsonProperty(value="descripcion") String descripcion,@JsonProperty(value="costo") double costo, @JsonProperty(value="minimoPeriodo")int minimoPeriodo,@JsonProperty(value="ubicacionH")String ubicacionH,@JsonProperty(value="compartida")boolean compartida,@JsonProperty(value="capacidad")int capacidad,@JsonProperty(value="menaje")String menaje,@JsonProperty(value="numHabitacion")int numHabitacion) 
 		{
-			super(id, descripccion, precio, periodoFacturacion);
-			this.ubicacion=ubicacion;
+			super(id, nombre, tipo, ubicacion, descripcion, costo, minimoPeriodo);
+			this.capacidad=capacidad;
 			this.compartida=compartida;
-			viviendaU=null;
+			this.menaje=menaje;
+			this.ubicacionH=ubicacion;
+			this.numHabitacion=numHabitacion;
 		}
 
 		//----------------------------------------------------------------------------------------------------------------------------------
@@ -59,11 +79,11 @@ public class HabitacionUniversitaria extends Habitacion
 		//----------------------------------------------------------------------------------------------------------------------------------
 		
 		public String getUbicacion() {
-			return ubicacion;
+			return ubicacionH;
 		}
 
 		public void setUbicacion(String ubicacion) {
-			this.ubicacion = ubicacion;
+			this.ubicacionH = ubicacion;
 		}
 
 
@@ -75,13 +95,35 @@ public class HabitacionUniversitaria extends Habitacion
 			this.compartida = compartida;
 		}
 
-		public ViviendaUniversitaria getViviendaU() {
-			return viviendaU;
+		public String getUbicacionH() {
+			return ubicacionH;
 		}
 
-		public void setViviendaU(ViviendaUniversitaria viviendaU) {
-			this.viviendaU = viviendaU;
+		public void setUbicacionH(String ubicacionH) {
+			this.ubicacionH = ubicacionH;
 		}
-		
-	
+
+		public int getCapacidad() {
+			return capacidad;
+		}
+
+		public void setCapacidad(int capacidad) {
+			this.capacidad = capacidad;
+		}
+
+		public String getMenaje() {
+			return menaje;
+		}
+
+		public void setMenaje(String menaje) {
+			this.menaje = menaje;
+		}
+
+		public int getNumHabitacion() {
+			return numHabitacion;
+		}
+
+		public void setNumHabitacion(int numHabitacion) {
+			this.numHabitacion = numHabitacion;
+		}
 }
