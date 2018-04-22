@@ -1,17 +1,13 @@
 package dao;
 
 import java.sql.Connection;
-
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import tm.AlohAndesTransactionManager;
 import vos.Cliente;
-import vos.Reserva; 
 
 /**
  * Clase DAO que se conecta la base de datos usando JDBC para resolver los requerimientos de la aplicacion
@@ -37,7 +33,7 @@ public class DAOCliente {
 	//----------------------------------------------------------------------------------------------------------------------------------
 
 	/**
-	 * Metodo constructor de la clase DAOReserva <br/>
+	 * Metodo constructor de la clase DAOCliente
 	 */
 	public DAOCliente() {
 		recursos = new ArrayList<Object>();
@@ -47,9 +43,9 @@ public class DAOCliente {
 	// METODOS DE COMUNICACION CON LA BASE DE DATOS
 	//----------------------------------------------------------------------------------------------------------------------------------
 	/**
-	 * Metodo que obtiene la informacion del cliente en la Base de Datos que tiene el identificador dado por parametro<br/>
-	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/> 
-	 * @param id el identificador del cliente
+	 * Metodo que obtiene la informacion del cliente en la Base de Datos que tiene el identificador dado por parametro
+	 * <b>Precondicion: </b> la conexion a sido inicializado
+	 * @param documento - docuento de identificacion del cliente
 	 * @return la informacion del cliente que cumple con los criterios de la sentecia SQL
 	 * 			Null si no existe el cliente con los criterios establecidos
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
@@ -78,8 +74,8 @@ public class DAOCliente {
 	//----------------------------------------------------------------------------------------------------------------------------------
 
 	/**
-	 * Metodo encargado de inicializar la conexion del DAO a la Base de Datos a partir del parametro <br/>
-	 * <b>Postcondicion: </b> el atributo conn es inicializado <br/>
+	 * Metodo encargado de inicializar la conexion del DAO a la Base de Datos a partir del parametro
+	 * <b>Postcondicion: </b> el atributo conn es inicializado
 	 * @param connection la conexion generada en el TransactionManager para la comunicacion con la Base de Datos
 	 */
 	public void setConn(Connection connection){
@@ -87,7 +83,7 @@ public class DAOCliente {
 	}
 
 	/**
-	 * Metodo que cierra todos los recursos que se encuentran en el arreglo de recursos<br/>
+	 * Metodo que cierra todos los recursos que se encuentran en el arreglo de recursos
 	 * <b>Postcondicion: </b> Todos los recurso del arreglo de recursos han sido cerrados.
 	 */
 	public void cerrarRecursos() {
