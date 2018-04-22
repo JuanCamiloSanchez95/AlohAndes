@@ -1,90 +1,71 @@
 package vos;
 
-import java.util.ArrayList;
+
 
 import org.codehaus.jackson.annotate.JsonProperty;
 /**
  * 
  * @author Juan
- * @author Laura 
  * Clase que representa una vivienda 
  */
-public class Vivienda {
+public class Vivienda extends Alojamiento
+{
 	
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// ATRIBUTOS
 	//----------------------------------------------------------------------------------------------------------------------------------
 			/**
-			 * Id de la vivenda 
+			 * numero de habitaciones de la vivenda 
 			 */
-			@JsonProperty(value="id")
-			private int id;
+			@JsonProperty(value="numeroHabitaciones")
+			private int numeroHabitaciones;
 			/**
-			 *  precio de la vivienda 
+			 *  menaje de la vivienda 
 			 */
-			@JsonProperty(value="precio")
-			private double precio;
+			@JsonProperty(value="menaje")
+			private String menaje;
 			
-			/**
-			 * Persona  encargada de la vivienda
-			 */
-			private Persona persona;
-			
-			/**
-			 * Lista de ofertas de la vivienda 
-			 */
-			private ArrayList<Oferta> ofertas;
+		
 			
 			//----------------------------------------------------------------------------------------------------------------------------------
 			// METODO CONSTRUCTOR
 			//----------------------------------------------------------------------------------------------------------------------------------
-			/**
-			 * Metodo constructor de la clase Vivienda
-			 * <b>post: </b> Crea la Vivienda con los valores que entran por parametro
-			 * @param id - Id de la Vivienda.
-			 * @param precio -precio de la Vivienda
-			 */
-			public Vivienda(@JsonProperty(value="id") Integer id,@JsonProperty(value="precio") Double precio)
+	
+			
+				public Vivienda(@JsonProperty(value="id") Integer id,@JsonProperty(value="nombre") String nombre, @JsonProperty(value="tipo") String tipo,@JsonProperty(value="ubicacion") String ubicacion,@JsonProperty(value="descripcion") String descripcion,@JsonProperty(value="costo") double costo, @JsonProperty(value="minimoPeriodo")int minimoPeriodo,@JsonProperty(value="numeroHabitaciones") Integer numeroHabitaciones,@JsonProperty(value="menaje") String menaje) 
 			{
-				this.id=id;
-				this.precio=precio;
-				persona=null;
-				ofertas=new ArrayList<>();
+				super(id, nombre, tipo, ubicacion, descripcion, costo, minimoPeriodo);
+				this.numeroHabitaciones=numeroHabitaciones;
+				this.menaje=menaje;
 			}
 			//----------------------------------------------------------------------------------------------------------------------------------
 			// METODOS DE LA CLASE
 			//----------------------------------------------------------------------------------------------------------------------------------
+
+
+
+				public int getNumeroHabitaciones() {
+					return numeroHabitaciones;
+				}
+
+
+
+				public void setNumeroHabitaciones(int numeroHabitaciones) {
+					this.numeroHabitaciones = numeroHabitaciones;
+				}
+
+
+
+				public String getMenaje() {
+					return menaje;
+				}
+
+
+
+				public void setMenaje(String menaje) {
+					this.menaje = menaje;
+				}
 				
-			public int getId() {
-				return id;
-			}
 
-			public void setId(int id) {
-				this.id = id;
-			}
-
-			public double getPrecio() {
-				return precio;
-			}
-
-			public void setPrecio(double precio) {
-				this.precio = precio;
-			}
-
-			public Persona getPersona() {
-				return persona;
-			}
-
-			public void setPersona(Persona persona) {
-				this.persona = persona;
-			}
-
-			public ArrayList<Oferta> getOfertas() {
-				return ofertas;
-			}
-
-			public void setOfertas(ArrayList<Oferta> ofertas) {
-				this.ofertas = ofertas;
-			}
-
+	
 }
