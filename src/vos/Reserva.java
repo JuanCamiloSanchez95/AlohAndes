@@ -1,14 +1,13 @@
 package vos;
 
 import java.sql.Date;
-import java.util.ArrayList;
+
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
  * 
  * @author Juan
- * @author Laura 
  * Clase que representa una reserva  
  */
 public class Reserva
@@ -28,23 +27,18 @@ public class Reserva
 			@JsonProperty(value="diaLlegada")
 			private Date diaLlegada;
 			
-			/**
-			 * dia de Salida de la reserva
-			 */
-			@JsonProperty(value="diaSalida")
-			private Date diaSalida;
 			
 			/**
-			 * Costo de la reserva
+			 * cantidadDias de la reserva
 			 */
-			@JsonProperty(value="costo")
-			private double costo;
+			@JsonProperty(value="cantidadDias")
+			private int cantidadDias;
 			
 			/**
 			 * Estado de la reserva
 			 */
-			@JsonProperty(value="cancelada")
-			private boolean cancelada;
+			@JsonProperty(value="recarga")
+			private double recarga;
 			
 			/**
 			 * Oferta de la reserva
@@ -63,21 +57,18 @@ public class Reserva
 			//----------------------------------------------------------------------------------------------------------------------------------
 
 			/**
-			 * Metodo constructor de la clase reserva
-			 * <b>post: </b> Crea la reserva con los valores que entran por parametro
-			 * @param id - Id de la reserva.
-			 * @param diaLlegada - diaLlegada de la reserva.
-			 * @param diaSalida -diaSalida de la reserva
-			 * @param costo - costo de la  reserva
-			 * @param cancelada - estado de la  reserva
+			 * 
+			 * @param id
+			 * @param diaLlegada
+			 * @param cantidadDias
+			 * @param recarga
 			 */
-			public Reserva(@JsonProperty(value="id") Integer id,@JsonProperty(value="diaLlegada") Date diaLlegada,@JsonProperty(value="diaSalida") Date diaSalida,@JsonProperty(value="costo") double costo,@JsonProperty(value="cancelada") boolean cancelada) 
+			public Reserva(@JsonProperty(value="id") Integer id,@JsonProperty(value="diaLlegada") Date diaLlegada,@JsonProperty(value="cantidadDias") int cantidadDias,@JsonProperty(value="recarga") double recarga) 
 			{
 				this.id=id;
 				this.diaLlegada=diaLlegada;
-				this.diaSalida=diaSalida;
-				this.costo= costo;
-				this.cancelada=cancelada;
+				this.cantidadDias= cantidadDias;
+				this.recarga=recarga;
 				oferta=null;
 				cliente=null;
 			}
@@ -103,28 +94,22 @@ public class Reserva
 				this.diaLlegada = diaLlegada;
 			}
 
-			public Date getDiaSalida() {
-				return diaSalida;
+			
+
+			public int getCantidadDias() {
+				return cantidadDias;
 			}
 
-			public void setDiaSalida(Date diaSalida) {
-				this.diaSalida = diaSalida;
+			public void setCantidadDias(int cantidadDias) {
+				this.cantidadDias = cantidadDias;
 			}
 
-			public double getCosto() {
-				return costo;
+			public double getRecarga() {
+				return recarga;
 			}
 
-			public void setCosto(double costo) {
-				this.costo = costo;
-			}
-
-			public boolean isCancelada() {
-				return cancelada;
-			}
-
-			public void setCancelada(boolean cancelada) {
-				this.cancelada = cancelada;
+			public void setRecarga(double recarga) {
+				this.recarga = recarga;
 			}
 
 			public Oferta getOferta() {

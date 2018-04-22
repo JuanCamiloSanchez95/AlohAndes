@@ -8,7 +8,6 @@ import org.codehaus.jackson.annotate.JsonProperty;
 /**
  * 
  * @author Juan
- * @author Laura 
  * Clase que representa una oferta 
  */
 public class Oferta 
@@ -48,10 +47,6 @@ public class Oferta
 		@JsonProperty(value="fechaPublicacion")
 		private Date fechaPublicacion;
 		
-		/**
-		 * Capacidad de la oferta
-		 */
-		private int capacidad;
 		
 		/**
 		 * Lista de reservas
@@ -60,10 +55,17 @@ public class Oferta
 		private ArrayList<Reserva> reservas;
 		
 		/**
-		 * Habitacion de la oferta
+		 * Alojamiento  de la oferta
 		 */
 		@JsonProperty(value="alojamiento")
 		private Alojamiento alojamiento;
+		
+		
+		/**
+		 * Operador  de la oferta
+		 */
+		@JsonProperty(value="Operador")
+		private Operador operador;
 		
 		//----------------------------------------------------------------------------------------------------------------------------------
 		// METODO CONSTRUCTOR
@@ -78,15 +80,16 @@ public class Oferta
 		 * @param descripcion - descripccion de la oferta
 		 * @param fechaPublicacion -fecha de la publicacion de la oferta
 		 */
-		public Oferta(@JsonProperty(value="id") Integer id,@JsonProperty(value="precioEstadia") Double precioEstadia,@JsonProperty(value="nombre") String nombre,@JsonProperty(value="descripcion") String descripccion,@JsonProperty(value="fechaPublicacion") Date fechaPublicacion,@JsonProperty(value="capacidad") int capacidad) 
+		public Oferta(@JsonProperty(value="id") Integer id,@JsonProperty(value="precioEstadia") Double precioEstadia,@JsonProperty(value="nombre") String nombre,@JsonProperty(value="descripcion") String descripccion,@JsonProperty(value="fechaPublicacion") Date fechaPublicacion) 
 		{
 			this.id=id;
 			this.precioEstadia=precioEstadia;
 			this.nombre=nombre;
 			this.descripcion=descripccion;
 			this.fechaPublicacion=fechaPublicacion;
-			this.capacidad=capacidad;
 			reservas= new ArrayList<>();
+			operador=null;
+			alojamiento=null;
 		}
 
 		//----------------------------------------------------------------------------------------------------------------------------------
@@ -149,16 +152,14 @@ public class Oferta
 			this.alojamiento = alojamiento;
 		}
 
-		public int getCapacidad() {
-			return capacidad;
+		public Operador getOperador() {
+			return operador;
 		}
 
-		public void setCapacidad(int capacidad) {
-			this.capacidad = capacidad;
+		public void setOperador(Operador operador) {
+			this.operador = operador;
 		}
 
 
-		
-		
 		
 }
