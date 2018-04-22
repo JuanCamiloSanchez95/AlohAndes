@@ -125,13 +125,8 @@ public class DAOReserva {
 	 */
 	public void addReserva(Reserva reserva) throws SQLException, Exception {
 
-		char cancel='N';
-		if(reserva.isCancelada())
-		{
-			cancel='Y';
-		}
-		String sql = "INSERT INTO RESERVAS (ID, DIALLEGADA,DIASALIDA,CANCELADA,COSTO) VALUES ("
-				+reserva.getId()+","+reserva.getDiaLlegada()+","+reserva.getDiaSalida()+","+ cancel+","+reserva.getCosto()+")";
+		String sql = "INSERT INTO RESERVAS (ID, FECHALLEGADA,RECARGO,CANTIDADDIAS,OFERTA) VALUES ("
+				+reserva.getId()+","+reserva.getDiaLlegada()+","+reserva.getRecarga()+","+ reserva.getCantidadDias()+","+reserva.getOferta().getId()+")";
 
 		System.out.println(sql);
 
@@ -197,19 +192,11 @@ public class DAOReserva {
 		try
 		{
 			Integer id= resultSet.getInt("ID");
-			String dl= resultSet.getString("DIALLEGADA");
-			String ds = resultSet.getString("DIASALIDA");
-			String cancel = resultSet.getString("CANCELADA");
-			Double costo = resultSet.getDouble("COSTO");
-			Boolean cancelada = false;
-			SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-DD");
-			Date diaLlegada = (Date) df.parse(dl);
-			Date diaSalida = (Date) df.parse(ds);
-			if(cancel=="Y")
-			{
-				cancelada=true;
-			}	
-			Reserva reserva = new Reserva(id, diaLlegada, diaSalida, costo, cancelada);
+			Date fl= resultSet.getDate("FECHALLEGADA");
+			int cantidadDias = resultSet.getInt("CANTIDADDIAS");
+			Double recargo = resultSet.getDouble("RECARGO");
+
+			Reserva reserva = new Reserva(id,fl,cantidadDias,recargo);
 
 			return reserva;
 		} 

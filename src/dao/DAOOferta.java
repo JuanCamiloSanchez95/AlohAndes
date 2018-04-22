@@ -51,7 +51,7 @@ public class DAOOferta {
 	public ArrayList<Oferta> getOfertas() throws SQLException, Exception {
 		ArrayList<Oferta> ofertas = new ArrayList<Oferta>();
 
-		String sql = String.format("SELECT * FROM %1$s.OFERTA", AlohAndesTransactionManager.USUARIO);
+		String sql = String.format("SELECT * FROM %1$s.OFERTAS", AlohAndesTransactionManager.USUARIO);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -134,7 +134,51 @@ public class DAOOferta {
 		prepStmt.executeQuery();
 	}
 	
+	
+	/**
+	 * Metodo que obtiene el numero de reservas de una oferta en la Base de Datos 
+	 * <b>Precondicion: </b> la conexion a sido inicializado
+	 * @param id - Identificador de la oferta
+	 * @return	numero de reservas actuales de la oferta
+	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
+	 */
+	public int getNumReservas(int id) throws SQLException, Exception {
+		
+		int numReservas=0;
+		
+		String sql = String.format("SELECT COUNT(ID) AS NUMRESERVAS FROM %1$s.RESERVAS WHERE OFERTA = %2$d", AlohAndesTransactionManager.USUARIO, id);
+		
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
 
+		if(rs.next()) {
+			numReservas = rs.getInt("NUMRESERVAS");
+		}
+		
+		return numReservas;
+	}
+	
+	/**
+	 * Metodo que obtiene la informacion de las 20 ofertas mas populares en la Base de Datos 
+	 * <b>Precondicion: </b> la conexion a sido inicializado
+	 * @return	lista con la informacion de las 20 ofertas mas populares que se encuentran en la Base de Datos
+	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
+	 */
+	public ArrayList<Oferta> getIndicesOcupacion() throws SQLException, Exception {
+		ArrayList<Oferta> ofertas = getOfertas();
+		
+		for(int i=0;i<ofertas.size();i++) {
+			Oferta actual=ofertas.get(i);
+			int numReservas= getNumReservas(actual.getId());
+			actual.setIndiceOcupacion(((double) numReservas)/actual.getCapacidad());
+		}
+		
+		return ofertas;
+	}
+	
 	/**
 	 * Metodo que obtiene la informacion de las 20 ofertas mas populares en la Base de Datos 
 	 * <b>Precondicion: </b> la conexion a sido inicializado
@@ -199,9 +243,10 @@ public class DAOOferta {
 			Date fp = resultSet.getDate("FECHAPUBLICACION");
 			//SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-DD");
 			//Date fechaPublicacion = (Date) df.parse(fp);
+			Integer capacidad= resultSet.getInt("CAPACIDAD");
 			Integer operador= resultSet.getInt("OPERADOR");
 			Integer alojamientoId= resultSet.getInt("ALOJAMIENTOID");
-			Oferta oferta = new Oferta(id, precioEstadia, nombre, descripcion, fp);
+			Oferta oferta = new Oferta(id, precioEstadia, nombre, descripcion, fp,capacidad);
 
 			return oferta;
 		} 

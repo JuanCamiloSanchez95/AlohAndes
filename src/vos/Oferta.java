@@ -47,6 +47,11 @@ public class Oferta
 		@JsonProperty(value="fechaPublicacion")
 		private Date fechaPublicacion;
 		
+		/**
+		 * Capacidad de los alojamientos de la oferta
+		 */
+		@JsonProperty(value="capacidad")
+		private int capacidad;
 		
 		/**
 		 * Lista de reservas
@@ -67,6 +72,12 @@ public class Oferta
 		@JsonProperty(value="Operador")
 		private Operador operador;
 		
+		/**
+		 * Indice de ocupacion
+		 */
+		
+	private double indiceOcupacion;
+		
 		//----------------------------------------------------------------------------------------------------------------------------------
 		// METODO CONSTRUCTOR
 		//----------------------------------------------------------------------------------------------------------------------------------
@@ -80,13 +91,14 @@ public class Oferta
 		 * @param descripcion - descripccion de la oferta
 		 * @param fechaPublicacion -fecha de la publicacion de la oferta
 		 */
-		public Oferta(@JsonProperty(value="id") Integer id,@JsonProperty(value="precioEstadia") Double precioEstadia,@JsonProperty(value="nombre") String nombre,@JsonProperty(value="descripcion") String descripccion,@JsonProperty(value="fechaPublicacion") Date fechaPublicacion) 
+		public Oferta(@JsonProperty(value="id") Integer id,@JsonProperty(value="precioEstadia") Double precioEstadia,@JsonProperty(value="nombre") String nombre,@JsonProperty(value="descripcion") String descripccion,@JsonProperty(value="fechaPublicacion") Date fechaPublicacion,@JsonProperty(value="capacidad") Integer capacidad) 
 		{
 			this.id=id;
 			this.precioEstadia=precioEstadia;
 			this.nombre=nombre;
 			this.descripcion=descripccion;
 			this.fechaPublicacion=fechaPublicacion;
+			this.capacidad=capacidad;
 			reservas= new ArrayList<>();
 			operador=null;
 			alojamiento=null;
@@ -95,6 +107,14 @@ public class Oferta
 		//----------------------------------------------------------------------------------------------------------------------------------
 		// METODOS DE LA CLASE
 		//----------------------------------------------------------------------------------------------------------------------------------
+
+		public int getCapacidad() {
+			return capacidad;
+		}
+
+		public void setCapacidad(int capacidad) {
+			this.capacidad = capacidad;
+		}
 
 		public int getId() {
 			return id;
@@ -158,6 +178,15 @@ public class Oferta
 
 		public void setOperador(Operador operador) {
 			this.operador = operador;
+		}
+
+		public double getIndiceOcupacion() {
+			return indiceOcupacion;
+		}
+
+
+		public void setIndiceOcupacion(double indiceOcupacion) {
+			this.indiceOcupacion = indiceOcupacion;
 		}
 
 

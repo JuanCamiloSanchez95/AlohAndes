@@ -95,4 +95,27 @@ public class OfertaService {
 			return Response.status(500).entity(doErrorMessage(e)).build();
 		}
 	}
+	
+	/**
+	 * Metodo GET que trae las ofertas con sus respectivos indices de ocupacion en la Base de datos. <br/>
+	 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
+	 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/oferta/indices <br/>
+	 * @return	<b>Response Status 200</b> - JSON que contiene las ofertas con su indice que estan en la Base de Datos <br/>
+	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
+	 */			
+	@GET
+	@Path("/indices")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getOfertasConIndices() {
+		
+		try {
+			AlohAndesTransactionManager tm = new AlohAndesTransactionManager(getPath());
+			List<Oferta> ofertas;
+			ofertas = tm.getOfertasConIndice();
+			return Response.status(200).entity(ofertas).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
 }

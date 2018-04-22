@@ -452,6 +452,47 @@ public class AlohAndesTransactionManager {
 	}
 	
 	/**
+	 * Metodo que modela la transaccion que encuentra los indices de ocupacion de las ofertas.
+	 * <b> post: </b> se ha encontrado las ofertas con su respectivo indices de ocupacion.
+	 * @return Lista de Ofertas con indice de ocupacion en la base de datos
+	 * @throws Exception - Cualquier error que se genere buscando las ofertas.
+	 */
+	public ArrayList<Oferta> getOfertasConIndice() throws Exception 
+	{
+		DAOOferta daoOferta= new DAOOferta( );
+		try
+		{
+			this.conn = darConexion();
+			daoOferta.setConn( conn );
+			return daoOferta.getIndicesOcupacion();
+
+		}
+		catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} 
+		catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} 
+		finally {
+			try {
+				daoOferta.cerrarRecursos();
+				if(this.conn!=null){
+					this.conn.close();					
+				}
+			}
+			catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}	
+	}
+	
+	/**
 	 * Metodo que modela la transaccion que encuentra el dinero obtenido por los operadores en el año actual.
 	 * <b> post: </b> se ha encontrado el dinero ganado por cada operador
 	 * @return Lista de cadenas con la informacion del dinero ganado por cada operador
