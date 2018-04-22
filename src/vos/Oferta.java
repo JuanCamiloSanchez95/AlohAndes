@@ -24,12 +24,6 @@ public class Oferta
 		private int id;
 		
 		/**
-		 * longitud de estadia de la oferta
-		 */
-		@JsonProperty(value="longitudEstadia")
-		private int longitudEstadia;
-		
-		/**
 		 * precio de estadia de la oferta
 		 */
 		@JsonProperty(value="precioEstadia")
@@ -41,11 +35,6 @@ public class Oferta
 		@JsonProperty(value="nombre")
 		private String nombre;
 		
-		/**
-		 * ubicacion de la oferta
-		 */
-		@JsonProperty(value="ubicacion")
-		private String ubicacion;
 		
 		/**
 		 * descripcion de la oferta
@@ -68,20 +57,8 @@ public class Oferta
 		/**
 		 * Habitacion de la oferta
 		 */
-		@JsonProperty(value="habitacion")
-		private Habitacion habitacion;
-		
-		/**
-		 * Vivienda de la oferta
-		 */
-		@JsonProperty(value="vivienda")
-		private Vivienda vivienda;
-		
-		/**
-		 * Apartamento de la oferta
-		 */
-		@JsonProperty(value="apartamento")
-		private Apartamento apartamento;
+		@JsonProperty(value="alojamiento")
+		private Alojamiento alojamiento;
 		
 		//----------------------------------------------------------------------------------------------------------------------------------
 		// METODO CONSTRUCTOR
@@ -91,26 +68,19 @@ public class Oferta
 		 * Metodo constructor de la clase oferta
 		 * <b>post: </b> Crea la oferta con los valores que entran por parametro
 		 * @param id - Id de la oferta.
-		 * @param longitudEstadia - descipccion de la oferta.
 		 * @param precioEstadia -precio de la oferta
 		 * @param nombre - nombre de la oferta
-		 * @param ubicacion - ubicacion de la ooferta 
-		 * @param descripccion - descripccion de la oferta
+		 * @param descripcion - descripccion de la oferta
 		 * @param fechaPublicacion -fecha de la publicacion de la oferta
 		 */
-		public Oferta(@JsonProperty(value="id") Integer id,@JsonProperty(value="longitudEstadia") Integer longitudEstadia,@JsonProperty(value="precioEstadia") Double precioEstadia,@JsonProperty(value="nombre") String nombre,@JsonProperty(value="ubicacion") String ubicacion,@JsonProperty(value="descripccion") String descripccion,@JsonProperty(value="fechaPublicacion") Date fechaPublicacion) 
+		public Oferta(@JsonProperty(value="id") Integer id,@JsonProperty(value="precioEstadia") Double precioEstadia,@JsonProperty(value="nombre") String nombre,@JsonProperty(value="descripcion") String descripccion,@JsonProperty(value="fechaPublicacion") Date fechaPublicacion) 
 		{
 			this.id=id;
-			this.longitudEstadia=longitudEstadia;
 			this.precioEstadia=precioEstadia;
 			this.nombre=nombre;
-			this.ubicacion=ubicacion;
 			this.descripcion=descripccion;
 			this.fechaPublicacion=fechaPublicacion;
 			reservas= new ArrayList<>();
-			habitacion=null;
-			apartamento=null;
-			vivienda=null;
 		}
 
 		//----------------------------------------------------------------------------------------------------------------------------------
@@ -123,14 +93,6 @@ public class Oferta
 
 		public void setId(int id) {
 			this.id = id;
-		}
-
-		public int getLongitudEstadia() {
-			return longitudEstadia;
-		}
-
-		public void setLongitudEstadia(int longitudEstadia) {
-			this.longitudEstadia = longitudEstadia;
 		}
 
 		public double getPrecioEstadia() {
@@ -147,14 +109,6 @@ public class Oferta
 
 		public void setNombre(String nombre) {
 			this.nombre = nombre;
-		}
-
-		public String getUbicacion() {
-			return ubicacion;
-		}
-
-		public void setUbicacion(String ubicacion) {
-			this.ubicacion = ubicacion;
 		}
 
 		public String getDescripcion() {
@@ -181,30 +135,15 @@ public class Oferta
 			this.reservas = reservas;
 		}
 
-		public Habitacion getHabitacion() {
-			return habitacion;
+		public Alojamiento getAlojamiento() {
+			return alojamiento;
 		}
 
-		public void setHabitacion(Habitacion habitacion) {
-			this.habitacion = habitacion;
+		public void setAlojamiento(Alojamiento alojamiento) {
+			this.alojamiento = alojamiento;
 		}
 
-		public Vivienda getVivienda() {
-			return vivienda;
-		}
 
-		public void setVivienda(Vivienda vivienda) {
-			this.vivienda = vivienda;
-		}
-
-		public Apartamento getApartamento() {
-			return apartamento;
-		}
-
-		public void setApartamento(Apartamento apartamento) {
-			this.apartamento = apartamento;
-		}
-		
 		
 		
 		

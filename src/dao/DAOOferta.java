@@ -136,15 +136,15 @@ public class DAOOferta {
 	
 
 	/**
-	 * Metodo que obtiene la informacion de todos los bebedores en la Base de Datos 
+	 * Metodo que obtiene la informacion de las 20 ofertas mas populares en la Base de Datos 
 	 * <b>Precondicion: </b> la conexion a sido inicializado
-	 * @return	lista con la informacion de todos los bebedores que se encuentran en la Base de Datos
+	 * @return	lista con la informacion de las 20 ofertas mas populares que se encuentran en la Base de Datos
 	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
 	public ArrayList<Oferta> getOfertasMasPopulares() throws SQLException, Exception {
 		ArrayList<Oferta> ofertas = new ArrayList<Oferta>();
-		String sql = String.format("SELECT OFERTAS.ID FROM OFERTAS,RESERVASOFERTA WHERE RESERVASOFERTA.OFERTA=OFERTAS.ID AND ROWNUM <=20 GROUP BY OFERTAS.IDORDER BY COUNT(OFERTAS.ID) DESC");
+		String sql = String.format("SELECT OFERTAS.ID FROM OFERTAS,RESERVAS WHERE RESERVAS.OFERTA=OFERTAS.ID AND ROWNUM <=20 GROUP BY OFERTAS.ID ORDER BY COUNT(OFERTAS.ID) DESC");
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
@@ -193,20 +193,15 @@ public class DAOOferta {
 		try
 		{
 			Integer id= resultSet.getInt("ID");
-			Integer longitudEstadia= resultSet.getInt("LONGITUDESTADIA");
 			Double precioEstadia = resultSet.getDouble("PRECIOESTADIA");
 			String nombre = resultSet.getString("NOMBRE");
-			String ubicacion = resultSet.getString("UBICACION");
 			String descripcion = resultSet.getString("DESCRIPCION");
 			String fp = resultSet.getString("FECHAPUBLICACION");
-			Double costo = resultSet.getDouble("COSTO");
 			SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-DD");
 			Date fechaPublicacion = (Date) df.parse(fp);
 			Integer operador= resultSet.getInt("OPERADOR");
-			Integer habitacion= resultSet.getInt("HABITACION");
-			Integer apartamento= resultSet.getInt("APARTAMENTO");
-			Integer vivienda= resultSet.getInt("VIVIENDA");
-			Oferta oferta = new Oferta(id, longitudEstadia, precioEstadia, nombre, ubicacion, descripcion, fechaPublicacion);
+			Integer alojamientoId= resultSet.getInt("ALOJAMIENTOID");
+			Oferta oferta = new Oferta(id, precioEstadia, nombre, descripcion, fechaPublicacion);
 
 			return oferta;
 		} 
