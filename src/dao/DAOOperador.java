@@ -8,18 +8,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import vos.Operador;
+import tm.AlohAndesTransactionManager;
 
 public class DAOOperador {
-	//----------------------------------------------------------------------------------------------------------------------------------
-		// CONSTANTES
-		//----------------------------------------------------------------------------------------------------------------------------------
-
-		/**
-		 * Constante para indicar el usuario Oracle del estudiante
-		 */
-		//TODO Requerimiento 1H: Modifique la constante, reemplazando al ususario PARRANDEROS por su ususario de Oracle
-		public final static String USUARIO = "ISIS2304A301810";
-
 
 		//----------------------------------------------------------------------------------------------------------------------------------
 		// ATRIBUTOS
@@ -48,12 +39,35 @@ public class DAOOperador {
 		//----------------------------------------------------------------------------------------------------------------------------------
 		// METODOS DE COMUNICACION CON LA BASE DE DATOS
 		//----------------------------------------------------------------------------------------------------------------------------------
+		
 		/**
-		 * Metodo que obtiene la informacion de la reserva en la Base de Datos que tiene el identificador dado por parametro<br/>
-		 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/> 
+		 * Metodo que obtiene la informacion de todos los operadores en la Base de Datos <br/>
+		 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
+		 * @return	lista con la informacion de todos los operadores que se encuentran en la Base de Datos
+		 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+		 * @throws Exception Si se genera un error dentro del metodo.
+		 */
+		public ArrayList<Operador> getOperadores()throws SQLException, Exception{
+			ArrayList<Operador> operadores = new ArrayList<Operador>();
+			String sql = String.format("SELECT * FROM %1$s.OPERADORES", AlohAndesTransactionManager.USUARIO);
+
+			PreparedStatement prepStmt = conn.prepareStatement(sql);
+			recursos.add(prepStmt);
+			ResultSet rs = prepStmt.executeQuery();
+			
+			while (rs.next()) {
+				operadores.add(convertResultSetToOperador(rs,false));
+			}
+			
+			return operadores;
+		}
+		
+		/**
+		 * Metodo que obtiene la informacion del operador en la Base de Datos que tiene el identificador dado por parametro
+		 * <b>Precondicion: </b> la conexion a sido inicializado
 		 * @param id el identificador de la reserva
-		 * @return la informacion de la reserva que cumple con los criterios de la sentecia SQL
-		 * 			Null si no existe el bebedor conlos criterios establecidos
+		 * @return la informacion del operador que cumple con los criterios de la sentecia SQL
+		 * 			Null si no existe el operador con los criterios establecidos
 		 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 		 * @throws Exception Si se genera un error dentro del metodo.
 		 */
@@ -61,35 +75,48 @@ public class DAOOperador {
 		{
 			Operador operador = null;
 
-			String sql = String.format("SELECT * FROM %1$s.OPERADORES WHERE ID = %2$d", USUARIO, id); 
+			String sql = String.format("SELECT * FROM %1$s.OPERADORES WHERE ID = %2$d",AlohAndesTransactionManager.USUARIO, id); 
 
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
 			ResultSet rs = prepStmt.executeQuery();
 
 			if(rs.next()) {
-				operador = convertResultSetToOperador(rs);
+				operador = convertResultSetToOperador(rs,false);
 			}
 
 			return operador;
 		}
 
 		
-		
-		public ArrayList<String> getDineroRecibidoOperadores() throws SQLException, Exception {
-			ArrayList<String> reservas = new ArrayList<String>();
-			//Aclaracion: Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
-			String sql = String.format("SELECT OPERADORES.NOMBRE AS OP,SUM(RESERVAS.COSTO) AS MONEY FROM OPERADORES,OFERTAS,RESERVASOFERTA,RESERVASWHERE OFERTAS.ID=RESERVASOFERTA.OFERTA AND RESERVAS.ID=RESERVASOFERTA.RESERVA  AND OPERADORES.ID=OFERTAS.OPERADOR AND  EXTRACT(year FROM RESERVAS.DIASALIDA) =(select to_char(sysdate, 'YYYY') from dual) AND RESERVAS.DIASALIDA<CURRENT_DATE GROUP BY OPERADORES.NOMBRE");
-
+	
+		/**
+		 * Metodo que obtiene la informacion del diero obtenido por cada operador en la Base de Datos en el año dado por parametro
+		 * <b>Precondicion: </b> la conexion a sido inicializado
+		 * @param year el año de consulta
+		 * @return Lista de cadenas con la informacion por operador del dinero ganado en el año
+		 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+		 * @throws Exception Si se genera un error dentro del metodo.
+		 */
+		public ArrayList<Operador> getDineroRecibidoOperadores(int year) throws SQLException, Exception {
+			ArrayList<Operador> dinero = new ArrayList<Operador>();
+			String sql = String.format("SELECT \"A2\".\"ID\" \"ID\",\"A2\".\"NOMBRE\" \"NOMBRE\",\"A2\".\"TIPO\" \"TIPO\",\"A1\".\"PRECIOESTADIA\"*\"A1\".\"DIAS\" \"SUMA\""
+					+ " FROM \"%1$s\".\"OPERADORES\" \"A2\", (SELECT \"A4\".\"OPERADOR\" \"OPERADOR\",\"A4\".\"PRECIOESTADIA\" \"PRECIOESTADIA\",SUM(\"A3\".\"CANTIDADDIAS\") \"DIAS\" "
+					+ "FROM \"%1$s\".\"OFERTAS\" \"A4\",\"%1$s\".\"RESERVAS\" \"A3\" "
+					+ "WHERE \"A3\".\"OFERTA\"=\"A4\".\"ID\" AND EXTRACT(YEAR FROM \"A3\".\"FECHALLEGADA\")=%2$d "
+					+ "GROUP BY \"A4\".\"OPERADOR\",\"A4\".\"PRECIOESTADIA\") \"A1\" "
+					+ "WHERE \"A1\".\"OPERADOR\"=\"A2\".\"ID\"",AlohAndesTransactionManager.USUARIO,year);
+			
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
 			ResultSet rs = prepStmt.executeQuery();
 
 			while (rs.next()) {
-				reservas.add("El operador "+rs.getString("OP")+" ha recibido "+rs.getDouble("MONEY"));
+				dinero.add(convertResultSetToOperador(rs,true));
 			}
-			return reservas;
+			return dinero;
 		}
+
 
 		//----------------------------------------------------------------------------------------------------------------------------------
 		// METODOS AUXILIARES
@@ -125,14 +152,18 @@ public class DAOOperador {
 		 * @return Bebedor cuyos atributos corresponden a los valores asociados a un registro particular de la tabla BEBEDORES.
 		 * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
 		 */
-		public Operador convertResultSetToOperador(ResultSet resultSet) throws SQLException {
-			//TODO Requerimiento 1G: Complete el metodo con los atributos agregados previamente en la clase Bebedor. 
-			//						 Tenga en cuenta los nombres de las columnas de la Tabla en la Base de Datos (ID, NOMBRE, PRESUPUESTO, CIUDAD)
-
+		public Operador convertResultSetToOperador(ResultSet resultSet, boolean sum) throws SQLException {
 			Integer id = resultSet.getInt("ID");
 			String nombre = resultSet.getString("NOMBRE");
-			Operador op = new Operador(id, nombre);
+			String tipo = resultSet.getString("TIPO");
+			Operador op = new Operador(id, nombre,tipo);
+			if(sum) {
+			double dinero = resultSet.getDouble("SUMA");
+			op.setDineroGanado(dinero);
+			}
 			return op;
 		}
+		
+		
 
 }

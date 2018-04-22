@@ -49,6 +49,10 @@ public class Operador {
 	@JsonProperty(value="alojamientjos")
 	private ArrayList<Alojamiento> alojamientos;
 	
+	/**
+	 * Dinero ganado en el año actual
+	 */
+	private double dineroGanado;
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODO CONSTRUCTOR
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -58,6 +62,7 @@ public class Operador {
 		 * <b>post: </b> Crea el operador con los valores que entran por parametro
 		 * @param id - Id del operador.
 		 * @param nombre - Nombre del operador.
+		 * @param tipo - Tipo del operador.
 		 */
 		public Operador(@JsonProperty(value="id") Integer id,@JsonProperty(value="nombre") String nombre, @JsonProperty(value="tipo") String tipo) 
 		{
@@ -145,6 +150,16 @@ public class Operador {
 
 		public void setAlojamientos(ArrayList<Alojamiento> alojamientos) {
 			this.alojamientos = alojamientos;
+		}
+
+
+		public double getDineroGanado() {
+			return dineroGanado;
+		}
+
+
+		public void setDineroGanado(double dineroGanado) {
+			this.dineroGanado = dineroGanado;
 		}
 		
 
