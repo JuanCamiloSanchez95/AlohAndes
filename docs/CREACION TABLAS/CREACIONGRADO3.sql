@@ -14,6 +14,7 @@ FechaPublicacion Date NOT NULL,
 descripcion varchar(32),
 alojamientoId int NOT NULL,
 operador int NOT NULL,
+capacidad int NOT NULL,
 CONSTRAINT PKoferta PRIMARY KEY (id),
 CONSTRAINT FKofertaAlojamiento FOREIGN KEY (alojamientoId) REFERENCES Alojamientos(id),
 CONSTRAINT FKoperaAloj FOREIGN KEY (operador) REFERENCES Operadores(id)

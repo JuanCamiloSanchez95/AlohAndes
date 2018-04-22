@@ -199,9 +199,10 @@ public class DAOOferta {
 			Date fp = resultSet.getDate("FECHAPUBLICACION");
 			//SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-DD");
 			//Date fechaPublicacion = (Date) df.parse(fp);
+			Integer capacidad= resultSet.getInt("CAPACIDAD");
 			Integer operador= resultSet.getInt("OPERADOR");
 			Integer alojamientoId= resultSet.getInt("ALOJAMIENTOID");
-			Oferta oferta = new Oferta(id, precioEstadia, nombre, descripcion, fp);
+			Oferta oferta = new Oferta(id, precioEstadia, nombre, descripcion, fp,capacidad);
 
 			return oferta;
 		} 

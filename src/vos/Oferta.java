@@ -49,6 +49,11 @@ public class Oferta
 		private Date fechaPublicacion;
 		
 		/**
+		 * Capacidad de la oferta
+		 */
+		private int capacidad;
+		
+		/**
 		 * Lista de reservas
 		 */
 		@JsonProperty(value="reservas")
@@ -73,13 +78,14 @@ public class Oferta
 		 * @param descripcion - descripccion de la oferta
 		 * @param fechaPublicacion -fecha de la publicacion de la oferta
 		 */
-		public Oferta(@JsonProperty(value="id") Integer id,@JsonProperty(value="precioEstadia") Double precioEstadia,@JsonProperty(value="nombre") String nombre,@JsonProperty(value="descripcion") String descripccion,@JsonProperty(value="fechaPublicacion") Date fechaPublicacion) 
+		public Oferta(@JsonProperty(value="id") Integer id,@JsonProperty(value="precioEstadia") Double precioEstadia,@JsonProperty(value="nombre") String nombre,@JsonProperty(value="descripcion") String descripccion,@JsonProperty(value="fechaPublicacion") Date fechaPublicacion,@JsonProperty(value="capacidad") int capacidad) 
 		{
 			this.id=id;
 			this.precioEstadia=precioEstadia;
 			this.nombre=nombre;
 			this.descripcion=descripccion;
 			this.fechaPublicacion=fechaPublicacion;
+			this.capacidad=capacidad;
 			reservas= new ArrayList<>();
 		}
 
@@ -141,6 +147,14 @@ public class Oferta
 
 		public void setAlojamiento(Alojamiento alojamiento) {
 			this.alojamiento = alojamiento;
+		}
+
+		public int getCapacidad() {
+			return capacidad;
+		}
+
+		public void setCapacidad(int capacidad) {
+			this.capacidad = capacidad;
 		}
 
 
