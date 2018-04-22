@@ -23,12 +23,6 @@ public class Servicio
 	private int id;
 	
 	/**
-	 * tipo del servicio
-	 */
-	@JsonProperty(value="tipo")
-	private String tipo;
-	
-	/**
 	 * Nombre del servicio
 	 */
 	@JsonProperty(value="nombre")
@@ -55,8 +49,8 @@ public class Servicio
 	/**
 	 * lista de habitaciones
 	 */
-	@JsonProperty(value="habitaciones")
-	private ArrayList<Habitacion> habitaciones;
+	@JsonProperty(value="alojamientos")
+	private ArrayList<Alojamiento> alojamientos;
 	
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODO CONSTRUCTOR
@@ -77,7 +71,7 @@ public class Servicio
 				this.descripccion=descripccion;
 				this.costo=costo;
 				operadores=new ArrayList<>();
-				habitaciones= new ArrayList<>();
+				alojamientos= new ArrayList<>();
 			}
 			//----------------------------------------------------------------------------------------------------------------------------------
 			// METODOS DE LA CLASE
@@ -89,14 +83,6 @@ public class Servicio
 
 			public void setId(int id) {
 				this.id = id;
-			}
-
-			public String getTipo() {
-				return tipo;
-			}
-
-			public void setTipo(String tipo) {
-				this.tipo = tipo;
 			}
 
 			public String getNombre() {
@@ -131,14 +117,14 @@ public class Servicio
 				this.operadores = operadores;
 			}
 
-			public ArrayList<Habitacion> getHabitaciones() {
-				return habitaciones;
+			public ArrayList<Alojamiento> getAlojamientos() {
+				return alojamientos;
 			}
 
-			public void setHabitaciones(ArrayList<Habitacion> habitaciones) {
-				this.habitaciones = habitaciones;
+			public void setAlojamientos(ArrayList<Alojamiento> alojamientos) {
+				this.alojamientos = alojamientos;
 			}
-		
-			
+
+
 			
 }
