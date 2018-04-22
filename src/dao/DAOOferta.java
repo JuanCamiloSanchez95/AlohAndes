@@ -150,7 +150,7 @@ public class DAOOferta {
 		ResultSet rs = prepStmt.executeQuery();
 
 		while (rs.next()) {
-			ofertas.add(findOfertaById(rs.getInt("OFERTAS.ID")));
+			ofertas.add(findOfertaById(rs.getInt("ID")));
 		}
 		return ofertas;
 	}
@@ -196,12 +196,12 @@ public class DAOOferta {
 			Double precioEstadia = resultSet.getDouble("PRECIOESTADIA");
 			String nombre = resultSet.getString("NOMBRE");
 			String descripcion = resultSet.getString("DESCRIPCION");
-			String fp = resultSet.getString("FECHAPUBLICACION");
-			SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-DD");
-			Date fechaPublicacion = (Date) df.parse(fp);
+			Date fp = resultSet.getDate("FECHAPUBLICACION");
+			//SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-DD");
+			//Date fechaPublicacion = (Date) df.parse(fp);
 			Integer operador= resultSet.getInt("OPERADOR");
 			Integer alojamientoId= resultSet.getInt("ALOJAMIENTOID");
-			Oferta oferta = new Oferta(id, precioEstadia, nombre, descripcion, fechaPublicacion);
+			Oferta oferta = new Oferta(id, precioEstadia, nombre, descripcion, fp);
 
 			return oferta;
 		} 
