@@ -15,7 +15,7 @@ import vos.UsoCliente;
  * Clase DAO que se conecta la base de datos usando JDBC para resolver los requerimientos de la aplicacion
  */
 public class DAOCliente {
-	
+
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// ATRIBUTOS
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -40,7 +40,7 @@ public class DAOCliente {
 	public DAOCliente() {
 		recursos = new ArrayList<Object>();
 	}
-	
+
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODOS DE COMUNICACION CON LA BASE DE DATOS
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -69,7 +69,7 @@ public class DAOCliente {
 
 		return cliente;
 	}
-	
+
 	/**
 	 * Metodo que obtiene los usos de la plataforma por un cliente que tiene el identificador dado por parametro
 	 * <b>Precondicion: </b> la conexion a sido inicializado
@@ -87,7 +87,7 @@ public class DAOCliente {
 				+ "WHERE \"A5\".\"DOCUMENTO\"= %2$d AND \"A4\".\"CLIENTEID\"=\"A5\".\"DOCUMENTO\" "
 				+ "AND \"A4\".\"RESERVAID\"=\"A3\".\"ID\" AND \"A3\".\"OFERTA\"=\"A2\".\"ID\" "
 				+ "AND \"A2\".\"ALOJAMIENTOID\"=\"A1\".\"ID\"", AlohAndesTransactionManager.USUARIO,id);
-		
+
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
@@ -95,10 +95,46 @@ public class DAOCliente {
 		if(rs.next()) {
 			usos.add(convertResultSetToUsoCliente(rs));
 		}
-		
+
 		return usos;
 	}
-	
+
+
+	public ArrayList<String> vinculosDeClientes() throws SQLException, Exception {
+		ArrayList<String> vinculos = new ArrayList<String>();
+		String sql=String.format("SELECT DISTINCT \"A1\".\"VINCULO\" \"VINCULO\" FROM \"%1$s\".\"CLIENTES\" \"A1\"", AlohAndesTransactionManager.USUARIO);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		if(rs.next()) {
+			vinculos.add(rs.getString("VINCULO"));
+		}
+
+		return vinculos;
+	}
+
+	public ArrayList<UsoCliente> usosPorVinculo() throws SQLException, Exception {
+		ArrayList<String> vinculos = vinculosDeClientes();
+		ArrayList<UsoCliente> usos = new ArrayList<UsoCliente>();
+
+		for(int i=0;i<vinculos.size();i++) {
+			String sql=String.format("SELECT \"A5\".\"DOCUMENTO\" \"DOCUMENTO\",\"A5\".\"VINCULO\" \"VINCULO\",\"A1\".\"TIPO\" \"TIPO\",\"A1\".\"DESCRIPCION\" \"DESCRIPCION\",\"A3\".\"CANTIDADDIAS\" \"CANTIDADDIAS\",\"A2\".\"PRECIOESTADIA\" \"PRECIOESTADIA\" "
+					+ "FROM \"%1$s\".\"CLIENTES\" \"A5\",\"%1$s\".\"RESERVASCLIENTE\" \"A4\",\"%1$s\".\"RESERVAS\" \"A3\",\"%1$s\".\"OFERTAS\" \"A2\",\"%1$s\".\"ALOJAMIENTOS\" \"A1\""
+					+ " WHERE \"A5\".\"VINCULO\"='%2$s' AND \"A4\".\"CLIENTEID\"=\"A5\".\"DOCUMENTO\" AND \"A4\".\"RESERVAID\"=\"A3\".\"ID\" AND \"A3\".\"OFERTA\"=\"A2\".\"ID\" AND \"A2\".\"ALOJAMIENTOID\"=\"A1\".\"ID\"", AlohAndesTransactionManager.USUARIO,vinculos.get(i));
+
+			PreparedStatement prepStmt = conn.prepareStatement(sql);
+			recursos.add(prepStmt);
+			ResultSet rs = prepStmt.executeQuery();
+
+			if(rs.next()) {
+				usos.add(convertResultSetToUsoCliente(rs));
+			}
+		}
+		return usos;
+	}
+
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODOS AUXILIARES
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -134,14 +170,14 @@ public class DAOCliente {
 	 * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
 	 */
 	public Cliente convertResultSetToCliente(ResultSet resultSet) throws SQLException {
-			Integer documento= resultSet.getInt("DOCUMENTO");
-			String nombre= resultSet.getString("NOMBRE");
-			String vinculo = resultSet.getString("VINCULO");
-			Cliente cliente = new Cliente(documento, nombre, vinculo);
+		Integer documento= resultSet.getInt("DOCUMENTO");
+		String nombre= resultSet.getString("NOMBRE");
+		String vinculo = resultSet.getString("VINCULO");
+		Cliente cliente = new Cliente(documento, nombre, vinculo);
 
-			return cliente;
+		return cliente;
 	}
-	
+
 	/**
 	 * Metodo que transforma el resultado obtenido de una consulta SQL en una instancia de la clase UsoCliente.
 	 * @param resultSet ResultSet con la informacion de los usos de un cliente que se obtuvo de la base de datos.
@@ -149,14 +185,14 @@ public class DAOCliente {
 	 * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
 	 */
 	public UsoCliente convertResultSetToUsoCliente(ResultSet resultSet) throws SQLException {
-			Integer documento= resultSet.getInt("DOCUMENTO");
-			String tipoCliente= resultSet.getString("VINCULO");
-			String tipo= resultSet.getString("TIPO");
-			String des = resultSet.getString("DESCRIPCION");
-			int dias = resultSet.getInt("CANTIDADDIAS");
-			Double precio=resultSet.getDouble("PRECIOESTADIA");
-			UsoCliente uso=new UsoCliente(documento,tipoCliente,dias,tipo,des,dias*precio);
+		Integer documento= resultSet.getInt("DOCUMENTO");
+		String tipoCliente= resultSet.getString("VINCULO");
+		String tipo= resultSet.getString("TIPO");
+		String des = resultSet.getString("DESCRIPCION");
+		int dias = resultSet.getInt("CANTIDADDIAS");
+		Double precio=resultSet.getDouble("PRECIOESTADIA");
+		UsoCliente uso=new UsoCliente(documento,tipoCliente,dias,tipo,des,dias*precio);
 
-			return uso;
+		return uso;
 	}
 }
