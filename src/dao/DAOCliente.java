@@ -45,7 +45,7 @@ public class DAOCliente {
 	/**
 	 * Metodo que obtiene la informacion del cliente en la Base de Datos que tiene el identificador dado por parametro
 	 * <b>Precondicion: </b> la conexion a sido inicializado
-	 * @param documento - docuento de identificacion del cliente
+	 * @param documento - documento de identificacion del cliente
 	 * @return la informacion del cliente que cumple con los criterios de la sentecia SQL
 	 * 			Null si no existe el cliente con los criterios establecidos
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
@@ -68,6 +68,29 @@ public class DAOCliente {
 		return cliente;
 	}
 	
+	/**
+	 * Metodo que obtiene los dias contratados por un cliente que tiene el identificador dado por parametro
+	 * <b>Precondicion: </b> la conexion a sido inicializado
+	 * @param documento - documento de identificacion del cliente
+	 * @return dias contratados por el cliente en la Base de Datos
+	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
+	 */
+	public int diasContratados(int documento) throws SQLException, Exception {
+		int dias = 0;
+		String sql = String.format("SELECT SUM(\"A2\".\"CANTIDADDIAS\") \"DIAS\" "
+				+ "FROM \"%1$s\".\"RESERVAS\" \"A2\",\"%1$s\".\"RESERVASCLIENTE\" \"A1\" "
+				+ "WHERE \"A1\".\"RESERVAID\"=\"A2\".\"ID\" AND \"A1\".\"CLIENTEID\"=%2$d", AlohAndesTransactionManager.USUARIO, documento); 
+		
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		if(rs.next()) {
+			dias = rs.getInt("DIAS");
+		}
+		return dias;
+	}
 	
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODOS AUXILIARES

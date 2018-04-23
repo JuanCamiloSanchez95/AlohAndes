@@ -8,7 +8,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 /**
  * 
  * @author Juan
- * Clase que representa un hotel  
+ * Clase que representa un cliente
  */
 public class Cliente 
 {
