@@ -88,15 +88,16 @@ public class Oferta
 		 * @param id - Id de la oferta.
 		 * @param precioEstadia -precio de la oferta
 		 * @param nombre - nombre de la oferta
-		 * @param descripcion - descripccion de la oferta
+		 * @param descripcion - descripcion de la oferta
 		 * @param fechaPublicacion -fecha de la publicacion de la oferta
+		 * @param capacidad - Capacidad de alojamientos de la oferta
 		 */
-		public Oferta(@JsonProperty(value="id") Integer id,@JsonProperty(value="precioEstadia") Double precioEstadia,@JsonProperty(value="nombre") String nombre,@JsonProperty(value="descripcion") String descripccion,@JsonProperty(value="fechaPublicacion") Date fechaPublicacion,@JsonProperty(value="capacidad") Integer capacidad) 
+		public Oferta(@JsonProperty(value="id") Integer id,@JsonProperty(value="precioEstadia") Double precioEstadia,@JsonProperty(value="nombre") String nombre,@JsonProperty(value="descripcion") String descripcion,@JsonProperty(value="fechaPublicacion") Date fechaPublicacion,@JsonProperty(value="capacidad") Integer capacidad) 
 		{
 			this.id=id;
 			this.precioEstadia=precioEstadia;
 			this.nombre=nombre;
-			this.descripcion=descripccion;
+			this.descripcion=descripcion;
 			this.fechaPublicacion=fechaPublicacion;
 			this.capacidad=capacidad;
 			reservas= new ArrayList<>();

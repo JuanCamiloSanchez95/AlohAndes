@@ -536,8 +536,9 @@ public class AlohAndesTransactionManager {
 	}
 	
 	/**
-	 * Metodo que modela la transaccion que retorna todas los ofertas de la base de datos. 
-	 * @return List<Operador> - Lista de ofertas que contiene el resultado de la consulta.
+	 * Metodo que modela la transaccion que retorna los usos de un cliente en la base de datos.
+	 * @param id - id del Cliente 
+	 * @return List<UsoCliente> - Lista de usos de un cliente que contiene el resultado de la consulta.
 	 * @throws Exception - Cualquier error que se genere durante la transaccion
 	 */
 	public List<UsoCliente> getUsosByCliente(Long id) throws Exception {

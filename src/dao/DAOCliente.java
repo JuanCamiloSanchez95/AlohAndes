@@ -71,10 +71,10 @@ public class DAOCliente {
 	}
 	
 	/**
-	 * Metodo que obtiene los dias contratados por un cliente que tiene el identificador dado por parametro
+	 * Metodo que obtiene los usos de la plataforma por un cliente que tiene el identificador dado por parametro
 	 * <b>Precondicion: </b> la conexion a sido inicializado
-	 * @param documento - documento de identificacion del cliente
-	 * @return dias contratados por el cliente en la Base de Datos
+	 * @param id - documento de identificacion del cliente
+	 * @return usos de la plataforma en el cliente en la Base de Datos
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */	
@@ -144,8 +144,8 @@ public class DAOCliente {
 	
 	/**
 	 * Metodo que transforma el resultado obtenido de una consulta SQL en una instancia de la clase UsoCliente.
-	 * @param resultSet ResultSet con la informacion de un cliente que se obtuvo de la base de datos.
-	 * @return Cliente cuyos atributos corresponden a los valores asociados a un registro particular de la tabla CLIENTES.
+	 * @param resultSet ResultSet con la informacion de los usos de un cliente que se obtuvo de la base de datos.
+	 * @return Uso del Cliente cuyos atributos corresponden a los valores asociados a los datos de la Base de datos.
 	 * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
 	 */
 	public UsoCliente convertResultSetToUsoCliente(ResultSet resultSet) throws SQLException {

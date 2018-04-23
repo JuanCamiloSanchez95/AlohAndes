@@ -52,10 +52,10 @@ public class ApartamentoService
 		//----------------------------------------------------------------------------------------------------------------------------------
 
 		/**
-		 * Metodo GET que trae a todos los apartamentos en la Base de datos. <br/>
-		 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
-		 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/apartamentos <br/>
-		 * @return	<b>Response Status 200</b> - JSON que contiene a todos los apartamentos que estan en la Base de Datos <br/>
+		 * Metodo GET que trae a todos los apartamentos en la Base de datos.
+		 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario
+		 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/apartamentos
+		 * @return	<b>Response Status 200</b> - JSON que contiene a todos los apartamentos que estan en la Base de Datos 
 		 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 		 */			
 		@GET
@@ -65,7 +65,6 @@ public class ApartamentoService
 			try {
 				AlohAndesTransactionManager tm = new AlohAndesTransactionManager(getPath());
 				List<ApartamentoService> aptos;
-				//Por simplicidad, solamente se obtienen los primeros 50 resultados de la consulta
 				aptos = null;
 				return Response.status(200).entity(aptos).build();
 			} 

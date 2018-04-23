@@ -56,10 +56,10 @@ public class ReservaService {
 	// ----------------------------------------------------------------------------------------------------------------------------------
 	
 	/**
-	 * Metodo GET que trae a todos las reservas en la Base de datos. <br/>
-	 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
-	 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/reservas <br/>
-	 * @return	<b>Response Status 200</b> - JSON que contiene a todas las reservas que estan en la Base de Datos <br/>
+	 * Metodo GET que trae a todos las reservas en la Base de datos. 
+	 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario
+	 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/reservas 
+	 * @return	<b>Response Status 200</b> - JSON que contiene a todas las reservas que estan en la Base de Datos 
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */			
 	@GET
@@ -78,12 +78,12 @@ public class ReservaService {
 	}
 	
 	/**
-	 * Metodo que recibe una reserva en formato JSON y la agrega a la Base de Datos <br/>
-	 * <b>Precondicion: </b> El archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
-	 * <b>Postcondicion: </b> Se agrega a la Base de datos la informacion correspondiente a la reserva. <br/>
-	 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/reservas <br/>
-	 * @param bebedor JSON con la informacion de la reserva que se desea agregar
-	 * @return	<b>Response Status 200</b> - JSON que contiene la reserva que ha sido agregado <br/>
+	 * Metodo que recibe una reserva en formato JSON y la agrega a la Base de Datos
+	 * <b>Precondicion: </b> El archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario
+	 * <b>Postcondicion: </b> Se agrega a la Base de datos la informacion correspondiente a la reserva.
+	 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/reservas
+	 * @param reserva JSON con la informacion de la reserva que se desea agregar
+	 * @return	<b>Response Status 200</b> - JSON que contiene la reserva que ha sido agregado 
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */
 
@@ -104,12 +104,12 @@ public class ReservaService {
 	
 	
 	/**
-	 * Metodo que recibe una reserva en formato JSON y la elimina de la Base de Datos <br/>
-	 * <b>Precondicion: </b> El archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
-	 * <b>Postcondicion: </b> Se elimina de la Base de datos a la reserva con la informacion correspondiente.<br/>
-	 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/reservas <br/>
-	 * @param bebedor JSON con la informacion de la reserva que se desea eliminar
-	 * @return	<b>Response Status 200</b> - JSON que contiene la reserva que se desea eliminar <br/>
+	 * Metodo que recibe una reserva en formato JSON y la elimina de la Base de Datos
+	 * <b>Precondicion: </b> El archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario
+	 * <b>Postcondicion: </b> Se elimina de la Base de datos a la reserva con la informacion correspondiente.
+	 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/reservas
+	 * @param reserva JSON con la informacion de la reserva que se desea eliminar
+	 * @return	<b>Response Status 200</b> - JSON que contiene la reserva que se desea eliminar 
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */
 	@DELETE

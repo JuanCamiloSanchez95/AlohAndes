@@ -31,7 +31,7 @@ public class DAOOperador {
 		//----------------------------------------------------------------------------------------------------------------------------------
 
 		/**
-		 * Metodo constructor de la clase DAOReserva <br/>
+		 * Metodo constructor de la clase DAOReserva
 		 */
 		public DAOOperador() {
 			recursos = new ArrayList<Object>();
@@ -41,8 +41,8 @@ public class DAOOperador {
 		//----------------------------------------------------------------------------------------------------------------------------------
 		
 		/**
-		 * Metodo que obtiene la informacion de todos los operadores en la Base de Datos <br/>
-		 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
+		 * Metodo que obtiene la informacion de todos los operadores en la Base de Datos 
+		 * <b>Precondicion: </b> la conexion a sido inicializadoa
 		 * @return	lista con la informacion de todos los operadores que se encuentran en la Base de Datos
 		 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 		 * @throws Exception Si se genera un error dentro del metodo.
@@ -123,8 +123,8 @@ public class DAOOperador {
 		//----------------------------------------------------------------------------------------------------------------------------------
 
 		/**
-		 * Metodo encargado de inicializar la conexion del DAO a la Base de Datos a partir del parametro <br/>
-		 * <b>Postcondicion: </b> el atributo conn es inicializado <br/>
+		 * Metodo encargado de inicializar la conexion del DAO a la Base de Datos a partir del parametro 
+		 * <b>Postcondicion: </b> el atributo conn es inicializado
 		 * @param connection la conexion generada en el TransactionManager para la comunicacion con la Base de Datos
 		 */
 		public void setConn(Connection connection){
@@ -132,7 +132,7 @@ public class DAOOperador {
 		}
 
 		/**
-		 * Metodo que cierra todos los recursos que se encuentran en el arreglo de recursos<br/>
+		 * Metodo que cierra todos los recursos que se encuentran en el arreglo de recursos
 		 * <b>Postcondicion: </b> Todos los recurso del arreglo de recursos han sido cerrados.
 		 */
 		public void cerrarRecursos() {
@@ -147,9 +147,10 @@ public class DAOOperador {
 		}
 
 		/**
-		 * Metodo que transforma el resultado obtenido de una consulta SQL (sobre la tabla BEBEDORES) en una instancia de la clase Bebedor.
-		 * @param resultSet ResultSet con la informacion de un bebedor que se obtuvo de la base de datos.
-		 * @return Bebedor cuyos atributos corresponden a los valores asociados a un registro particular de la tabla BEBEDORES.
+		 * Metodo que transforma el resultado obtenido de una consulta SQL (sobre la tabla OPERADORES) en una instancia de la clase Operador.
+		 * @param resultSet ResultSet con la informacion de un operador que se obtuvo de la base de datos.
+		 * @param sum - Booleano que determina si el ResultSet tiene la informacion del dinero ganado por Operador
+		 * @return Operador cuyos atributos corresponden a los valores asociados a un registro particular de la tabla OPERADORES.
 		 * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
 		 */
 		public Operador convertResultSetToOperador(ResultSet resultSet, boolean sum) throws SQLException {

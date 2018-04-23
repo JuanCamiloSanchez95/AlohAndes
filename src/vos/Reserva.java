@@ -15,119 +15,120 @@ public class Reserva
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// ATRIBUTOS
 	//----------------------------------------------------------------------------------------------------------------------------------
-			/**
-			 * Id de la reserva
-			 */
-			@JsonProperty(value="id")
-			private int id;
-			
-			/**
-			 * dia de Llegada de la reserva
-			 */
-			@JsonProperty(value="diaLlegada")
-			private Date diaLlegada;
-			
-			
-			/**
-			 * cantidadDias de la reserva
-			 */
-			@JsonProperty(value="cantidadDias")
-			private int cantidadDias;
-			
-			/**
-			 * Estado de la reserva
-			 */
-			@JsonProperty(value="recarga")
-			private double recarga;
-			
-			/**
-			 * Oferta de la reserva
-			 */
-			@JsonProperty(value="oferta")
-			private Oferta oferta;
-			
-			/**
-			 * Cliente de la reserva
-			 */
-			@JsonProperty(value="cliente")
-			private Cliente cliente;
-			
-			//----------------------------------------------------------------------------------------------------------------------------------
-			// METODO CONSTRUCTOR
-			//----------------------------------------------------------------------------------------------------------------------------------
+	/**
+	 * Id de la reserva
+	 */
+	@JsonProperty(value="id")
+	private int id;
 
-			/**
-			 * 
-			 * @param id
-			 * @param diaLlegada
-			 * @param cantidadDias
-			 * @param recarga
-			 */
-			public Reserva(@JsonProperty(value="id") Integer id,@JsonProperty(value="diaLlegada") Date diaLlegada,@JsonProperty(value="cantidadDias") int cantidadDias,@JsonProperty(value="recarga") double recarga) 
-			{
-				this.id=id;
-				this.diaLlegada=diaLlegada;
-				this.cantidadDias= cantidadDias;
-				this.recarga=recarga;
-				oferta=null;
-				cliente=null;
-			}
-			
-			//----------------------------------------------------------------------------------------------------------------------------------
-			// METODOS DE LA CLASE
-			//----------------------------------------------------------------------------------------------------------------------------------
+	/**
+	 * dia de Llegada de la reserva
+	 */
+	@JsonProperty(value="diaLlegada")
+	private Date diaLlegada;
 
 
-			public int getId() {
-				return id;
-			}
+	/**
+	 * cantidadDias de la reserva
+	 */
+	@JsonProperty(value="cantidadDias")
+	private int cantidadDias;
 
-			public void setId(int id) {
-				this.id = id;
-			}
+	/**
+	 * Estado de la reserva
+	 */
+	@JsonProperty(value="recarga")
+	private double recarga;
 
-			public Date getDiaLlegada() {
-				return diaLlegada;
-			}
+	/**
+	 * Oferta de la reserva
+	 */
+	@JsonProperty(value="oferta")
+	private Oferta oferta;
 
-			public void setDiaLlegada(Date diaLlegada) {
-				this.diaLlegada = diaLlegada;
-			}
+	/**
+	 * Cliente de la reserva
+	 */
+	@JsonProperty(value="cliente")
+	private Cliente cliente;
 
-			
+	//----------------------------------------------------------------------------------------------------------------------------------
+	// METODO CONSTRUCTOR
+	//----------------------------------------------------------------------------------------------------------------------------------
 
-			public int getCantidadDias() {
-				return cantidadDias;
-			}
+	/**
+	 *  Metodo constructor de la clase reserva
+	 * <b>post: </b> Crea la reserva con los valores que entran por parametro
+	 * @param id identificador de la reseva
+	 * @param diaLlegada Fecha de llegada 
+	 * @param cantidadDias Cantidad de dias reservados
+	 * @param recarga Recargo en caso de cancelacion
+	 */
+	public Reserva(@JsonProperty(value="id") Integer id,@JsonProperty(value="diaLlegada") Date diaLlegada,@JsonProperty(value="cantidadDias") int cantidadDias,@JsonProperty(value="recarga") double recarga) 
+	{
+		this.id=id;
+		this.diaLlegada=diaLlegada;
+		this.cantidadDias= cantidadDias;
+		this.recarga=recarga;
+		oferta=null;
+		cliente=null;
+	}
 
-			public void setCantidadDias(int cantidadDias) {
-				this.cantidadDias = cantidadDias;
-			}
+	//----------------------------------------------------------------------------------------------------------------------------------
+	// METODOS DE LA CLASE
+	//----------------------------------------------------------------------------------------------------------------------------------
 
-			public double getRecarga() {
-				return recarga;
-			}
 
-			public void setRecarga(double recarga) {
-				this.recarga = recarga;
-			}
+	public int getId() {
+		return id;
+	}
 
-			public Oferta getOferta() {
-				return oferta;
-			}
+	public void setId(int id) {
+		this.id = id;
+	}
 
-			public void setOferta(Oferta oferta) {
-				this.oferta = oferta;
-			}
+	public Date getDiaLlegada() {
+		return diaLlegada;
+	}
 
-			public Cliente getCliente() {
-				return cliente;
-			}
+	public void setDiaLlegada(Date diaLlegada) {
+		this.diaLlegada = diaLlegada;
+	}
 
-			public void setCliente(Cliente cliente) {
-				this.cliente = cliente;
-			}
 
-			
-			
+
+	public int getCantidadDias() {
+		return cantidadDias;
+	}
+
+	public void setCantidadDias(int cantidadDias) {
+		this.cantidadDias = cantidadDias;
+	}
+
+	public double getRecarga() {
+		return recarga;
+	}
+
+	public void setRecarga(double recarga) {
+		this.recarga = recarga;
+	}
+
+	public Oferta getOferta() {
+		return oferta;
+	}
+
+	public void setOferta(Oferta oferta) {
+		this.oferta = oferta;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+
+
 }

@@ -34,12 +34,13 @@ public class Apartamento extends Alojamiento
 		// METODO CONSTRUCTOR
 		//----------------------------------------------------------------------------------------------------------------------------------
 	/**
-	 * 
-	 * @param id
-	 * @param nombre
-	 * @param tipo
-	 * @param ubicacion
-	 * @param descripcion
+	 * Metodo constructor de la clase Apartamento
+	 * <b>post: </b> Crea un objeto Apartamento con los valores que entran por parametro
+	 * @param id - Identificador del operador
+	 * @param nombre - Nombre del operador
+	 * @param tipo - tipo del operador
+	 * @param ubicacion - ubicacion del hotel
+	 * @param descripcion - descripcion 
 	 * @param costo
 	 * @param minimoPeriodo
 	 * @param amoblado

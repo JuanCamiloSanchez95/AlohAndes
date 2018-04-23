@@ -50,12 +50,12 @@ public class OfertaService {
 	//----------------------------------------------------------------------------------------------------------------------------------
 
 	/**
-	 * Metodo que recibe una oferta en formato JSON y la elimina de la Base de Datos <br/>
-	 * <b>Precondicion: </b> El archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
-	 * <b>Postcondicion: </b> Se elimina de la Base de datos la oferta con la informacion correspondiente.<br/>
-	 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/ofertas <br/>
-	 * @param bebedor JSON con la informacion de la oferta que se desea eliminar
-	 * @return	<b>Response Status 200</b> - JSON que contiene la oferta que se desea eliminar <br/>
+	 * Metodo que recibe una oferta en formato JSON y la elimina de la Base de Datos
+	 * <b>Precondicion: </b> El archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario 
+	 * <b>Postcondicion: </b> Se elimina de la Base de datos la oferta con la informacion correspondiente.
+	 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/ofertas 
+	 * @param oferta JSON con la informacion de la oferta que se desea eliminar
+	 * @return	<b>Response Status 200</b> - JSON que contiene la oferta que se desea eliminar 
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */
 	@DELETE
@@ -74,10 +74,10 @@ public class OfertaService {
 	}
 	
 	/**
-	 * Metodo GET que trae las 20 ofertas mas populares en la Base de datos. <br/>
-	 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
-	 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/oferta/populares <br/>
-	 * @return	<b>Response Status 200</b> - JSON que contiene las 20 ofertas mas populares que estan en la Base de Datos <br/>
+	 * Metodo GET que trae las 20 ofertas mas populares en la Base de datos.
+	 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario
+	 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/oferta/populares
+	 * @return	<b>Response Status 200</b> - JSON que contiene las 20 ofertas mas populares que estan en la Base de Datos 
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */			
 	@GET
@@ -97,10 +97,10 @@ public class OfertaService {
 	}
 	
 	/**
-	 * Metodo GET que trae las ofertas con sus respectivos indices de ocupacion en la Base de datos. <br/>
-	 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
-	 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/oferta/indices <br/>
-	 * @return	<b>Response Status 200</b> - JSON que contiene las ofertas con su indice que estan en la Base de Datos <br/>
+	 * Metodo GET que trae las ofertas con sus respectivos indices de ocupacion en la Base de datos. 
+	 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario
+	 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/oferta/indices
+	 * @return	<b>Response Status 200</b> - JSON que contiene las ofertas con su indice que estan en la Base de Datos
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */			
 	@GET
