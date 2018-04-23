@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import tm.AlohAndesTransactionManager;
 import vos.Cliente;
+import vos.Oferta;
+import vos.UsoCliente;
 
 /**
  * Clase DAO que se conecta la base de datos usando JDBC para resolver los requerimientos de la aplicacion
@@ -75,21 +77,26 @@ public class DAOCliente {
 	 * @return dias contratados por el cliente en la Base de Datos
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
-	 */
-	public int diasContratados(int documento) throws SQLException, Exception {
-		int dias = 0;
-		String sql = String.format("SELECT SUM(\"A2\".\"CANTIDADDIAS\") \"DIAS\" "
-				+ "FROM \"%1$s\".\"RESERVAS\" \"A2\",\"%1$s\".\"RESERVASCLIENTE\" \"A1\" "
-				+ "WHERE \"A1\".\"RESERVAID\"=\"A2\".\"ID\" AND \"A1\".\"CLIENTEID\"=%2$d", AlohAndesTransactionManager.USUARIO, documento); 
-		
+	 */	
+	public ArrayList<UsoCliente> usosDelCliente(int id) throws SQLException, Exception {
+		ArrayList<UsoCliente> usos = new ArrayList<UsoCliente>();
+		String sql=String.format("SELECT \"A4\".\"CLIENTEID\" \"CLIENTEID\",\"A1\".\"TIPO\" \"TIPO\",\"A1\".\"DESCRIPCION\" \"DESCRIPCION\","
+				+ "\"A3\".\"CANTIDADDIAS\" \"CANTIDADDIAS\",\"A2\".\"PRECIOESTADIA\" \"PRECIOESTADIA\""
+				+ " FROM \"%1$s\".\"RESERVASCLIENTE\" \"A4\",\"%1$s\".\"RESERVAS\" \"A3\","
+				+ "\"%1$s\".\"OFERTAS\" \"A2\",\"%1$s\".\"ALOJAMIENTOS\" \"A1\""
+				+ " WHERE \"A4\".\"CLIENTEID\"=%2$d "
+				+ "AND \"A4\".\"RESERVAID\"=\"A3\".\"ID\" "
+				+ "AND \"A3\".\"OFERTA\"=\"A2\".\"ID\" "
+				+ "AND \"A2\".\"ALOJAMIENTOID\"=\"A1\".\"ID\"", AlohAndesTransactionManager.USUARIO,id);
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
 
 		if(rs.next()) {
-			dias = rs.getInt("DIAS");
+			usos.add(convertResultSetToUsoCliente(rs));
 		}
-		return dias;
+		
+		return usos;
 	}
 	
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -133,5 +140,22 @@ public class DAOCliente {
 			Cliente cliente = new Cliente(documento, nombre, vinculo);
 
 			return cliente;
+	}
+	
+	/**
+	 * Metodo que transforma el resultado obtenido de una consulta SQL en una instancia de la clase UsoCliente.
+	 * @param resultSet ResultSet con la informacion de un cliente que se obtuvo de la base de datos.
+	 * @return Cliente cuyos atributos corresponden a los valores asociados a un registro particular de la tabla CLIENTES.
+	 * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
+	 */
+	public UsoCliente convertResultSetToUsoCliente(ResultSet resultSet) throws SQLException {
+			Integer documento= resultSet.getInt("CLIENTEID");
+			String tipo= resultSet.getString("TIPO");
+			String des = resultSet.getString("DESCRIPCION");
+			int dias = resultSet.getInt("CANTIDADDIAS");
+			Double precio=resultSet.getDouble("PRECIOESTADIA");
+			UsoCliente uso=new UsoCliente(documento,dias,tipo,des,dias*precio);
+
+			return uso;
 	}
 }

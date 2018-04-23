@@ -6,7 +6,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 /**
  * 
  * @author Cristian
- * Clase que representa uel uso del sistema por parte de un Cliente
+ * Clase que representa el uso del sistema por parte de un Cliente
  */
 public class UsoCliente {
 	//----------------------------------------------------------------------------------------------------------------------------------
