@@ -20,6 +20,12 @@ public class UsoCliente {
 	private int idCliente;
 	
 	/**
+	 * Tipo del cliente
+	 */
+	@JsonProperty(value="tipoCliente")
+	private String tipoCliente;
+	
+	/**
 	 * Dias contratados
 	 */
 	@JsonProperty(value="diasContratados")
@@ -51,14 +57,16 @@ public class UsoCliente {
 	 * Metodo constructor de la clase UsoCliente
 	 * <b>post: </b> Crea un objeto UsoCliente con los valores que entran por parametro
 	 * @param idCliente - id del cliente
+	 * @param tipoCliente - tipo del cliente
 	 * @param diasContratados - dis contratados por el cliente.
 	 * @param tipoAlojamiento - tipo de alojamiento contratado.
 	 * @param costoPagado - Costo pagado por alojamiento
 	 * @param descripcion - Descripcion por alojamiento
 	 */
-	public UsoCliente(@JsonProperty(value="idCliente") Integer idCliente,@JsonProperty(value="diasContratados") Integer diasContratados,@JsonProperty(value="tipoAlojamiento") String tipoAlojamiento,@JsonProperty(value="descripcion") String descripcion,@JsonProperty(value="costoPagado") double costoPagado) 
+	public UsoCliente(@JsonProperty(value="idCliente") Integer idCliente,@JsonProperty(value="tipoCliente") String tipoCliente,@JsonProperty(value="diasContratados") Integer diasContratados,@JsonProperty(value="tipoAlojamiento") String tipoAlojamiento,@JsonProperty(value="descripcion") String descripcion,@JsonProperty(value="costoPagado") double costoPagado) 
 	{
 		this.idCliente=idCliente;
+		this.tipoCliente=tipoCliente;
 		this.diasContratados= diasContratados;
 		this.tipoAlojamiento=tipoAlojamiento;
 		this.descripcion=descripcion;
@@ -108,5 +116,13 @@ public class UsoCliente {
 
 	public void setIdCliente(int idCliente) {
 		this.idCliente = idCliente;
+	}
+
+	public String getTipoCliente() {
+		return tipoCliente;
+	}
+
+	public void setTipoCliente(String tipoCliente) {
+		this.tipoCliente = tipoCliente;
 	}
 }

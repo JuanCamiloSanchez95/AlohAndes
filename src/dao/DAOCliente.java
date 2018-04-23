@@ -80,12 +80,13 @@ public class DAOCliente {
 	 */	
 	public ArrayList<UsoCliente> usosDelCliente(int id) throws SQLException, Exception {
 		ArrayList<UsoCliente> usos = new ArrayList<UsoCliente>();
-		String sql=String.format("SELECT \"A4\".\"CLIENTEID\" \"CLIENTEID\",\"A1\".\"TIPO\" \"TIPO\",\"A1\".\"DESCRIPCION\" \"DESCRIPCION\","
-				+ "\"A3\".\"CANTIDADDIAS\" \"CANTIDADDIAS\",\"A2\".\"PRECIOESTADIA\" \"PRECIOESTADIA\" "
-				+ "FROM \"%1$s\".\"RESERVASCLIENTE\" \"A4\",\"%1$s\".\"RESERVAS\" \"A3\""
+		String sql=String.format("SELECT \"A5\".\"DOCUMENTO\" \"DOCUMENTO\",\"A5\".\"VINCULO\" \"VINCULO\",\"A1\".\"TIPO\" \"TIPO\","
+				+ "\"A1\".\"DESCRIPCION\" \"DESCRIPCION\",\"A3\".\"CANTIDADDIAS\" \"CANTIDADDIAS\",\"A2\".\"PRECIOESTADIA\" \"PRECIOESTADIA\""
+				+ " FROM \"%1$s\".\"CLIENTES\" \"A5\",\"%1$s\".\"RESERVASCLIENTE\" \"A4\",\"%1$s\".\"RESERVAS\" \"A3\""
 				+ ",\"%1$s\".\"OFERTAS\" \"A2\",\"%1$s\".\"ALOJAMIENTOS\" \"A1\" "
-				+ "WHERE \"A4\".\"CLIENTEID\"= %2$d AND \"A4\".\"RESERVAID\"=\"A3\".\"ID\" "
-				+ "AND \"A3\".\"OFERTA\"=\"A2\".\"ID\" AND \"A2\".\"ALOJAMIENTOID\"=\"A1\".\"ID\"", AlohAndesTransactionManager.USUARIO,id);
+				+ "WHERE \"A5\".\"DOCUMENTO\"= %2$d AND \"A4\".\"CLIENTEID\"=\"A5\".\"DOCUMENTO\" "
+				+ "AND \"A4\".\"RESERVAID\"=\"A3\".\"ID\" AND \"A3\".\"OFERTA\"=\"A2\".\"ID\" "
+				+ "AND \"A2\".\"ALOJAMIENTOID\"=\"A1\".\"ID\"", AlohAndesTransactionManager.USUARIO,id);
 		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
@@ -148,12 +149,13 @@ public class DAOCliente {
 	 * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
 	 */
 	public UsoCliente convertResultSetToUsoCliente(ResultSet resultSet) throws SQLException {
-			Integer documento= resultSet.getInt("CLIENTEID");
+			Integer documento= resultSet.getInt("DOCUMENTO");
+			String tipoCliente= resultSet.getString("VINCULO");
 			String tipo= resultSet.getString("TIPO");
 			String des = resultSet.getString("DESCRIPCION");
 			int dias = resultSet.getInt("CANTIDADDIAS");
 			Double precio=resultSet.getDouble("PRECIOESTADIA");
-			UsoCliente uso=new UsoCliente(documento,dias,tipo,des,dias*precio);
+			UsoCliente uso=new UsoCliente(documento,tipoCliente,dias,tipo,des,dias*precio);
 
 			return uso;
 	}
