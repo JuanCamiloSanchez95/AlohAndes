@@ -12,7 +12,7 @@ public class HabitacionVivienda extends Alojamiento
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// ATRIBUTOS
 	//----------------------------------------------------------------------------------------------------------------------------------
-		
+
 	/**
 	 * urlEsquema de la habitacion
 	 */
@@ -24,24 +24,25 @@ public class HabitacionVivienda extends Alojamiento
 	 */
 	@JsonProperty(value="compartida")
 	private boolean compartida;
-	
-	 
-	
+
+
+
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODO CONSTRUCTOR
 	//----------------------------------------------------------------------------------------------------------------------------------
 
 	/**
-	 * 
-	 * @param id
-	 * @param nombre
-	 * @param tipo
-	 * @param ubicacion
-	 * @param descripcion
-	 * @param costo
-	 * @param minimoPeriodo
-	 * @param compartida
-	 * @param urlEsquema
+	 *  Metodo constructor de la clase HebitacionVivienda
+	 * <b>post: </b> Crea la habitacion de una vivienda con los valores que entran por parametro
+	 * @param id - id del alojamiento
+	 * @param nombre - nombre del alojamiento
+	 * @param tipo - tipo alojamiento
+	 * @param ubicacion - Ubicacion del alojamiento
+	 * @param descripcion -  Descripcion del alojamiento
+	 * @param costo - Costo diario del alojamiento
+	 * @param minimoPeriodo - Minimo periodo de alojamiento
+	 * @param compartida - True si la habitacion es compartida, false de lo contrario
+	 * @param urlEsquema - URL de esquema
 	 */
 	public HabitacionVivienda(@JsonProperty(value="id") Integer id,@JsonProperty(value="nombre") String nombre, @JsonProperty(value="tipo") String tipo,@JsonProperty(value="ubicacion") String ubicacion,@JsonProperty(value="descripcion") String descripcion,@JsonProperty(value="costo") double costo, @JsonProperty(value="minimoPeriodo")int minimoPeriodo,@JsonProperty(value="compartida")boolean compartida,@JsonProperty(value="urlEsquema")String urlEsquema) 
 	{
@@ -49,9 +50,9 @@ public class HabitacionVivienda extends Alojamiento
 		this.compartida=compartida;
 		this.urlEsquema=urlEsquema;
 	}
-			//----------------------------------------------------------------------------------------------------------------------------------
-			// METODOS DE LA CLASE
-			//----------------------------------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------------------------------------------------------
+	// METODOS DE LA CLASE
+	//----------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -76,7 +77,7 @@ public class HabitacionVivienda extends Alojamiento
 	public void setCompartida(boolean compartida) {
 		this.compartida = compartida;
 	}
-			
+
 
 
 }

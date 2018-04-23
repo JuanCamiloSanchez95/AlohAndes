@@ -41,10 +41,10 @@ public class Apartamento extends Alojamiento
 	 * @param tipo - tipo del operador
 	 * @param ubicacion - ubicacion del hotel
 	 * @param descripcion - descripcion 
-	 * @param costo
-	 * @param minimoPeriodo
-	 * @param amoblado
-	 * @param administracion
+	 * @param costo - costo diario del alojamiento
+	 * @param minimoPeriodo - minimo periodo de alquiler
+	 * @param amoblado - True si el alojamiento esta amoblado, False de lo contrario
+	 * @param administracion - Valor administracion
 	 */
 		public Apartamento(@JsonProperty(value="id") Integer id,@JsonProperty(value="nombre") String nombre, @JsonProperty(value="tipo") String tipo,@JsonProperty(value="ubicacion") String ubicacion,@JsonProperty(value="descripcion") String descripcion,@JsonProperty(value="costo") double costo, @JsonProperty(value="minimoPeriodo")int minimoPeriodo,@JsonProperty(value="amoblado")boolean amoblado,@JsonProperty(value="administracion")double administracion) 
 		{

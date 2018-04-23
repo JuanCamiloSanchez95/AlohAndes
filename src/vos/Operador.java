@@ -90,7 +90,7 @@ public class Operador {
 
 		/**
 		 * Cambia el id de un operador 
-		 * @param id
+		 * @param id Identificador del operador
 		 */
 		public void setId(int id) {
 			this.id = id;
