@@ -574,5 +574,41 @@ public class AlohAndesTransactionManager {
 		}
 		return usos;
 	}
+	
+	/**
+	 * Metodo que modela la transaccion que retorna los usos de un cliente en la base de datos.
+	 * @param id - id del Cliente 
+	 * @return List<UsoCliente> - Lista de usos de un cliente que contiene el resultado de la consulta.
+	 * @throws Exception - Cualquier error que se genere durante la transaccion
+	 */
+	public List<UsoCliente> getUsosByVinculo() throws Exception {
+		DAOCliente daoCliente = new DAOCliente();
+		List<UsoCliente> usos;
+		try {
+			this.conn = darConexion();
+			daoCliente.setConn(conn);
+			usos = daoCliente.usosPorVinculo();
+		} catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} finally {
+			try {
+				daoCliente.cerrarRecursos();
+				if (this.conn != null) {
+					this.conn.close();
+				}
+			} catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return usos;
+	}
 
 }
