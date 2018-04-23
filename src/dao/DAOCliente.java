@@ -81,13 +81,12 @@ public class DAOCliente {
 	public ArrayList<UsoCliente> usosDelCliente(int id) throws SQLException, Exception {
 		ArrayList<UsoCliente> usos = new ArrayList<UsoCliente>();
 		String sql=String.format("SELECT \"A4\".\"CLIENTEID\" \"CLIENTEID\",\"A1\".\"TIPO\" \"TIPO\",\"A1\".\"DESCRIPCION\" \"DESCRIPCION\","
-				+ "\"A3\".\"CANTIDADDIAS\" \"CANTIDADDIAS\",\"A2\".\"PRECIOESTADIA\" \"PRECIOESTADIA\""
-				+ " FROM \"%1$s\".\"RESERVASCLIENTE\" \"A4\",\"%1$s\".\"RESERVAS\" \"A3\","
-				+ "\"%1$s\".\"OFERTAS\" \"A2\",\"%1$s\".\"ALOJAMIENTOS\" \"A1\""
-				+ " WHERE \"A4\".\"CLIENTEID\"=%2$d "
-				+ "AND \"A4\".\"RESERVAID\"=\"A3\".\"ID\" "
-				+ "AND \"A3\".\"OFERTA\"=\"A2\".\"ID\" "
-				+ "AND \"A2\".\"ALOJAMIENTOID\"=\"A1\".\"ID\"", AlohAndesTransactionManager.USUARIO,id);
+				+ "\"A3\".\"CANTIDADDIAS\" \"CANTIDADDIAS\",\"A2\".\"PRECIOESTADIA\" \"PRECIOESTADIA\" "
+				+ "FROM \"%1$s\".\"RESERVASCLIENTE\" \"A4\",\"%1$s\".\"RESERVAS\" \"A3\""
+				+ ",\"%1$s\".\"OFERTAS\" \"A2\",\"%1$s\".\"ALOJAMIENTOS\" \"A1\" "
+				+ "WHERE \"A4\".\"CLIENTEID\"= %2$d AND \"A4\".\"RESERVAID\"=\"A3\".\"ID\" "
+				+ "AND \"A3\".\"OFERTA\"=\"A2\".\"ID\" AND \"A2\".\"ALOJAMIENTOID\"=\"A1\".\"ID\"", AlohAndesTransactionManager.USUARIO,id);
+		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
