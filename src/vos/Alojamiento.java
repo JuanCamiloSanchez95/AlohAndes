@@ -157,42 +157,4 @@ public class Alojamiento
 	public void setServicios(ArrayList<Servicio> servicios) {
 		this.servicios = servicios;
 	}
-
-	/**
-	 * Clase auxiliar para la busqueda
-	 * @author Cristian Amaya
-	 *
-	 */
-	public class RequestBody {
-		@JsonProperty(value="inicio")
-		private Date inicio;
-		@JsonProperty(value="fin")
-		private Date fin;
-		@JsonProperty(value="servicios")
-		private String servicios;
-
-		public RequestBody(@JsonProperty(value="inicio") Date inicio, @JsonProperty(value="fin") Date fin,@JsonProperty(value="servicios") String servicios) {
-			this.inicio=inicio;
-			this.fin=fin;
-			this.servicios=servicios;
-		}
-		public Date getInicio() {
-			return inicio;
-		}
-		public Date getFin() {
-			return fin;
-		}
-		public String getServicios() {
-			return servicios;
-		}
-		public void setInicio(Date inicio) {
-			this.inicio = inicio;
-		}
-		public void setFin(Date fin) {
-			this.fin = fin;
-		}
-		public void setServicios(String servicios) {
-			this.servicios = servicios;
-		}
-	}
 }

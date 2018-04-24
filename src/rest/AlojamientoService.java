@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
@@ -16,7 +17,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 import tm.AlohAndesTransactionManager;
 import vos.Alojamiento;
-import vos.Alojamiento.RequestBody;
+import vos.ConsultaAlojamiento;
 import vos.UsoCliente;
 
 @Path("alojamientos")
@@ -60,11 +61,11 @@ public class AlojamientoService {
 	 * @return	<b>Response Status 200</b> - JSON que contiene los alojamientos resultantes de la busqueda en la Base de Datos.
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */			
-	@GET
+	@POST
 	@Path( "/busqueda" )
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getAlojamientosByFechasAndServicios(RequestBody request) {
+	public Response getAlojamientosByFechasAndServicios(ConsultaAlojamiento request) {
 
 		try {
 			AlohAndesTransactionManager tm = new AlohAndesTransactionManager(getPath());
