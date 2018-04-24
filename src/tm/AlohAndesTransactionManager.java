@@ -20,14 +20,16 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
-
+import dao.DAOAlojamiento;
 import dao.DAOCliente;
 import dao.DAOOferta;
 import dao.DAOOperador;
 import dao.DAOReserva;
+import vos.Alojamiento;
 import vos.Oferta;
 import vos.Operador;
 import vos.Reserva;
@@ -609,6 +611,44 @@ public class AlohAndesTransactionManager {
 			}
 		}
 		return usos;
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que retorna los alojamientos que cumplen los parametros en la base de datos.
+	 * @param inicio - Fecha inicial del rango de consulta
+	 * @param fin - Fecha final del rango de consulta
+	 * @param servicios - servicios que debe incluir el alojamiento
+	 * @return List<Alojamiento> - Lista de alojamientos que contiene el resultado de la consulta.
+	 * @throws Exception - Cualquier error que se genere durante la transaccion
+	 */
+	public List<Alojamiento> getAlojamientosByFechasAndServicios(Date inicio,Date fin, String servicios) throws Exception {
+		DAOAlojamiento daoAlojamiento = new DAOAlojamiento();
+		List<Alojamiento> alojamientos;
+		try {
+			this.conn = darConexion();
+			daoAlojamiento.setConn(conn);
+			alojamientos = daoAlojamiento.getAlojamientosByFechaAndServicios(inicio, fin, servicios);
+		} catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} finally {
+			try {
+				daoAlojamiento.cerrarRecursos();
+				if (this.conn != null) {
+					this.conn.close();
+				}
+			} catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return alojamientos;
 	}
 
 }

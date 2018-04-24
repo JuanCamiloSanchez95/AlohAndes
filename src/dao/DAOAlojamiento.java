@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -52,12 +54,17 @@ public class DAOAlojamiento {
 	 */
 	public ArrayList<Alojamiento> getAlojamientosByFechaAndServicios(Date inicio, Date fin, String servicios) throws SQLException, Exception {
 		ArrayList<Alojamiento> alojamientos = new ArrayList<Alojamiento>();
+		
+		Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+		
 		String[] parts=servicios.split(",");
 		StringBuilder sql = new StringBuilder();
+		
+		
 		sql.append(String.format("SELECT ALOJAMIENTOS.*" + 
 				" FROM %s.ALOJAMIENTOS,%s.OFERTAS,%s.SERVICIOSDEALOJAMIENTOS,%s.SERVICIOS",AlohAndesTransactionManager.USUARIO));
-		sql.append(String.format(" WHERE OFERTAS.FECHAPUBLICACION BETWEEN TO_DATE('1/1/2018','DD/MM/YYYY')",inicio));
-		sql.append(String.format(" AND TO_DATE('1/5/2018','DD/MM/YYYY') ",fin)); 
+		sql.append(String.format(" WHERE OFERTAS.FECHAPUBLICACION BETWEEN TO_DATE('%s','DD/MM/YYYY')",formatter.format(inicio)));
+		sql.append(String.format(" AND TO_DATE('%s','DD/MM/YYYY')",formatter.format(fin))); 
 		sql.append(" AND OFERTAS.ALOJAMIENTOID=ALOJAMIENTOS.ID");
 		sql.append(" AND ALOJAMIENTOS.ID=SERVICIOSDEALOJAMIENTOS.ALOJAMIENTO");
 		sql.append(" AND SERVICIOS.ID=SERVICIOSDEALOJAMIENTOS.SERVICIO");
