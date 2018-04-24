@@ -61,17 +61,18 @@ public class DAOAlojamiento {
 		StringBuilder sql = new StringBuilder();
 		
 		
-		sql.append(String.format("SELECT ALOJAMIENTOS.*" + 
-				" FROM %s.ALOJAMIENTOS,%s.OFERTAS,%s.SERVICIOSDEALOJAMIENTOS,%s.SERVICIOS",AlohAndesTransactionManager.USUARIO));
-		sql.append(String.format(" WHERE OFERTAS.FECHAPUBLICACION BETWEEN TO_DATE('%s','DD/MM/YYYY')",formatter.format(inicio)));
-		sql.append(String.format(" AND TO_DATE('%s','DD/MM/YYYY')",formatter.format(fin))); 
+		sql.append(String.format("SELECT ALOJAMIENTOS.* FROM %1$s.ALOJAMIENTOS,%1$s.OFERTAS,%1$s.SERVICIOSDEALOJAMIENTOS,%1$s.SERVICIOS",AlohAndesTransactionManager.USUARIO));
+		sql.append(String.format(" WHERE OFERTAS.FECHAPUBLICACION BETWEEN TO_DATE('%1$s','DD/MM/YYYY')",formatter.format(inicio)));
+		sql.append(String.format(" AND TO_DATE('%1$s','DD/MM/YYYY')",formatter.format(fin))); 
 		sql.append(" AND OFERTAS.ALOJAMIENTOID=ALOJAMIENTOS.ID");
 		sql.append(" AND ALOJAMIENTOS.ID=SERVICIOSDEALOJAMIENTOS.ALOJAMIENTO");
 		sql.append(" AND SERVICIOS.ID=SERVICIOSDEALOJAMIENTOS.SERVICIO");
 
 		for(int i=0;i<parts.length;i++) {
-			sql.append(String.format("AND SERVICIOS.NOMBRE='%s'", parts[i]));
+			sql.append(String.format(" AND SERVICIOS.NOMBRE='%1$s'", parts[i]));
 		}
+		
+		System.out.println(sql.toString());
 		
 		PreparedStatement prepStmt = conn.prepareStatement(sql.toString());
 		recursos.add(prepStmt);

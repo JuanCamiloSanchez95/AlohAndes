@@ -149,6 +149,86 @@
 			"response": []
 		},
 		{
+			"name": "RFC4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9936376d-1b07-438e-a1cc-ca1bf1a8fffd",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code===200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"inicio\": \"2018-01-02\",\n\t\"fin\": \"2018-05-02\",\n\t\"servicios\": \"WiFi\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/AlohAndes/rest/alojamientos/busqueda",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AlohAndes",
+						"rest",
+						"alojamientos",
+						"busqueda"
+					]
+				},
+				"description": "MOSTRAR LOS ALOJAMIENTOS DISPONIBLES EN UN RANGO DE FECHAS, QUE CUMPLEN CON UN CONJUNTO DE REQUERIMIENTOS DE DOTACIÓN O SERVICIOS. POR EJEMPLO, COCINETA, TV CABLE, INTERNET, SALA."
+			},
+			"response": []
+		},
+		{
+			"name": "RFC5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9936376d-1b07-438e-a1cc-ca1bf1a8fffd",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code===200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/AlohAndes/rest/clientes/usos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AlohAndes",
+						"rest",
+						"clientes",
+						"usos"
+					]
+				},
+				"description": "MOSTRAR EL USO DE ALOHANDES PARA CADA TIPO DE USUARIO DE LA COMUNIDAD"
+			},
+			"response": []
+		},
+		{
 			"name": "RFC6",
 			"event": [
 				{
