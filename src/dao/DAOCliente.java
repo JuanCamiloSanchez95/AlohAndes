@@ -92,7 +92,7 @@ public class DAOCliente {
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
 
-		if(rs.next()) {
+		while(rs.next()) {
 			usos.add(convertResultSetToUsoCliente(rs));
 		}
 
@@ -102,13 +102,13 @@ public class DAOCliente {
 
 	public ArrayList<String> vinculosDeClientes() throws SQLException, Exception {
 		ArrayList<String> vinculos = new ArrayList<String>();
-		String sql=String.format("SELECT DISTINCT \"A1\".\"VINCULO\" \"VINCULO\" FROM \"%1$s\".\"CLIENTES\" \"A1\"", AlohAndesTransactionManager.USUARIO);
+		String sql=String.format("SELECT DISTINCT(VINCULO) AS VINCULO FROM %1$s.CLIENTES", AlohAndesTransactionManager.USUARIO);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
 
-		if(rs.next()) {
+		while(rs.next()) {
 			vinculos.add(rs.getString("VINCULO"));
 		}
 
@@ -128,7 +128,7 @@ public class DAOCliente {
 			recursos.add(prepStmt);
 			ResultSet rs = prepStmt.executeQuery();
 
-			if(rs.next()) {
+			while(rs.next()) {
 				usos.add(convertResultSetToUsoCliente(rs));
 			}
 		}
