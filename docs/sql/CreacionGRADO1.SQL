@@ -18,8 +18,9 @@ CONSTRAINT CHvinculo CHECK (vinculo = 'Estudiante' OR vinculo ='Padre' OR vincul
 CREATE TABLE Operadores(
 id int,
 tipo varchar(32) NOT NULL,
- nombre varchar(32),CONSTRAINT CKtipo  CHECK (tipo = 'Hotel' OR tipo ='Hostal' OR tipo ='Persona' OR tipo='Vivienda Universitaria'
-) ,CONSTRAINT PKoperadores PRIMARY KEY(id)
+ nombre varchar(32),
+ CONSTRAINT CKtipo  CHECK (tipo = 'Hotel' OR tipo ='Hostal' OR tipo ='Persona' OR tipo='Vivienda Universitaria') ,
+ CONSTRAINT PKoperadores PRIMARY KEY(id)
 );
 
 
@@ -42,6 +43,8 @@ nombre varchar(32) NOT NULL,
 ubicacion varchar(32) NOT NULL,
 descripcion varchar(32),
 costo double precision NOT NULL,
-minimoPeriodo int,
-CONSTRAINT PKaloj PRIMARY KEY (id)
+minimoPeriodo int NOT NULL,
+CONSTRAINT PKaloj PRIMARY KEY (id),
+CONSTRAINT CKminimo CHECK (minimoPeriodo>=0),
+CONSTRAINT CKcostoAloja CHECK (costo>0)
 );

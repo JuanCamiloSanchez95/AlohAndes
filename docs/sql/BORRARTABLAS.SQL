@@ -1,25 +1,41 @@
-DROP TABLE Viviendas;
-DROP TABLE HABITACIONESUNIVERSITARIAS;
-DROP TABLE HABITACIONESVIVIENDA;
-DROP TABLE habitacionesH;
-DROP TABLE SEGUROS;
-DROP TABLE apartamentos;
-DROP TABLE HOSTALES;
-DROP TABLE HOTELES;
-DROP TABLE PERSONANATURAL;
-DROP TABLE VIVIENDAUNIVERSITARIA;
-DROP TABLE SERVICIOSDEALOJAMIENTOS;
-DROP TABLE SERVICIOSDEOPERADORES;
-DROP TABLE ALOJAMIENTOSOPERADORES;
-DROP TABLE OFERTASOPERADOR;
-DROP TABLE SERVICIOS;
-DROP TABLE OPERADORESREGISTRADOS;
-DROP TABLE CLIENTESREGISTRADOS;
-DROP TABLE RESERVASCLIENTE;
-DROP TABLE RESERVASOFERTAS;
-DROP TABLE RESERVAS;
-DROP TABLE CLIENTES;
-DROP TABLE OFERTAS;
-DROP TABLE OPERADORES;
-DROP TABLE ALojamientos;
-
+BEGIN
+   FOR cur_rec IN (SELECT object_name, object_type
+                     FROM user_objects
+                    WHERE object_type IN
+                             ('TABLE',
+                              'VIEW',
+                              'PACKAGE',
+                              'PROCEDURE',
+                              'FUNCTION',
+                              'SEQUENCE',
+                              'SYNONYM',
+                              'PACKAGE BODY'
+                             ))
+   LOOP
+      BEGIN
+         IF cur_rec.object_type = 'TABLE'
+         THEN
+            EXECUTE IMMEDIATE    'DROP '
+                              || cur_rec.object_type
+                              || ' "'
+                              || cur_rec.object_name
+                              || '" CASCADE CONSTRAINTS';
+         ELSE
+            EXECUTE IMMEDIATE    'DROP '
+                              || cur_rec.object_type
+                              || ' "'
+                              || cur_rec.object_name
+                              || '"';
+         END IF;
+      EXCEPTION
+         WHEN OTHERS
+         THEN
+            DBMS_OUTPUT.put_line (   'FAILED: DROP '
+                                  || cur_rec.object_type
+                                  || ' "'
+                                  || cur_rec.object_name
+                                  || '"'
+                                 );
+      END;
+   END LOOP;
+END;

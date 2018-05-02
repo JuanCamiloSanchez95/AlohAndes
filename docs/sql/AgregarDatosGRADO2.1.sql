@@ -33,19 +33,19 @@ insert into operadoresRegistrados (AlohaId, OperadorId) values (1, 29);
 insert into operadoresRegistrados (AlohaId, OperadorId) values (1, 30);
 
 		--HOTELES
-insert into hoteles (id, categoria, nombre, registroSI, registroCamara) values (1, 1, 'Kemmer, Rolfson and Russel', 56, 880);
-insert into hoteles (id, categoria, nombre, registroSI, registroCamara) values (2, 3, 'Nitzsche, O''Reilly and Bruen', 837, 643);
-insert into hoteles (id, categoria, nombre, registroSI, registroCamara) values (3, 3, 'Anderson-Runolfsdottir', 156, 156);
-insert into hoteles (id, categoria, nombre, registroSI, registroCamara) values (4, 5, 'Luettgen LLC', 472, 869);
-insert into hoteles (id, categoria, nombre, registroSI, registroCamara) values (5, 4, 'Ullrich Inc', 87, 906);
+insert into hoteles (id, categoria, registroSI, registroCamara) values (1, 1, 56, 880);
+insert into hoteles (id, categoria, registroSI, registroCamara) values (2, 3, 837, 643);
+insert into hoteles (id, categoria, registroSI, registroCamara) values (3, 3, 156, 156);
+insert into hoteles (id, categoria, registroSI, registroCamara) values (4, 5, 472, 869);
+insert into hoteles (id, categoria, registroSI, registroCamara) values (5, 4, 87, 906);
 		
 		--HOSTALES
 
-insert into hostales (id, nombre, registroSI, registroCamara, horarioapertura, horariocierre) values (6, 'Morissette, Daugherty and Paucek', 710, 36, '1:44 PM', '4:49 AM');
-insert into hostales (id, nombre, registroSI, registroCamara, horarioapertura, horariocierre) values (7, 'Sawayn, Gleichner and Crooks', 637, 968, '12:19 PM', '6:58 PM');
-insert into hostales (id, nombre, registroSI, registroCamara, horarioapertura, horariocierre) values (8, 'Littel-Bednar', 191, 21, '9:17 PM', '9:59 PM');
-insert into hostales (id, nombre, registroSI, registroCamara, horarioapertura, horariocierre) values (9, 'Ebert, Stracke and Halvorson', 786, 511, '1:52 PM', '9:34 AM');
-insert into hostales (id, nombre, registroSI, registroCamara, horarioapertura, horariocierre) values (10, 'Block Group', 94, 690, '1:26 PM', '10:09 PM');
+insert into hostales (id, registroSI, registroCamara, horarioapertura, horariocierre) values (6, 710, 36, '1:44 PM', '4:49 AM');
+insert into hostales (id, registroSI, registroCamara, horarioapertura, horariocierre) values (7, 637, 968, '12:19 PM', '6:58 PM');
+insert into hostales (id, registroSI, registroCamara, horarioapertura, horariocierre) values (8, 191, 21, '9:17 PM', '9:59 PM');
+insert into hostales (id, registroSI, registroCamara, horarioapertura, horariocierre) values (9, 786, 511, '1:52 PM', '9:34 AM');
+insert into hostales (id, registroSI, registroCamara, horarioapertura, horariocierre) values (10, 94, 690, '1:26 PM', '10:09 PM');
 
 		--PERSONA
 insert into PERSONANATURAL (id, vinculo, nombre) values (11, 'evento', 'Hynda Crudge');
