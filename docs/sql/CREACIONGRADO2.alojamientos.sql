@@ -7,16 +7,26 @@ CONSTRAINT CKamobladoAparto CHECK (amoblado = 'Y' OR amoblado='F'),
 CONSTRAINT FKapartamentos FOREIGN KEY (id) REFERENCES Alojamientos(id)
 );
 
-CREATE TABLE HabitacionesH(
+CREATE TABLE HabitacionesHotel(
 id int,
 capacidad int NOT NULL,
 tipo varchar(32) NOT NULL,
 numeroHabitacion int NOT NULL UNIQUE,
-ubicacionH varchar(32) NOT NULL,
 tamano varchar(32),
-CONSTRAINT PKHabitacionesH PRIMARY KEY (id),
-CONSTRAINT FKalojHabitacionesH FOREIGN KEY  (id) REFERENCES Alojamientos (id)
+CONSTRAINT PKHabitacionesHotel PRIMARY KEY (id),
+CONSTRAINT FKalojHabitacionesHotel FOREIGN KEY  (id) REFERENCES Alojamientos (id)
 );
+
+CREATE TABLE HabitacionesHostal(
+id int,
+capacidad int NOT NULL,
+tipo varchar(32) NOT NULL,
+numeroHabitacion int NOT NULL UNIQUE,
+tamano varchar(32),
+CONSTRAINT PKHabitacionesHostal PRIMARY KEY (id),
+CONSTRAINT FKalojHabitacionesHostal FOREIGN KEY  (id) REFERENCES Alojamientos (id)
+);
+
 
 CREATE TABLE HabitacionesUniversitarias(
 id int,
