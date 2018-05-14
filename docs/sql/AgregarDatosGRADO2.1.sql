@@ -7,11 +7,11 @@ insert into hoteles (id,categoria, registroSI, registroCamara) values (5, 4, 87,
 		
 		--HOSTALES
 
-insert into hostales (id, registroSI, registroCamara, horarioapertura, horariocierre) values (6, 710, 36, '01:44 PM', '4:49 AM');
-insert into hostales (id, registroSI, registroCamara, horarioapertura, horariocierre) values (7, 637, 968, '12:19 PM', '6:58 PM');
-insert into hostales (id, registroSI, registroCamara, horarioapertura, horariocierre) values (8, 191, 21, '09:17 PM', '9:59 PM');
-insert into hostales (id, registroSI, registroCamara, horarioapertura, horariocierre) values (9, 786, 511, '01:52 PM', '9:34 AM');
-insert into hostales (id, registroSI, registroCamara, horarioapertura, horariocierre) values (10, 94, 690, '01:26 PM', '10:09 PM');
+insert into hostales (id, registroSI, registroCamara, horarioapertura, horariocierre) values (6, 710, 36, '13:44', '16:49');
+insert into hostales (id, registroSI, registroCamara, horarioapertura, horariocierre) values (7, 637, 968, '12:19', '18:58');
+insert into hostales (id, registroSI, registroCamara, horarioapertura, horariocierre) values (8, 191, 21, '14:17', '21:59');
+insert into hostales (id, registroSI, registroCamara, horarioapertura, horariocierre) values (9, 786, 511, '13:52', '21:34');
+insert into hostales (id, registroSI, registroCamara, horarioapertura, horariocierre) values (10, 94, 690, '13:26', '22:09');
 
 		--PERSONA
 insert into PERSONANATURAL (id, vinculo) values (11, 'Evento');

@@ -3,8 +3,8 @@ id int,
 nombreHostal varchar(32),
 registroSI varchar(32) NOT NULL, 
 registroCamara varchar(32) NOT NULL,
-horarioApertura varchar(32) NOT NULL,
-horarioCierre varchar(32) NOT NULL,
+horarioApertura varchar(5) NOT NULL,
+horarioCierre varchar(5) NOT NULL,
 CONSTRAINT PKhostales PRIMARY KEY (id),
 CONSTRAINT FKoperadorHostales FOREIGN KEY (id) REFERENCES Operadores(id)
 );
