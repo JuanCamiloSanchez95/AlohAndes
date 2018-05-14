@@ -9,6 +9,7 @@ CONSTRAINT FKAlojaopera FOREIGN KEY (alohaid) references Alohandes (id)
 
 CREATE TABLE Hostales(
 id int,
+nombreHostal varchar(32) NOT NULL,
 registroSI varchar(32) NOT NULL, 
 registroCamara varchar(32) NOT NULL,
 horarioApertura varchar(32) NOT NULL,
@@ -19,6 +20,7 @@ CONSTRAINT FKoperadorHostales FOREIGN KEY (id) REFERENCES Operadores(id)
 
 CREATE TABLE Hoteles(
 id int,
+nombreHotel varchar(32) NOT NULL,
 categoria int NOT NULL,
 registroSI varchar(32) NOT NULL, 
 registroCamara varchar(32) NOT NULL,
