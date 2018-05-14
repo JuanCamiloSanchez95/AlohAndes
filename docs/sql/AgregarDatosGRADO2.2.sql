@@ -1,25 +1,27 @@
 	--Apartamentos
 insert into Apartamentos (id, amoblado, administracion) values (1, 'Y', 57.4);
-insert into Apartamentos (id, amoblado, administracion) values (2, 'F', 31.25);
-insert into Apartamentos (id, amoblado, administracion) values (3, 'F', 73.35);
-insert into Apartamentos (id, amoblado, administracion) values (4, 'F', 27.13);
+insert into Apartamentos (id, amoblado, administracion) values (2, 'N', 31.25);
+insert into Apartamentos (id, amoblado, administracion) values (3, 'N', 73.35);
+insert into Apartamentos (id, amoblado, administracion) values (4, 'N', 27.13);
 insert into Apartamentos (id, amoblado, administracion) values (5, 'Y', 24.86);
 insert into Apartamentos (id, amoblado, administracion) values (6, 'Y', 48.3);
 insert into Apartamentos (id, amoblado, administracion) values (7, 'Y', 2.35);
-insert into Apartamentos (id, amoblado, administracion) values (8, 'F', 22.14);
+insert into Apartamentos (id, amoblado, administracion) values (8, 'N', 22.14);
 insert into Apartamentos (id, amoblado, administracion) values (9, 'Y', 61.71);
-insert into Apartamentos (id, amoblado, administracion) values (10, 'F', 3.04);
+insert into Apartamentos (id, amoblado, administracion) values (10, 'N', 3.04);
 insert into Apartamentos (id, amoblado, administracion) values (11, 'Y', 89.4);
-insert into Apartamentos (id, amoblado, administracion) values (12, 'F', 58.59);
+insert into Apartamentos (id, amoblado, administracion) values (12, 'N', 58.59);
 insert into Apartamentos (id, amoblado, administracion) values (13, 'Y', 59.58);
-insert into Apartamentos (id, amoblado, administracion) values (14, 'F', 62.09);
-insert into Apartamentos (id, amoblado, administracion) values (15, 'F', 98.72);
-insert into Apartamentos (id, amoblado, administracion) values (16, 'F', 40.97);
-insert into Apartamentos (id, amoblado, administracion) values (17, 'F', 78.06);
-insert into Apartamentos (id, amoblado, administracion) values (18, 'F', 66.23);
+insert into Apartamentos (id, amoblado, administracion) values (14, 'N', 62.09);
+insert into Apartamentos (id, amoblado, administracion) values (15, 'N', 98.72);
+insert into Apartamentos (id, amoblado, administracion) values (16, 'N', 40.97);
+insert into Apartamentos (id, amoblado, administracion) values (17, 'N', 78.06);
+insert into Apartamentos (id, amoblado, administracion) values (18, 'N', 66.23);
 insert into Apartamentos (id, amoblado, administracion) values (19, 'Y', 55.8);
-insert into Apartamentos (id, amoblado, administracion) values (20, 'F', 62.86);
-insert into HabitacionesH(id,capacidad,tipo,numeroHabitacion,ubicacionH,tamano) values(6,3,'Suite',124,'Torre al lado de la piscina','Grande');
+insert into Apartamentos (id, amoblado, administracion) values (20, 'N', 62.86);
+insert into HabitacionesHotel(id,capacidad,tipo,numeroHabitacion,tamano) values(6,3,'Suite',124,'Grande');
+
+
 	--HabitacionesUniversitarias
 insert into HabitacionesUniversitarias (id, compartida, numeroHabitacion, Capacidad, menaje, ubicacionH) values (21, 'N', 35, 3, 'Baby', 'Way');
 insert into HabitacionesUniversitarias (id, compartida, numeroHabitacion, Capacidad, menaje, ubicacionH) values (22, 'N', 17, 5, 'Shoes', 'Pass');

@@ -31,7 +31,7 @@ insert into Clientes (documento, nombre, vinculo) values (29, 'Cyndy Pude', 'Emp
 insert into Clientes (documento, nombre, vinculo) values (30, 'Shannah Johannesson', 'Egresado');
 
 --OPERADORES
-insert into Operadores (id, tipo, nombre) values (1, 'Hotel', 'Jade Plains Resort & Spa');
+insert into Operadores (id, tipo, nombre) values (1, 'Hotel', 'Jade Plains Resort');
 insert into Operadores (id, tipo, nombre) values (2, 'Persona', 'Estefania Cabal');
 insert into Operadores (id, tipo, nombre) values (3, 'Vivienda Universitaria', 'Vision-oriented');
 insert into Operadores (id, tipo, nombre) values (4, 'Hotel', 'Ivory Bear Hotel');

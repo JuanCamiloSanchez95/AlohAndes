@@ -170,6 +170,10 @@ public class AlohAndesTransactionManager {
 		try {
 			this.conn = darConexion();
 			daoOperador.setConn(conn);
+			if(operador.getTipo()==null || operador.getNombre() == null) {
+				throw new Exception(
+						"El operador tiene un parametro vacio");
+			}
 			daoOperador.addOperador(operador);
 
 		} catch (SQLException sqlException) {
@@ -777,4 +781,43 @@ public class AlohAndesTransactionManager {
 			}
 		}
 	}
+	
+	//Metodos de Hostal
+	
+	
+		/**
+		 * Metodo que modela la transaccion que agrega un hostal a la base de datos.
+		 * <b> post: </b> se ha agregado el hostal que entra como parametro
+		 * @param hostal - el hostal a agregar. hostal != null
+		 * @throws Exception - Cualquier error que se genere agregando el hostal
+		 */
+		public void addHotel(Hostal hostal) throws Exception {
+
+			DAOOperador daoOperador = new DAOOperador();
+			try {
+				this.conn = darConexion();
+				daoOperador.setConn(conn);
+				daoOperador.addHotel(hotel);
+
+			} catch (SQLException sqlException) {
+				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+				sqlException.printStackTrace();
+				throw sqlException;
+			} catch (Exception exception) {
+				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			} finally {
+				try {
+					daoOperador.cerrarRecursos();
+					if (this.conn != null) {
+						this.conn.close();
+					}
+				} catch (SQLException exception) {
+					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}
+		}
 }

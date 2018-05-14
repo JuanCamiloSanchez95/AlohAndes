@@ -3,7 +3,7 @@ id int,
 amoblado char(1)  NOT NULL,
 administracion double precision NOT NULL, 
 CONSTRAINT PKapartamentos PRIMARY KEY (id),
-CONSTRAINT CKamobladoAparto CHECK (amoblado = 'Y' OR amoblado='F'),
+CONSTRAINT CKamobladoAparto CHECK (amoblado = 'Y' OR amoblado='N'),
 CONSTRAINT FKapartamentos FOREIGN KEY (id) REFERENCES Alojamientos(id)
 );
 

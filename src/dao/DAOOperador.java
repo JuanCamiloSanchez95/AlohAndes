@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import vos.Bebedor;
 import vos.DineroOperador;
+import vos.Hostal;
 import vos.Hotel;
 import vos.Operador;
 import tm.AlohAndesTransactionManager;
@@ -96,7 +97,35 @@ public class DAOOperador {
 		prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
+	}
+	
+	/**
+	 * Metodo que agregar la informacion de un nuevo hotel en la Base de Datos a
+	 * partir del parametro ingresado
+	 * <b>Precondicion: </b> la conexion a sido inicializadoa 
+	 * @param hotel Hotel que desea agregar a la Base de Datos
+	 * @throws SQLException - SQLException Genera excepcion si hay error en la conexion o en la  consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
+	 */
+	public void addHostal(Hostal hostal) throws SQLException, Exception {
+		
+		//Creacion del Operador
+		String sql = String.format("INSERT INTO %1$s.OPERADORES (ID, TIPO, NOMBRE) VALUES (%2$s, '%3$s', '%4$s')",
+				AlohAndesTransactionManager.USUARIO, hostal.getId(), hostal.getTipo(), hostal.getNombre());
+		System.out.println(sql);
+		
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+		
+		// Creacion Hostal
+		sql = String.format("INSERT INTO %1$s.HOSTALES (ID, NOMBREHOSTAL, REGISTROSI, REGISTROCAMARA,HORARIOAPERTURA,HORARIOCIERRE) VALUES (%2$s, '%3$s', '%4$s','%5$s', '%6$s','%7$s')",
+				AlohAndesTransactionManager.USUARIO, hostal.getId(), hostal.getNombreHostal(), hostal.getRegistroST(), hostal.getRegistroCamara(),hostal.getHorarioApertura(),hostal.getHorarioCierre());
+		System.out.println(sql);
 
+		prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
 	}
 
 	/**

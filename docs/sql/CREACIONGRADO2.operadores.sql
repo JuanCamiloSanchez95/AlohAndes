@@ -1,6 +1,6 @@
 CREATE TABLE Hostales(
 id int,
-nombreHostal varchar(32) NOT NULL,
+nombreHostal varchar(32),
 registroSI varchar(32) NOT NULL, 
 registroCamara varchar(32) NOT NULL,
 horarioApertura varchar(32) NOT NULL,
@@ -11,7 +11,7 @@ CONSTRAINT FKoperadorHostales FOREIGN KEY (id) REFERENCES Operadores(id)
 
 CREATE TABLE Hoteles(
 id int,
-nombreHotel varchar(32) NOT NULL,
+nombreHotel varchar(32),
 categoria int NOT NULL,
 registroSI varchar(32) NOT NULL, 
 registroCamara varchar(32) NOT NULL,
@@ -24,12 +24,12 @@ id int,
 vinculo varchar(32) NOT NULL,
 CONSTRAINT PKpersonaNatural PRIMARY KEY (id),
 CONSTRAINT FKoperadorPersonaNatural FOREIGN KEY (id) REFERENCES Operadores(id),
-CONSTRAINT CKvinculoPersonaNat CHECK (vinculo = 'estudiante' OR vinculo ='padre'OR vinculo ='egresado' OR vinculo ='empleado'OR vinculo ='profesor'OR vinculo ='evento'OR vinculo ='profinvitado')
+CONSTRAINT CKvinculoPersonaNat CHECK (vinculo IN ('Estudiante','Padre','Egresado','Empleado','Profesor','Evento','Profesor invitado'))
 );
 
 CREATE TABLE ViviendaUniversitaria(
 id int,
-nombre varchar(32) NOT NULL,
+nombreVivienda varchar(32) NOT NULL,
 CONSTRAINT PKviviendaUniversitaria PRIMARY KEY (id),
 CONSTRAINT FKoperadorVivUni FOREIGN KEY (id) REFERENCES Operadores(id)
 );
