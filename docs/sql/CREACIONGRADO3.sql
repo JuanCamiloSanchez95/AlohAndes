@@ -1,11 +1,3 @@
-CREATE TABLE ClientesRegistrados(
-idCliente int,
-idAloha int,
-CONSTRAINT PKclientesRegistrados PRIMARY KEY (idCliente,idAloha),
-CONSTRAINT FKclienteRe FOREIGN KEY (idCliente) REFERENCES Clientes(documento),
-CONSTRAINT FKaloha FOREIGN KEY (idAloha) REFERENCES AlohAndes(id)
-);
-
 CREATE TABLE Ofertas(
 id int,
 precioEstadia double precision NOT NULL,

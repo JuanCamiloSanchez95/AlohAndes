@@ -1,5 +1,4 @@
-Insert into AlohAndes(id,nombre) values (1,'AlohAndes');
-			--CLIENTES
+--CLIENTES
 insert into Clientes (documento, nombre, vinculo) values (1, 'Faina Bennetts', 'Evento');
 insert into Clientes (documento, nombre, vinculo) values (2, 'Eduino Serrier', 'Empleado');
 insert into Clientes (documento, nombre, vinculo) values (3, 'Nari Furzey', 'Empleado');
@@ -31,7 +30,7 @@ insert into Clientes (documento, nombre, vinculo) values (28, 'Darla Beric', 'Pa
 insert into Clientes (documento, nombre, vinculo) values (29, 'Cyndy Pude', 'Empleado');
 insert into Clientes (documento, nombre, vinculo) values (30, 'Shannah Johannesson', 'Egresado');
 
-			--OPERADORES
+--OPERADORES
 insert into Operadores (id, tipo, nombre) values (1, 'Hotel', 'Jade Plains Resort & Spa');
 insert into Operadores (id, tipo, nombre) values (2, 'Persona', 'Estefania Cabal');
 insert into Operadores (id, tipo, nombre) values (3, 'Vivienda Universitaria', 'Vision-oriented');
@@ -62,7 +61,8 @@ insert into Operadores (id, tipo, nombre) values (27, 'Hostal', 'Future-proofed'
 insert into Operadores (id, tipo, nombre) values (28, 'Vivienda Universitaria', 'Managed');
 insert into Operadores (id, tipo, nombre) values (29, 'Vivienda Universitaria', 'Right-sized');
 insert into Operadores (id, tipo, nombre) values (30, 'Hostal', 'Team-oriented');
-			--SERVICIOS
+
+--SERVICIOS
 insert into Servicios (id, nombre, descripcion, costo) values (1, 'Bañera', 'Cruickshank-Watsica', 54.64);
 insert into Servicios (id, nombre, descripcion, costo) values (2, 'Servicio restaurante', 'Sipes, Donnelly and Gottlieb', 90.41);
 insert into Servicios (id, nombre, descripcion, costo) values (3, 'Parqueadero', 'Yundt-Maggio', 21.43);
@@ -94,8 +94,7 @@ insert into Servicios (id, nombre, descripcion, costo) values (28, 'customer loy
 insert into Servicios (id, nombre, descripcion, costo) values (29, 'Mandatory', 'Botsford-Hessel', 27.54);
 insert into Servicios (id, nombre, descripcion, costo) values (30, 'real-time', 'Schoen and Sons', 41.95);
 
-
-			--Alojamientos
+--Alojamientos
 insert into Alojamientos (id, tipo, nombre, ubicacion, descripcion, costo, minimoPeriodo) values (1, 'Vivienda', 'dreis0', 'Plaza', 'conglomeration', 59.13, 30);
 insert into Alojamientos (id, tipo, nombre, ubicacion, descripcion, costo, minimoPeriodo) values (2, 'HabitacionVivienda', 'jkilalea1', 'Alley', 'clear-thinking', 45.12, 1);
 insert into Alojamientos (id, tipo, nombre, ubicacion, descripcion, costo, minimoPeriodo) values (3, 'Apartamento', 'kbakeup2', 'Avenue', 'Front-line', 10.99, 30);

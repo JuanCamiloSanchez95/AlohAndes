@@ -43,3 +43,5 @@ Proyecto de sistrans
 ## Cambios
 
 * Se cambia el parametro nombre en Hotel y Hostal a nombreHotel/nombreHostal, para no confundirlo con el nombre del operador.
+
+* Se remueve la clase AlohAndes de la base de datos y sus tablas relacionadas

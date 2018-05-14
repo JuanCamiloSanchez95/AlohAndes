@@ -1,10 +1,3 @@
---CREO Alohandes
-CREATE TABLE AlohAndes(
-id int,
-nombre varchar(32) NOT NULL,CONSTRAINT PKcliente PRIMARY KEY (id)
-);
-
-
 --CREO CLIENTES
 CREATE  TABLE  Clientes(
 documento int,
@@ -22,8 +15,6 @@ tipo varchar(32) NOT NULL,
  CONSTRAINT CKtipo  CHECK (tipo IN ('Hotel','Hostal','Persona','Vivienda Universitaria')),
  CONSTRAINT PKoperadores PRIMARY KEY(id)
 );
-
-
 
 --CREO SERVICIOS
 CREATE TABLE Servicios(

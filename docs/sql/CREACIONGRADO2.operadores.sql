@@ -1,12 +1,3 @@
-CREATE TABLE OPERADORESREGISTRADOS(
-alohaid int, 
-Operadorid int,
-CONSTRAINT PKoperadorReg PRIMARY KEY (alohaid,operadorid),
-CONSTRAINT FKoperadoralo FOREIGN KEY (operadorid) references operadores(id),
-CONSTRAINT FKAlojaopera FOREIGN KEY (alohaid) references Alohandes (id)
-);
-
-
 CREATE TABLE Hostales(
 id int,
 nombreHostal varchar(32) NOT NULL,
