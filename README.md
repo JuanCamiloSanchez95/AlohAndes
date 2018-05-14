@@ -5,6 +5,9 @@ Proyecto de sistrans
 
 
 1. Carga de Datos
+   - [ ] Crear tablas csv
+   - [ ] Crear archivos loader
+   - [ ] Probar SQL Loader
 
 2. Requerimientos Funcionales
    - Iteracion 1
