@@ -56,7 +56,7 @@ public class Hotel extends Operador
 		* @param registroCamara - Registro de la camara del hotel
 		* @param registroST -  Registro del ST  del hotel 
 		*/
-		public Hotel(@JsonProperty(value="id") int id,@JsonProperty(value="nombre") String nombre,@JsonProperty(value="nombre") String nombreHotel, @JsonProperty(value="categoria") Integer categoria,@JsonProperty(value="registroCamara")String registroCamara,@JsonProperty(value="registroST") String registroST )
+		public Hotel(@JsonProperty(value="id") Long id,@JsonProperty(value="nombre") String nombre,@JsonProperty(value="nombre") String nombreHotel, @JsonProperty(value="categoria") Integer categoria,@JsonProperty(value="registroCamara")String registroCamara,@JsonProperty(value="registroST") String registroST )
 		{
 			super(id, nombre,"Hotel");
 			

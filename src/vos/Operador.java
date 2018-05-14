@@ -17,7 +17,7 @@ public class Operador {
 	 * Id del operador
 	 */
 	@JsonProperty(value="id")
-	private int id;
+	private Long id;
 	
 	/**
 	 * Nombre del operador
@@ -64,7 +64,7 @@ public class Operador {
 		 * @param nombre - Nombre del operador.
 		 * @param tipo - Tipo del operador.
 		 */
-		public Operador(@JsonProperty(value="id") Integer id,@JsonProperty(value="nombre") String nombre, @JsonProperty(value="tipo") String tipo) 
+		public Operador(@JsonProperty(value="id") Long id,@JsonProperty(value="nombre") String nombre, @JsonProperty(value="tipo") String tipo) 
 		{
 			this.id= id;
 			this.nombre=nombre;
@@ -84,7 +84,7 @@ public class Operador {
 		 * obtener  el id  del operador 
 		 * @return id 
 		 */
-		public int getId() {
+		public Long getId() {
 			return id;
 		}
 
@@ -92,7 +92,7 @@ public class Operador {
 		 * Cambia el id de un operador 
 		 * @param id Identificador del operador
 		 */
-		public void setId(int id) {
+		public void setId(Long id) {
 			this.id = id;
 		}
 

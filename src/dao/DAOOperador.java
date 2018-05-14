@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import vos.Bebedor;
 import vos.DineroOperador;
+import vos.Hotel;
 import vos.Operador;
 import tm.AlohAndesTransactionManager;
 
@@ -62,6 +63,37 @@ public class DAOOperador {
 		System.out.println(sql);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+
+	}
+	
+
+	/**
+	 * Metodo que agregar la informacion de un nuevo hotel en la Base de Datos a
+	 * partir del parametro ingresado
+	 * <b>Precondicion: </b> la conexion a sido inicializadoa 
+	 * @param hotel Hotel que desea agregar a la Base de Datos
+	 * @throws SQLException - SQLException Genera excepcion si hay error en la conexion o en la  consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
+	 */
+	public void addHotel(Hotel hotel) throws SQLException, Exception {
+		
+		//Creacion del Operador
+		String sql = String.format("INSERT INTO %1$s.OPERADORES (ID, TIPO, NOMBRE) VALUES (%2$s, '%3$s', '%4$s')",
+				AlohAndesTransactionManager.USUARIO, hotel.getId(), hotel.getTipo(), hotel.getNombre());
+		System.out.println(sql);
+		
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+		
+		// Creacion Hotel
+		sql = String.format("INSERT INTO %1$s.HOTELES (ID, NOMBREHOTEL, CATEGORIA, REGISTROSI, REGISTROCAMARA) VALUES (%2$s, '%3$s', '%4$s')",
+				AlohAndesTransactionManager.USUARIO, hotel.getId(), hotel.getNombreHotel(), hotel.getCategoria(), hotel.getRegistroST(), hotel.getRegistroCamara());
+		System.out.println(sql);
+
+		prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
 
@@ -205,7 +237,7 @@ public class DAOOperador {
 	 *             Si existe algun problema al extraer la informacion del ResultSet.
 	 */
 	public Operador convertResultSetToOperador(ResultSet resultSet) throws SQLException {
-		Integer id = resultSet.getInt("ID");
+		Long id = resultSet.getLong("ID");
 		String nombre = resultSet.getString("NOMBRE");
 		String tipo = resultSet.getString("TIPO");
 		Operador op = new Operador(id, nombre, tipo);

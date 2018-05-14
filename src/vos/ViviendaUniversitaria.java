@@ -24,7 +24,7 @@ public class ViviendaUniversitaria extends Operador
 	* @param nombre - Nombre de la Vivienda Universitaria.
 	*/
 	
-	public ViviendaUniversitaria(@JsonProperty(value="id") int id,@JsonProperty(value="nombre") String nombre)
+	public ViviendaUniversitaria(@JsonProperty(value="id") Long id,@JsonProperty(value="nombre") String nombre)
 	{
 		super(id, nombre,"Vivienda Universitaria");
 	}

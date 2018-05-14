@@ -53,7 +53,7 @@ public class Hostal extends Operador
 			* @param registroCamara - Registro de la camara del hostal
 			* @param registroST -  Registro del ST  del hostal 
 			*/
-			public Hostal(@JsonProperty(value="id") int id,@JsonProperty(value="nombre") String nombre,@JsonProperty(value="horarioApertura") String horarioApertura,@JsonProperty(value="horarioCierre") String horarioCierre,@JsonProperty(value="registroCamara")String registroCamara,@JsonProperty(value="registroST") String registroST )
+			public Hostal(@JsonProperty(value="id") Long id,@JsonProperty(value="nombre") String nombre,@JsonProperty(value="horarioApertura") String horarioApertura,@JsonProperty(value="horarioCierre") String horarioCierre,@JsonProperty(value="registroCamara")String registroCamara,@JsonProperty(value="registroST") String registroST )
 			{
 				super(id, nombre,"Hostal");
 				this.horarioApertura=horarioApertura;

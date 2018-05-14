@@ -34,7 +34,7 @@ public class Persona extends Operador
 		* @param nombre - Nombre de la Persona Natural  .
 		* @param vinculo - vinculo de la Persona Natural 
 		*/
-		public Persona(@JsonProperty(value="id") int id,@JsonProperty(value="nombre") String nombre,@JsonProperty(value="vinculo") String vinculo )
+		public Persona(@JsonProperty(value="id") Long id,@JsonProperty(value="nombre") String nombre,@JsonProperty(value="vinculo") String vinculo )
 		{
 			super(id,nombre,"Persona");
 			this.vinculo=vinculo;	

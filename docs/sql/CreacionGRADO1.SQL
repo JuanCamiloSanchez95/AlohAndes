@@ -11,7 +11,7 @@ documento int,
 nombre varchar(32) NOT NULL,
 vinculo varchar(32)NOT NULL,
 CONSTRAINT PKclientes PRIMARY  KEY (documento),
-CONSTRAINT CHvinculo CHECK (vinculo = 'Estudiante' OR vinculo ='Padre' OR vinculo ='Egresado'OR vinculo ='Empleado'OR vinculo ='Profesor'OR vinculo ='Evento'OR vinculo ='Profesor invitado')
+CONSTRAINT CHvinculo CHECK (vinculo IN ('Estudiante','Padre','Egresado','Empleado','Profesor','Evento','Profesor invitado'))
 );
 
 --CREO OPERADORES
@@ -19,7 +19,7 @@ CREATE TABLE Operadores(
 id int,
 tipo varchar(32) NOT NULL,
  nombre varchar(32),
- CONSTRAINT CKtipo  CHECK (tipo = 'Hotel' OR tipo ='Hostal' OR tipo ='Persona' OR tipo='Vivienda Universitaria') ,
+ CONSTRAINT CKtipo  CHECK (tipo IN ('Hotel','Hostal','Persona','Vivienda Universitaria')),
  CONSTRAINT PKoperadores PRIMARY KEY(id)
 );
 
