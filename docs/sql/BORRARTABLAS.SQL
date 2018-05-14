@@ -8,7 +8,7 @@ BEGIN
                               'PROCEDURE',
                               'FUNCTION',
                               'SEQUENCE',
-                              'SYNONYM',
+                               'SYNONYM',
                               'PACKAGE BODY'
                              ))
    LOOP
