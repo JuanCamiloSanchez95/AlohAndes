@@ -1,11 +1,11 @@
 package vos;
 
-
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
  * 
  * @author Juan
+ * @author Cristian
  * Clase que representa un hotel  
  */
 public class Hotel extends Operador
@@ -15,21 +15,27 @@ public class Hotel extends Operador
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// ATRIBUTOS
 	//----------------------------------------------------------------------------------------------------------------------------------
-		/**
-		* categoria del hotel
+		
+	/**
+	 * Nombre del Hotel
+	 */
+	private String nombreHotel;
+	
+	/**
+		* Categoria del hotel
 		*/
 		@JsonProperty(value="categoria")
 		private Integer categoria;
 		
 
 		/**
-		* registro de camara del hotel
+		* Registro de camara del hotel
 		*/
 		@JsonProperty(value="registroCamara")
 		private String registroCamara;
 		
 		/**
-		* registro de ST del hotel
+		* Registro de ST del hotel
 		*/
 		@JsonProperty(value="registroST")
 		private String registroST;
@@ -43,15 +49,18 @@ public class Hotel extends Operador
 		* Metodo constructor de la clase hotel 
 		* <b>post: </b> Crea el hotel con los valores que entran por parametro
 		* @param id - Id del hotel.
-		* @param nombre - Nombre del hotel.
+		* @param nombre - Nombre del operador
+		* @param nombreHotel - Nombre del hotel.
 		* @param categoria - Categoria del hotel
 		* @param tipo - Hotel 
 		* @param registroCamara - Registro de la camara del hotel
 		* @param registroST -  Registro del ST  del hotel 
 		*/
-		public Hotel(@JsonProperty(value="id") int id,@JsonProperty(value="nombre") String nombre,@JsonProperty(value="categoria") Integer categoria,@JsonProperty(value="registroCamara")String registroCamara,@JsonProperty(value="registroST") String registroST )
+		public Hotel(@JsonProperty(value="id") int id,@JsonProperty(value="nombre") String nombre,@JsonProperty(value="nombre") String nombreHotel, @JsonProperty(value="categoria") Integer categoria,@JsonProperty(value="registroCamara")String registroCamara,@JsonProperty(value="registroST") String registroST )
 		{
 			super(id, nombre,"Hotel");
+			
+			this.nombreHotel = nombreHotel;
 			this.categoria=categoria;
 			this.registroCamara=registroCamara;
 			this.registroST= registroST;
@@ -61,6 +70,14 @@ public class Hotel extends Operador
 		// METODOS DE LA CLASE
 		//----------------------------------------------------------------------------------------------------------------------------------
 			
+		public String getNombreHotel() {
+			return nombreHotel;
+		}
+
+		public void setNombreHotel(String nombreHotel) {
+			this.nombreHotel = nombreHotel;
+		}
+
 		public Integer getCategoria() {
 			return categoria;
 		}

@@ -3,11 +3,6 @@
  * Departamento de Ingenieria de Sistemas
  * Universidad de los Andes
  * Bogota, Colombia
- * 
- * Actividad: Tutorial Parranderos: Arquitectura
- * Autores:
- * 			Santiago Cortes Fernandez	-	s.cortes@uniandes.edu.co
- * 			Juan David Vega Guzman		-	jd.vega11@uniandes.edu.co
  * -------------------------------------------------------------------
  */
 package tm;
@@ -30,6 +25,8 @@ import dao.DAOOferta;
 import dao.DAOOperador;
 import dao.DAOReserva;
 import vos.Alojamiento;
+import vos.Bebedor;
+import vos.DineroOperador;
 import vos.Oferta;
 import vos.Operador;
 import vos.Reserva;
@@ -157,6 +154,124 @@ public class AlohAndesTransactionManager {
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODOS TRANSACCIONALES
 	//----------------------------------------------------------------------------------------------------------------------------------
+	
+	// Metodos de Operador
+	
+	/**
+	 * Metodo que modela la transaccion que agrega un operador a la base de datos.
+	 * <b> post: </b> se ha agregado el operador que entra como parametro
+	 * @param operador - el operador a agregar. operador != null
+	 * @throws Exception - Cualquier error que se genere agregando el operador
+	 */
+	public void addOperador(Operador operador) throws Exception {
+
+		DAOOperador daoOperador = new DAOOperador();
+		try {
+			this.conn = darConexion();
+			daoOperador.setConn(conn);
+			daoOperador.addOperador(operador);
+
+		} catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} finally {
+			try {
+				daoOperador.cerrarRecursos();
+				if (this.conn != null) {
+					this.conn.close();
+				}
+			} catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que busca el operador en la base de datos que
+	 * tiene el ID dado por parametro. <br/>
+	 * 
+	 * @param id - id del operador a buscar. id != null
+	 * @return Operador - Operador que se obtiene como resultado de la consulta.
+	 * @throws Exception- cualquier error que se genere durante la transaccion
+	 */
+	public Operador getOperadorById(Long id) throws Exception {
+		DAOOperador daoOperador = new DAOOperador();
+		Operador operador = null;
+		try {
+			this.conn = darConexion();
+			daoOperador.setConn(conn);
+			operador = daoOperador.findOperadorById(id);
+			if (operador == null) {
+				throw new Exception(
+						"El operador con el id = " + id + " no se encuentra persistido en la base de datos.");
+			}
+		} catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} finally {
+			try {
+				daoOperador.cerrarRecursos();
+				if (this.conn != null) {
+					this.conn.close();
+				}
+			} catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return operador;
+	}
+	
+	/**
+	 * Metodo que modela la transaccion que retorna todas los operadores de la base de datos. 
+	 * @return List<Operador> - Lista de operadores que contiene el resultado de la consulta.
+	 * @throws Exception - Cualquier error que se genere durante la transaccion
+	 */
+	public List<Operador> getAllOperadores() throws Exception {
+		DAOOperador daoOperador = new DAOOperador();
+		List<Operador> operadores;
+		try {
+			this.conn = darConexion();
+			daoOperador.setConn(conn);
+			operadores = daoOperador.getOperadores();
+		} catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} finally {
+			try {
+				daoOperador.cerrarRecursos();
+				if (this.conn != null) {
+					this.conn.close();
+				}
+			} catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return operadores;
+	}
+	
+	// Metodo de Reserva
+	
 	/**
 	 * Metodo que modela la transaccion que agrega una reserva a la base de datos.
 	 * <b> post: </b> se ha agregado la reserva que entra como parametro
@@ -291,6 +406,8 @@ public class AlohAndesTransactionManager {
 		return reservas;
 	}
 	
+	// Metodo de Oferta
+	
 	/**
 	 * Metodo que modela la transaccion que elimina de la base de datos a la oferta que entra por parametro.
 	 * Solamente se actualiza si existe la oferta en la Base de Datos
@@ -343,40 +460,6 @@ public class AlohAndesTransactionManager {
 		}	
 	}
 	
-	/**
-	 * Metodo que modela la transaccion que retorna todas los operadores de la base de datos. 
-	 * @return List<Operador> - Lista de operadores que contiene el resultado de la consulta.
-	 * @throws Exception - Cualquier error que se genere durante la transaccion
-	 */
-	public List<Operador> getAllOperadores() throws Exception {
-		DAOOperador daoOperador = new DAOOperador();
-		List<Operador> operadores;
-		try {
-			this.conn = darConexion();
-			daoOperador.setConn(conn);
-			operadores = daoOperador.getOperadores();
-		} catch (SQLException sqlException) {
-			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
-			sqlException.printStackTrace();
-			throw sqlException;
-		} catch (Exception exception) {
-			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
-			exception.printStackTrace();
-			throw exception;
-		} finally {
-			try {
-				daoOperador.cerrarRecursos();
-				if (this.conn != null) {
-					this.conn.close();
-				}
-			} catch (SQLException exception) {
-				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-		return operadores;
-	}
 	
 	/**
 	 * Metodo que modela la transaccion que retorna todas los ofertas de la base de datos. 
@@ -495,13 +578,15 @@ public class AlohAndesTransactionManager {
 		}	
 	}
 	
+	//RFC1
+	
 	/**
 	 * Metodo que modela la transaccion que encuentra el dinero obtenido por los operadores en el año actual.
 	 * <b> post: </b> se ha encontrado el dinero ganado por cada operador
 	 * @return Lista de cadenas con la informacion del dinero ganado por cada operador
 	 * @throws Exception - Cualquier error que se genere buscando las reservas y ofertas de los operadores.
 	 */
-	public ArrayList<Operador> getDineroRecibidoOperadores() throws Exception 
+	public ArrayList<DineroOperador> getDineroRecibidoOperadores() throws Exception 
 	{
 		DAOOperador daoOperador= new DAOOperador( );
 		try

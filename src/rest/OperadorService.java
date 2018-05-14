@@ -11,6 +11,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.AlohAndesTransactionManager;
+import vos.DineroOperador;
 import vos.Operador;
 
 /**
@@ -88,7 +89,7 @@ public class OperadorService {
 		
 		try {
 			AlohAndesTransactionManager tm = new AlohAndesTransactionManager(getPath());
-			List<Operador> dineroOperadores;
+			List<DineroOperador> dineroOperadores;
 			dineroOperadores = tm.getDineroRecibidoOperadores();
 			return Response.status(200).entity(dineroOperadores).build();
 		} 
