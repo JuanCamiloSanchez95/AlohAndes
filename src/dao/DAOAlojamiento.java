@@ -67,10 +67,15 @@ public class DAOAlojamiento {
 		sql.append(" AND OFERTAS.ALOJAMIENTOID=ALOJAMIENTOS.ID");
 		sql.append(" AND ALOJAMIENTOS.ID=SERVICIOSDEALOJAMIENTOS.ALOJAMIENTO");
 		sql.append(" AND SERVICIOS.ID=SERVICIOSDEALOJAMIENTOS.SERVICIO");
-
+		
 		for(int i=0;i<parts.length;i++) {
-			sql.append(String.format(" AND SERVICIOS.NOMBRE='%1$s'", parts[i]));
+			if(i==0) {
+				sql.append(String.format(" AND SERVICIOS.NOMBRE IN ('%1$s'", parts[i]));
+			}
+			else
+			sql.append(String.format(",'%1$s'", parts[i]));
 		}
+		sql.append(")");
 		
 		System.out.println(sql.toString());
 		

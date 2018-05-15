@@ -160,6 +160,10 @@ insert into serviciosdealojamientos (servicio, alojamiento) values (6, 6);
 insert into serviciosdealojamientos (servicio, alojamiento) values (6, 4);
 insert into serviciosdealojamientos (servicio, alojamiento) values (6, 3);
 insert into serviciosdealojamientos (servicio, alojamiento) values (6, 2);
+insert into serviciosdealojamientos (servicio, alojamiento) values (7, 6);
+insert into serviciosdealojamientos (servicio, alojamiento) values (7, 4);
+insert into serviciosdealojamientos (servicio, alojamiento) values (7, 3);
+insert into serviciosdealojamientos (servicio, alojamiento) values (7, 2);
 
 --	ServiciosOPeradores
 insert into serviciosdeoperadores (servicio, operador) values (28, 16);
