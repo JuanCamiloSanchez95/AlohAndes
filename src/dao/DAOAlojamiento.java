@@ -130,7 +130,7 @@ public class DAOAlojamiento {
 		String descripcion = resultSet.getString("DESCRIPCION");
 		Double costo=resultSet.getDouble("COSTO");
 		Integer min= resultSet.getInt("MINIMOPERIODO");
-		Alojamiento alojamiento=new Alojamiento(id,tipo,nombre,ubicacion,descripcion,costo,min);
+		Alojamiento alojamiento=new Alojamiento(id,nombre,tipo,ubicacion,descripcion,costo,min);
 
 		return alojamiento;
 	}

@@ -53,18 +53,6 @@ public class Alojamiento
 	@JsonProperty(value="minimoPeriodo")
 	private int minimoPeriodo;
 
-	/**
-	 * Operador del alojamiento 
-	 */
-	@JsonProperty(value="operador")
-	private Operador operador;
-
-	/**
-	 * servicios del alojamiento 
-	 */
-	@JsonProperty(value="servicios")
-	private ArrayList<Servicio> servicios;
-
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODO CONSTRUCTOR
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -78,8 +66,6 @@ public class Alojamiento
 		this.descripcion=descripcion;
 		this.costo=costo;
 		this.minimoPeriodo=minimoPeriodo;
-		servicios=new ArrayList<>();
-		operador=null;
 	}
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODOS
@@ -140,21 +126,5 @@ public class Alojamiento
 
 	public void setMinimoPeriodo(int minimoPeriodo) {
 		this.minimoPeriodo = minimoPeriodo;
-	}
-
-	public Operador getOperador() {
-		return operador;
-	}
-
-	public void setOperador(Operador operador) {
-		this.operador = operador;
-	}
-
-	public ArrayList<Servicio> getServicios() {
-		return servicios;
-	}
-
-	public void setServicios(ArrayList<Servicio> servicios) {
-		this.servicios = servicios;
 	}
 }
