@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.AlohAndesTransactionManager;
+import vos.IndiceOcupacion;
 import vos.Oferta;
 import vos.OfertaPopular;
 
@@ -111,7 +112,7 @@ public class OfertaService {
 		
 		try {
 			AlohAndesTransactionManager tm = new AlohAndesTransactionManager(getPath());
-			List<Oferta> ofertas;
+			List<IndiceOcupacion> ofertas;
 			ofertas = tm.getOfertasConIndice();
 			return Response.status(200).entity(ofertas).build();
 		} 

@@ -31,6 +31,7 @@ import vos.Bebedor;
 import vos.DineroOperador;
 import vos.Hostal;
 import vos.Hotel;
+import vos.IndiceOcupacion;
 import vos.Oferta;
 import vos.OfertaPopular;
 import vos.Operador;
@@ -601,7 +602,7 @@ public class AlohAndesTransactionManager {
 	 * @return Lista de Ofertas con indice de ocupacion en la base de datos
 	 * @throws Exception - Cualquier error que se genere buscando las ofertas.
 	 */
-	public ArrayList<Oferta> getOfertasConIndice() throws Exception 
+	public ArrayList<IndiceOcupacion> getOfertasConIndice() throws Exception 
 	{
 		DAOOferta daoOferta= new DAOOferta( );
 		try

@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import tm.AlohAndesTransactionManager;
+import vos.IndiceOcupacion;
 import vos.Oferta;
 import vos.OfertaPopular;
 
@@ -137,47 +138,28 @@ public class DAOOferta {
 	
 	
 	/**
-	 * Metodo que obtiene el numero de reservas de una oferta en la Base de Datos 
+	 * Metodo que obtiene la informacion de los indices de ocupacion de las ofertas.
 	 * <b>Precondicion: </b> la conexion a sido inicializado
-	 * @param id - Identificador de la oferta
-	 * @return	numero de reservas actuales de la oferta
+	 * @return	lista con la informacion de las  ofertas con su ocupacion actual que se encuentran en la Base de Datos
 	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public int getNumReservas(Long id) throws SQLException, Exception {
+	public ArrayList<IndiceOcupacion> getIndicesOcupacion() throws SQLException, Exception {
+		ArrayList<IndiceOcupacion> indices = new ArrayList<IndiceOcupacion>();
 		
-		int numReservas=0;
-		
-		String sql = String.format("SELECT COUNT(ID) AS NUMRESERVAS FROM %1$s.RESERVAS WHERE OFERTA = %2$d", AlohAndesTransactionManager.USUARIO, id);
-		
-		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		String sql = String.format("SELECT \"A2\".\"ID\" \"ID\",\"A2\".\"NOMBRE\" \"NOMBRE\",\"A2\".\"CAPACIDAD\" \"CAPACIDAD\",SUM(CASE  WHEN \"A2\".\"ID\"=\"A1\".\"OFERTA\" THEN 1 ELSE 0 END ) \"NUMRESERVAS\" "
+				+ "FROM \"%1$s\".\"OFERTAS\" \"A2\",\"%1$s\".\"RESERVAS\" \"A1\" "
+				+ "GROUP BY \"A2\".\"ID\",\"A2\".\"NOMBRE\",\"A2\".\"CAPACIDAD\" "
+				+ "ORDER BY \"A2\".\"ID\"", AlohAndesTransactionManager.USUARIO);
+				
+				PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
 
-		if(rs.next()) {
-			numReservas = rs.getInt("NUMRESERVAS");
+		while (rs.next()) {
+			indices.add(convertResultSetToIndiceOcupacion(rs));
 		}
-		
-		return numReservas;
-	}
-	
-	/**
-	 * Metodo que obtiene la informacion de las 20 ofertas mas populares en la Base de Datos 
-	 * <b>Precondicion: </b> la conexion a sido inicializado
-	 * @return	lista con la informacion de las 20 ofertas mas populares que se encuentran en la Base de Datos
-	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
-	 * @throws Exception Si se genera un error dentro del metodo.
-	 */
-	public ArrayList<Oferta> getIndicesOcupacion() throws SQLException, Exception {
-		ArrayList<Oferta> ofertas = getOfertas();
-		
-		for(int i=0;i<ofertas.size();i++) {
-			Oferta actual=ofertas.get(i);
-			int numReservas= getNumReservas(actual.getId());
-			actual.setIndiceOcupacion(((double) numReservas)/actual.getCapacidad());
-		}
-		
-		return ofertas;
+		return indices;
 	}
 	
 	/**
@@ -279,5 +261,21 @@ public class DAOOferta {
 			return oferta;
 	}
 
+	/**
+	 * Metodo que transforma el resultado obtenido de una consulta SQL (sobre la tabla OFERTAS) en una instancia de la clase OfertaPopular.
+	 * @param resultSet ResultSet con la informacion de una oferta popular que se obtuvo de la base de datos.
+	 * @return OfertaPopular cuyos atributos corresponden a los valores asociados a un registro particular de la tabla OFERTAS.
+	 * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
+	 */
+	public IndiceOcupacion convertResultSetToIndiceOcupacion(ResultSet resultSet) throws SQLException {
+
+			Long id= resultSet.getLong("ID");
+			String nombre = resultSet.getString("NOMBRE");
+			Integer capacidad = resultSet.getInt("CAPACIDAD");
+			Integer numReservas = resultSet.getInt("NUMRESERVAS");
+			IndiceOcupacion indice = new IndiceOcupacion(id, nombre,capacidad, numReservas);
+
+			return indice;
+	}
 
 }

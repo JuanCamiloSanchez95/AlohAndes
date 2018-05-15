@@ -71,12 +71,7 @@ public class Oferta
 		 */
 		@JsonProperty(value="Operador")
 		private Operador operador;
-		
-		/**
-		 * Indice de ocupacion
-		 */
-		
-	private double indiceOcupacion;
+
 		
 		//----------------------------------------------------------------------------------------------------------------------------------
 		// METODO CONSTRUCTOR
@@ -181,14 +176,7 @@ public class Oferta
 			this.operador = operador;
 		}
 
-		public double getIndiceOcupacion() {
-			return indiceOcupacion;
-		}
 
-
-		public void setIndiceOcupacion(double indiceOcupacion) {
-			this.indiceOcupacion = indiceOcupacion;
-		}
 
 
 		
