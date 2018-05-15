@@ -30,12 +30,9 @@ Proyecto de sistrans
 	   - [ ] Eficiencia
      - [x] RFC2 - Mostrar 20 Ofertas Mas populares
            - [ ] Eficiencia
-   - Iteracion 2 
-     - [x] RFC3 - Mostrar Indice de Ocupacion por Oferta
-	   - [ ] Eficiencia
    - [ ] Iteracion 2 
-     - [ ] RFC3 - Mostrar Indice de Ocupacion por Oferta
-           - [ ] Eficiencia
+     - [x] RFC3 - Mostrar Indice de Ocupacion por Oferta
+       - [ ] Eficiencia
      - [ ] RFC4 - Mostrar Alojamientos en una fecha y con un conjunto de servicios
 	   - [ ] Eficiencia
      - [ ] RFC5 - Mostrar el Uso para cada tipo de usuario
@@ -48,9 +45,9 @@ Proyecto de sistrans
   	   - [ ] Eficiencia
      - [ ] RFC9 - Encontrar ofertas que no tienen mucha demanda
   	   - [ ] Eficiencia
-   - Iteracion 3
+   - [ ] Iteracion 3
      - [ ] RFC9 - Encontrar ofertas que no tienen mucha demanda (Opcional)
-       	   - [ ] Eficiencia
+       - [ ] Eficiencia
      - [ ] RFC10 - Consultar consumo 
   	   - [ ] Eficiencia
      - [ ] RFC11 - Consultar consuma v2
