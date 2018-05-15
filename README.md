@@ -27,38 +27,38 @@ Proyecto de sistrans
 3. Requerimientos de consulta
    - [x] Iteracion 1
      - [x] RFC1 - Mostrar Dinero recibido por Proveedor
-		   - [ ] Eficiencia
+	   - [ ] Eficiencia
      - [x] RFC2 - Mostrar 20 Ofertas Mas populares
-		   - [ ] Eficiencia
+           - [ ] Eficiencia
    - Iteracion 2 
      - [x] RFC3 - Mostrar Indice de Ocupacion por Oferta
-	 	   - [ ] Eficiencia
+	   - [ ] Eficiencia
    - [ ] Iteracion 2 
      - [ ] RFC3 - Mostrar Indice de Ocupacion por Oferta
-	   	   - [ ] Eficiencia
+           - [ ] Eficiencia
      - [ ] RFC4 - Mostrar Alojamientos en una fecha y con un conjunto de servicios
-	  	   - [ ] Eficiencia
+	   - [ ] Eficiencia
      - [ ] RFC5 - Mostrar el Uso para cada tipo de usuario
-	  	   - [ ] Eficiencia
+  	   - [ ] Eficiencia
      - [ ] RFC6 - Mostrar el uso para un usuario dado
-	  	   - [ ] Eficiencia
+  	   - [ ] Eficiencia
      - [ ] RFC7 - Analizar la Operacion de AlohAndes
-	  	   - [ ] Eficiencia
+  	   - [ ] Eficiencia
      - [ ] RFC8 - Encontrar clientes frecuentes
-	  	   - [ ] Eficiencia
+  	   - [ ] Eficiencia
      - [ ] RFC9 - Encontrar ofertas que no tienen mucha demanda
-	  	   - [ ] Eficiencia
+  	   - [ ] Eficiencia
    - Iteracion 3
      - [ ] RFC9 - Encontrar ofertas que no tienen mucha demanda (Opcional)
        	   - [ ] Eficiencia
      - [ ] RFC10 - Consultar consumo 
-	  	   - [ ] Eficiencia
+  	   - [ ] Eficiencia
      - [ ] RFC11 - Consultar consuma v2
-	  	   - [ ] Eficiencia
+  	   - [ ] Eficiencia
      - [ ] RFC12 - Consultar Funcionamiento
-	  	   - [ ] Eficiencia
+  	   - [ ] Eficiencia
      - [ ] RFC13 - Consulta buenos clientes
-	  	   - [ ] Eficiencia
+  	   - [ ] Eficiencia
 
 
 ## Cambios
