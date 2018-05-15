@@ -10,22 +10,22 @@ Proyecto de sistrans
    - [ ] Probar SQL Loader
 
 2. Requerimientos Funcionales
-   - Iteracion 1
+   - [ ] Iteracion 1
      - [ ] RF1 - Registro de Operadores
      - [ ] RF2 - Registro Propuestas de Alojamiento
      - [ ] RF3- Registro Usuarios
      - [ ] RF4 - Registro Reserva
      - [ ] RF5 - Cancelar Reserva
      - [ ] RF6 - Retirar Oferta 
-    - Iteracion 2
+    - [ ] Iteracion 2
       - [ ] RF7 - Registrar reserva colectiva (Usando RF4)
       - [ ] RF8 - Cancelar reserva masiva (Usando RF5)
-      - [ ] RF9 - Deshabilitar Oferta de Alojamiento (RF4 y RF5)
+      - [ ] RF9 - Deshabilitar Oferta de Alojamiento (RF4 y RF5) 
       - [ ] RF10 - Rehabilitar Oferta
 
 
 3. Requerimientos de consulta
-   - Iteracion 1
+   - [x] Iteracion 1
      - [x] RFC1 - Mostrar Dinero recibido por Proveedor
 		   - [ ] Eficiencia
      - [x] RFC2 - Mostrar 20 Ofertas Mas populares
@@ -33,6 +33,9 @@ Proyecto de sistrans
    - Iteracion 2 
      - [x] RFC3 - Mostrar Indice de Ocupacion por Oferta
 	 	   - [ ] Eficiencia
+   - [ ] Iteracion 2 
+     - [ ] RFC3 - Mostrar Indice de Ocupacion por Oferta
+	   	   - [ ] Eficiencia
      - [ ] RFC4 - Mostrar Alojamientos en una fecha y con un conjunto de servicios
 	  	   - [ ] Eficiencia
      - [ ] RFC5 - Mostrar el Uso para cada tipo de usuario
@@ -46,6 +49,8 @@ Proyecto de sistrans
      - [ ] RFC9 - Encontrar ofertas que no tienen mucha demanda
 	  	   - [ ] Eficiencia
    - Iteracion 3
+     - [ ] RFC9 - Encontrar ofertas que no tienen mucha demanda (Opcional)
+       	   - [ ] Eficiencia
      - [ ] RFC10 - Consultar consumo 
 	  	   - [ ] Eficiencia
      - [ ] RFC11 - Consultar consuma v2

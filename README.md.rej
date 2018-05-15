@@ -1,0 +1,36 @@
+diff a/README.md b/README.md	(rejected hunks)
+@@ -27,20 +27,33 @@
+ 3. Requerimientos de consulta
+    - Iteracion 1
+      - [x] RFC1 - Mostrar Dinero recibido por Proveedor
++		   - [ ] Eficiencia
+      - [x] RFC2 - Mostrar 20 Ofertas Mas populares
++		   - [ ] Eficiencia
+    - Iteracion 2 
+-     - [ ] RFC3 - Mostrar Indice de Ocupacion por Oferta
++     - [x] RFC3 - Mostrar Indice de Ocupacion por Oferta
++	 	   - [ ] Eficiencia
+      - [ ] RFC4 - Mostrar Alojamientos en una fecha y con un conjunto de servicios
++	  	   - [ ] Eficiencia
+      - [ ] RFC5 - Mostrar el Uso para cada tipo de usuario
++	  	   - [ ] Eficiencia
+      - [ ] RFC6 - Mostrar el uso para un usuario dado
++	  	   - [ ] Eficiencia
+      - [ ] RFC7 - Analizar la Operacion de AlohAndes
++	  	   - [ ] Eficiencia
+      - [ ] RFC8 - Encontrar clientes frecuentes
++	  	   - [ ] Eficiencia
+      - [ ] RFC9 - Encontrar ofertas que no tienen mucha demanda
++	  	   - [ ] Eficiencia
+    - Iteracion 3
+      - [ ] RFC10 - Consultar consumo 
++	  	   - [ ] Eficiencia
+      - [ ] RFC11 - Consultar consuma v2
++	  	   - [ ] Eficiencia
+      - [ ] RFC12 - Consultar Funcionamiento
++	  	   - [ ] Eficiencia
+      - [ ] RFC13 - Consulta buenos clientes
++	  	   - [ ] Eficiencia
+ 
+ 
+ ## Cambios
