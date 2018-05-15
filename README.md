@@ -25,11 +25,11 @@ Proyecto de sistrans
 
 
 3. Requerimientos de consulta
-   - [x] Iteracion 1
+   - [ ] Iteracion 1
      - [x] RFC1 - Mostrar Dinero recibido por Proveedor
 	   - [ ] Eficiencia
      - [x] RFC2 - Mostrar 20 Ofertas Mas populares
-           - [ ] Eficiencia
+       - [ ] Eficiencia
    - [ ] Iteracion 2 
      - [x] RFC3 - Mostrar Indice de Ocupacion por Oferta
        - [ ] Eficiencia
