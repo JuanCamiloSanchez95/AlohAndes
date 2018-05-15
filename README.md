@@ -26,7 +26,7 @@ Proyecto de sistrans
 
 3. Requerimientos de consulta
    - Iteracion 1
-     - [ ] RFC1 - Mostrar Dinero recibido por Proveedor
+     - [x] RFC1 - Mostrar Dinero recibido por Proveedor
      - [x] RFC2 - Mostrar 20 Ofertas Mas populares
    - Iteracion 2 
      - [ ] RFC3 - Mostrar Indice de Ocupacion por Oferta

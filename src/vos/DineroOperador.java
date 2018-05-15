@@ -16,6 +16,12 @@ public class DineroOperador {
 	private String nombre;
 	
 	/**
+	 * Nombre de Operador
+	 */
+	@JsonProperty(value="tipo")
+	private String tipo;
+	
+	/**
 	 * Dinero ganado por Operador
 	 */
 	@JsonProperty(value="dinero")
@@ -26,8 +32,9 @@ public class DineroOperador {
 	 * @param nombre - nombre del operador
 	 * @param dinero - dinero ganado por el operador
 	 */
-	public DineroOperador(@JsonProperty(value="nombre")String nombre,@JsonProperty(value="dinero") double dinero) {
+	public DineroOperador(@JsonProperty(value="nombre")String nombre,@JsonProperty(value="tipo")String tipo,@JsonProperty(value="dinero") double dinero) {
 		this.nombre= nombre;
+		this.tipo=tipo;
 		this.dinero = dinero;
 	}
 

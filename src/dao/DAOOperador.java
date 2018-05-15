@@ -190,8 +190,7 @@ public class DAOOperador {
 	 * Base de Datos en el año dado por parametro <b>Precondicion: </b> la conexion
 	 * a sido inicializado
 	 * 
-	 * @param year
-	 *            el año de consulta
+	 * @param year - el año de consulta
 	 * @return Lista de cadenas con la informacion por operador del dinero ganado en
 	 *         el año
 	 * @throws SQLException
@@ -202,13 +201,15 @@ public class DAOOperador {
 	 */
 	public ArrayList<DineroOperador> getDineroRecibidoOperadores(int year) throws SQLException, Exception {
 		ArrayList<DineroOperador> dinero = new ArrayList<DineroOperador>();
-		String sql = String.format("SELECT \"A2\".\"NOMBRE\" \"NOMBRE\",\"A1\".\"PRECIOESTADIA\"*\"A1\".\"DIAS\" \"SUMA\" "
-				+ "FROM \"%1$s\".\"OPERADORES\" \"A2\", (SELECT \"A4\".\"OPERADOR\" \"OPERADOR\",\"A4\".\"PRECIOESTADIA\" \"PRECIOESTADIA\",SUM(\"A3\".\"CANTIDADDIAS\") \"DIAS\" "
+		String sql = String.format("SELECT \"A2\".\"NOMBRE\" \"NOMBRE\",\"A2\".\"TIPO\" \"TIPO\",SUM(\"A1\".\"PRECIOESTADIA\"*\"A1\".\"DIAS\") \"SUMA\" "
+				+ "FROM \"%1$s\".\"OPERADORES\" \"A2\", "
+				+ "(SELECT \"A4\".\"OPERADOR\" \"OPERADOR\",\"A4\".\"PRECIOESTADIA\" \"PRECIOESTADIA\","
+				+ "SUM(CASE  WHEN \"A3\".\"OFERTA\"=\"A4\".\"ID\" THEN \"A3\".\"CANTIDADDIAS\" ELSE 0 END ) \"DIAS\" "
 				+ "FROM \"%1$s\".\"OFERTAS\" \"A4\",\"%1$s\".\"RESERVAS\" \"A3\" "
-				+ "WHERE \"A3\".\"OFERTA\"=\"A4\".\"ID\" "
-				+ "AND EXTRACT(YEAR FROM \"A3\".\"FECHALLEGADA\")=%2$s "
+				+ "WHERE EXTRACT(YEAR FROM \"A3\".\"FECHALLEGADA\")=%2$s "
 				+ "GROUP BY \"A4\".\"OPERADOR\",\"A4\".\"PRECIOESTADIA\") \"A1\" "
-				+ "WHERE \"A1\".\"OPERADOR\"=\"A2\".\"ID\"",
+				+ "WHERE \"A1\".\"OPERADOR\"=\"A2\".\"ID\" "
+				+ "GROUP BY \"A2\".\"NOMBRE\", \"A2\".\"TIPO\"",
 				AlohAndesTransactionManager.USUARIO, year);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -285,8 +286,9 @@ public class DAOOperador {
 	public DineroOperador convertResultSetToDineroOperador(ResultSet resultSet) throws SQLException {
 
 		String nombre = resultSet.getString("NOMBRE");
+		String tipo = resultSet.getString("TIPO");
 		double dinero = resultSet.getDouble("SUMA");
-		DineroOperador dOperador= new DineroOperador(nombre,dinero);
+		DineroOperador dOperador= new DineroOperador(nombre,tipo,dinero);
 		return dOperador;
 	}
 
