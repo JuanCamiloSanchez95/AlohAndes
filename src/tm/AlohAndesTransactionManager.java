@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,8 +29,10 @@ import dao.DAOReserva;
 import vos.Alojamiento;
 import vos.Bebedor;
 import vos.DineroOperador;
+import vos.Hostal;
 import vos.Hotel;
 import vos.Oferta;
+import vos.OfertaPopular;
 import vos.Operador;
 import vos.Reserva;
 import vos.UsoCliente;
@@ -277,6 +281,51 @@ public class AlohAndesTransactionManager {
 		return operadores;
 	}
 	
+	//RFC1
+	
+		/**
+		 * Metodo que modela la transaccion que encuentra el dinero obtenido por los operadores en el año actual.
+		 * <b> post: </b> se ha encontrado el dinero ganado por cada operador
+		 * @return Lista de cadenas con la informacion del dinero ganado por cada operador
+		 * @throws Exception - Cualquier error que se genere buscando las reservas y ofertas de los operadores.
+		 */
+		public ArrayList<DineroOperador> getDineroRecibidoOperadores() throws Exception 
+		{
+			DAOOperador daoOperador= new DAOOperador( );
+			try
+			{
+				this.conn = darConexion();
+				daoOperador.setConn( conn );
+				int year = Calendar.getInstance().get(Calendar.YEAR);
+				return daoOperador.getDineroRecibidoOperadores(year);
+
+			}
+			catch (SQLException sqlException) {
+				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+				sqlException.printStackTrace();
+				throw sqlException;
+			} 
+			catch (Exception exception) {
+				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			} 
+			finally {
+				try {
+					daoOperador.cerrarRecursos();
+					if(this.conn!=null){
+						this.conn.close();					
+					}
+				}
+				catch (SQLException exception) {
+					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}	
+		}
+		
+	
 	// Metodo de Reserva
 	
 	/**
@@ -503,13 +552,15 @@ public class AlohAndesTransactionManager {
 		return ofertas;
 	}
 	
+	//RFC2
+	
 	/**
 	 * Metodo que modela la transaccion que encuentra las ofertas mas populares.
 	 * <b> post: </b> se ha encontrado las ofertas mas populares
 	 * @return Lista de Ofertas mas populares en la base de datos
 	 * @throws Exception - Cualquier error que se genere buscando las ofertas.
 	 */
-	public ArrayList<Oferta> getOfertasMasPopulares() throws Exception 
+	public ArrayList<OfertaPopular> getOfertasMasPopulares() throws Exception 
 	{
 		DAOOferta daoOferta= new DAOOferta( );
 		try
@@ -585,49 +636,6 @@ public class AlohAndesTransactionManager {
 		}	
 	}
 	
-	//RFC1
-	
-	/**
-	 * Metodo que modela la transaccion que encuentra el dinero obtenido por los operadores en el año actual.
-	 * <b> post: </b> se ha encontrado el dinero ganado por cada operador
-	 * @return Lista de cadenas con la informacion del dinero ganado por cada operador
-	 * @throws Exception - Cualquier error que se genere buscando las reservas y ofertas de los operadores.
-	 */
-	public ArrayList<DineroOperador> getDineroRecibidoOperadores() throws Exception 
-	{
-		DAOOperador daoOperador= new DAOOperador( );
-		try
-		{
-			this.conn = darConexion();
-			daoOperador.setConn( conn );
-			int year = Calendar.getInstance().get(Calendar.YEAR);
-			return daoOperador.getDineroRecibidoOperadores(year);
-
-		}
-		catch (SQLException sqlException) {
-			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
-			sqlException.printStackTrace();
-			throw sqlException;
-		} 
-		catch (Exception exception) {
-			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
-			exception.printStackTrace();
-			throw exception;
-		} 
-		finally {
-			try {
-				daoOperador.cerrarRecursos();
-				if(this.conn!=null){
-					this.conn.close();					
-				}
-			}
-			catch (SQLException exception) {
-				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}	
-	}
 	
 	/**
 	 * Metodo que modela la transaccion que retorna los usos de un cliente en la base de datos.
@@ -791,13 +799,19 @@ public class AlohAndesTransactionManager {
 		 * @param hostal - el hostal a agregar. hostal != null
 		 * @throws Exception - Cualquier error que se genere agregando el hostal
 		 */
-		public void addHotel(Hostal hostal) throws Exception {
+		public void addHostal(Hostal hostal) throws Exception {
 
 			DAOOperador daoOperador = new DAOOperador();
 			try {
 				this.conn = darConexion();
 				daoOperador.setConn(conn);
-				daoOperador.addHotel(hotel);
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+				LocalTime inicio = LocalTime.parse(hostal.getHorarioApertura(), formatter);
+				LocalTime fin = LocalTime.parse(hostal.getHorarioCierre(), formatter);
+				if(fin.isAfter(inicio)) {
+					throw new Exception("Los horarios son incompatibles.");
+				}
+				daoOperador.addHostal(hostal);
 
 			} catch (SQLException sqlException) {
 				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());

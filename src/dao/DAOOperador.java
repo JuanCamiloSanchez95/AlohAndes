@@ -202,13 +202,13 @@ public class DAOOperador {
 	 */
 	public ArrayList<DineroOperador> getDineroRecibidoOperadores(int year) throws SQLException, Exception {
 		ArrayList<DineroOperador> dinero = new ArrayList<DineroOperador>();
-		String sql = String.format(
-				"SELECT \"A2\".\"NOMBRE\" \"NOMBRE\",\"A1\".\"PRECIOESTADIA\"*\"A1\".\"DIAS\" \"SUMA\""
-						+ " FROM \"%1$s\".\"OPERADORES\" \"A2\", (SELECT \"A4\".\"OPERADOR\" \"OPERADOR\",\"A4\".\"PRECIOESTADIA\" \"PRECIOESTADIA\",SUM(\"A3\".\"CANTIDADDIAS\") \"DIAS\" "
-						+ "FROM \"%1$s\".\"OFERTAS\" \"A4\",\"%1$s\".\"RESERVAS\" \"A3\" "
-						+ "WHERE \"A3\".\"OFERTA\"=\"A4\".\"ID\" AND EXTRACT(YEAR FROM \"A3\".\"FECHALLEGADA\")=%2$d "
-						+ "GROUP BY \"A4\".\"OPERADOR\",\"A4\".\"PRECIOESTADIA\") \"A1\" "
-						+ "WHERE \"A1\".\"OPERADOR\"=\"A2\".\"ID\"",
+		String sql = String.format("SELECT \"A2\".\"NOMBRE\" \"NOMBRE\",\"A1\".\"PRECIOESTADIA\"*\"A1\".\"DIAS\" \"SUMA\" "
+				+ "FROM \"%1$s\".\"OPERADORES\" \"A2\", (SELECT \"A4\".\"OPERADOR\" \"OPERADOR\",\"A4\".\"PRECIOESTADIA\" \"PRECIOESTADIA\",SUM(\"A3\".\"CANTIDADDIAS\") \"DIAS\" "
+				+ "FROM \"%1$s\".\"OFERTAS\" \"A4\",\"%1$s\".\"RESERVAS\" \"A3\" "
+				+ "WHERE \"A3\".\"OFERTA\"=\"A4\".\"ID\" "
+				+ "AND EXTRACT(YEAR FROM \"A3\".\"FECHALLEGADA\")=%2$s "
+				+ "GROUP BY \"A4\".\"OPERADOR\",\"A4\".\"PRECIOESTADIA\") \"A1\" "
+				+ "WHERE \"A1\".\"OPERADOR\"=\"A2\".\"ID\"",
 				AlohAndesTransactionManager.USUARIO, year);
 
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -286,8 +286,8 @@ public class DAOOperador {
 
 		String nombre = resultSet.getString("NOMBRE");
 		double dinero = resultSet.getDouble("SUMA");
-
-		return new DineroOperador(nombre,dinero);
+		DineroOperador dOperador= new DineroOperador(nombre,dinero);
+		return dOperador;
 	}
 
 }

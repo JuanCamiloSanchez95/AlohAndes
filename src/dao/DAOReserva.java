@@ -101,7 +101,7 @@ public class DAOReserva {
 	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public ArrayList<Reserva> getReservasOfertaById(int id) throws SQLException, Exception {
+	public ArrayList<Reserva> getReservasOfertaById(Long id) throws SQLException, Exception {
 		ArrayList<Reserva> reservas = new ArrayList<Reserva>();
 		DAOReserva daoReserva = new DAOReserva();
 		String sql = String.format("SELECT RESERVA FROM %1$s.RESERVA WHERE OFERTA = %2$d", AlohAndesTransactionManager.USUARIO, id);

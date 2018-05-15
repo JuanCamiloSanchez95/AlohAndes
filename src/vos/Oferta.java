@@ -20,7 +20,7 @@ public class Oferta
 		 * Id de la oferta
 		 */
 		@JsonProperty(value="id")
-		private int id;
+		private Long id;
 		
 		/**
 		 * precio de estadia de la oferta
@@ -92,7 +92,7 @@ public class Oferta
 		 * @param fechaPublicacion -fecha de la publicacion de la oferta
 		 * @param capacidad - Capacidad de alojamientos de la oferta
 		 */
-		public Oferta(@JsonProperty(value="id") Integer id,@JsonProperty(value="precioEstadia") Double precioEstadia,@JsonProperty(value="nombre") String nombre,@JsonProperty(value="descripcion") String descripcion,@JsonProperty(value="fechaPublicacion") Date fechaPublicacion,@JsonProperty(value="capacidad") Integer capacidad) 
+		public Oferta(@JsonProperty(value="id") Long id,@JsonProperty(value="precioEstadia") Double precioEstadia,@JsonProperty(value="nombre") String nombre,@JsonProperty(value="descripcion") String descripcion,@JsonProperty(value="fechaPublicacion") Date fechaPublicacion,@JsonProperty(value="capacidad") Integer capacidad) 
 		{
 			this.id=id;
 			this.precioEstadia=precioEstadia;
@@ -117,11 +117,11 @@ public class Oferta
 			this.capacidad = capacidad;
 		}
 
-		public int getId() {
+		public Long getId() {
 			return id;
 		}
 
-		public void setId(int id) {
+		public void setId(Long id) {
 			this.id = id;
 		}
 

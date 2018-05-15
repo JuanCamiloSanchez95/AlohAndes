@@ -14,6 +14,7 @@ import javax.ws.rs.core.Response;
 
 import tm.AlohAndesTransactionManager;
 import vos.Oferta;
+import vos.OfertaPopular;
 
 @Path("ofertas")
 public class OfertaService {
@@ -87,7 +88,7 @@ public class OfertaService {
 		
 		try {
 			AlohAndesTransactionManager tm = new AlohAndesTransactionManager(getPath());
-			List<Oferta> ofertas;
+			List<OfertaPopular> ofertas;
 			ofertas = tm.getOfertasMasPopulares();
 			return Response.status(200).entity(ofertas).build();
 		} 

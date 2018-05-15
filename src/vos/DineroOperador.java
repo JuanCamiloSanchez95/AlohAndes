@@ -1,5 +1,7 @@
 package vos;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 /**
  * Clase de Apoyo para RFC1
  * @author Cristian
@@ -10,11 +12,13 @@ public class DineroOperador {
 	/**
 	 * Nombre de Operador
 	 */
+	@JsonProperty(value="nombre")
 	private String nombre;
 	
 	/**
 	 * Dinero ganado por Operador
 	 */
+	@JsonProperty(value="dinero")
 	private double dinero;
 	
 	/**
@@ -22,7 +26,7 @@ public class DineroOperador {
 	 * @param nombre - nombre del operador
 	 * @param dinero - dinero ganado por el operador
 	 */
-	public DineroOperador(String nombre, double dinero) {
+	public DineroOperador(@JsonProperty(value="nombre")String nombre,@JsonProperty(value="dinero") double dinero) {
 		this.nombre= nombre;
 		this.dinero = dinero;
 	}

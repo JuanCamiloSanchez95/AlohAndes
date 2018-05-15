@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import tm.AlohAndesTransactionManager;
 import vos.Oferta;
+import vos.OfertaPopular;
 
 public class DAOOferta {
 
@@ -98,7 +99,7 @@ public class DAOOferta {
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public Oferta findOfertaById(int id) throws SQLException, Exception 
+	public Oferta findOfertaById(Long id) throws SQLException, Exception 
 	{
 		Oferta oferta = null;
 
@@ -143,7 +144,7 @@ public class DAOOferta {
 	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public int getNumReservas(int id) throws SQLException, Exception {
+	public int getNumReservas(Long id) throws SQLException, Exception {
 		
 		int numReservas=0;
 		
@@ -186,15 +187,20 @@ public class DAOOferta {
 	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public ArrayList<Oferta> getOfertasMasPopulares() throws SQLException, Exception {
-		ArrayList<Oferta> ofertas = new ArrayList<Oferta>();
-		String sql = String.format("SELECT OFERTAS.ID FROM OFERTAS,RESERVAS WHERE RESERVAS.OFERTA=OFERTAS.ID AND ROWNUM <=20 GROUP BY OFERTAS.ID ORDER BY COUNT(OFERTAS.ID) DESC");
+	public ArrayList<OfertaPopular> getOfertasMasPopulares() throws SQLException, Exception {
+		ArrayList<OfertaPopular> ofertas = new ArrayList<OfertaPopular>();
+		String sql = String.format("SELECT \"A1\".\"ID\" \"ID\",\"A1\".\"NOMBRE\" \"NOMBRE\",\"A1\".\"NUMRESERVAS\" \"NUMRESERVAS\" "
+				+ "FROM  (SELECT \"A3\".\"ID\" \"ID\",\"A3\".\"NOMBRE\" \"NOMBRE\",SUM(CASE  WHEN \"A3\".\"ID\"=\"A2\".\"OFERTA\" THEN 1 ELSE 0 END ) \"NUMRESERVAS\""
+				+ " FROM \"%1$s\".\"OFERTAS\" \"A3\",\"%1$s\".\"RESERVAS\" \"A2\" "
+				+ "WHERE \"A2\".\"OFERTA\"=\"A3\".\"ID\" GROUP BY \"A3\".\"ID\",\"A3\".\"NOMBRE\" "
+				+ "ORDER BY COUNT(\"A2\".\"OFERTA\") DESC) \"A1\""
+				+ " WHERE ROWNUM<=20",AlohAndesTransactionManager.USUARIO);
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
 
 		while (rs.next()) {
-			ofertas.add(findOfertaById(rs.getInt("ID")));
+			ofertas.add(convertResultSetToOfertaPopular(rs));
 		}
 		return ofertas;
 	}
@@ -236,7 +242,7 @@ public class DAOOferta {
 
 		try
 		{
-			Integer id= resultSet.getInt("ID");
+			Long id= resultSet.getLong("ID");
 			Double precioEstadia = resultSet.getDouble("PRECIOESTADIA");
 			String nombre = resultSet.getString("NOMBRE");
 			String descripcion = resultSet.getString("DESCRIPCION");
@@ -254,6 +260,23 @@ public class DAOOferta {
 		{
 			throw new SQLException(e.getMessage());
 		}
+	}
+	
+	
+	/**
+	 * Metodo que transforma el resultado obtenido de una consulta SQL (sobre la tabla OFERTAS) en una instancia de la clase OfertaPopular.
+	 * @param resultSet ResultSet con la informacion de una oferta popular que se obtuvo de la base de datos.
+	 * @return OfertaPopular cuyos atributos corresponden a los valores asociados a un registro particular de la tabla OFERTAS.
+	 * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
+	 */
+	public OfertaPopular convertResultSetToOfertaPopular(ResultSet resultSet) throws SQLException {
+
+			Long id= resultSet.getLong("ID");
+			String nombre = resultSet.getString("NOMBRE");
+			Integer numReservas = resultSet.getInt("NUMRESERVAS");
+			OfertaPopular oferta = new OfertaPopular(id, nombre, numReservas);
+
+			return oferta;
 	}
 
 
