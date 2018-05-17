@@ -35,9 +35,9 @@ Proyecto de sistrans
        - [ ] Eficiencia
      - [ ] RFC4 - Mostrar Alojamientos en una fecha y con un conjunto de servicios
 	   - [ ] Eficiencia
-     - [ ] RFC5 - Mostrar el Uso para cada tipo de usuario
+     - [x] RFC5 - Mostrar el Uso para cada tipo de usuario
   	   - [ ] Eficiencia
-     - [ ] RFC6 - Mostrar el uso para un usuario dado
+     - [x] RFC6 - Mostrar el uso para un usuario dado
   	   - [ ] Eficiencia
      - [ ] RFC7 - Analizar la Operacion de AlohAndes
   	   - [ ] Eficiencia
