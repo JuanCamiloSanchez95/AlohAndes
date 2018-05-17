@@ -3,19 +3,20 @@ package vos;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
- * Clase que representa el uso del sistema por parte de un  cliente
- * @author Cristian 
+ * 
+ * @author Cristian Clase que representa el uso del sistema por parte de un tipo
+ *         de cliente
  */
-public class UsoCliente {
+public class UsoTipo {
 	// ----------------------------------------------------------------------------------------------------------------------------------
 	// ATRIBUTOS
 	// ----------------------------------------------------------------------------------------------------------------------------------
 
 	/**
-	 * Nombre del cliente
+	 * Tipo del cliente
 	 */
-	@JsonProperty(value = "nombreCliente")
-	private String nombreCliente;
+	@JsonProperty(value = "tipoCliente")
+	private String tipoCliente;
 
 	/**
 	 * Dias contratados
@@ -40,19 +41,19 @@ public class UsoCliente {
 	// ----------------------------------------------------------------------------------------------------------------------------------
 
 	/**
-	 * Metodo constructor de la clase UsoCliente
-	 *  <b>post: </b> Crea un objeto UsoCliente con los valores que entran por parametro
+	 * Metodo constructor de la clase UsoTipo
+	 *  <b>post: </b> Crea un objeto UsoTipo con los valores que entran por parametro
 	 * 
-	 * @param nombreCliente - nombre del cliente
-	 * @param diasContratados- suma de dias contratados por el cliente.
-	 * @param alojamientoFrecuente - tipo de alojamiento contratado.
-	 * @param dineroPagado - Dinero pagado en total
+	 * @param tipoCliente - tipo del cliente
+	 * @param diasContratados- suma de dias contratados por el tipo de cliente.
+	 * @param alojamientoFrecuente - tipo de alojamiento mas frecuentamente contratado.
+	 * @param dineroPagado - Dinero total pagado por todos los alojamientos
 	 */
-	public UsoCliente(@JsonProperty(value = "nombreCliente") String nombreCliente,
+	public UsoTipo(@JsonProperty(value = "tipoCliente") String tipoCliente,
 			@JsonProperty(value = "diasContratados") Integer diasContratados,
 			@JsonProperty(value = "alojamientoFrecuente") String alojamientoFrecuente,
 			@JsonProperty(value = "dineroPagado") double dineroPagado) {
-		this.nombreCliente = nombreCliente;
+		this.tipoCliente = tipoCliente;
 		this.diasContratados = diasContratados;
 		this.alojamientoFrecuente = alojamientoFrecuente;
 		this.dineroPagado = dineroPagado;
@@ -87,11 +88,11 @@ public class UsoCliente {
 		this.dineroPagado = dineroPagado;
 	}
 
-	public String getNombreCliente() {
-		return nombreCliente;
+	public String getTipoCliente() {
+		return tipoCliente;
 	}
 
-	public void setNombreCliente(String nombreCliente) {
-		this.nombreCliente = nombreCliente;
+	public void setTipoCliente(String tipoCliente) {
+		this.tipoCliente = tipoCliente;
 	}
 }

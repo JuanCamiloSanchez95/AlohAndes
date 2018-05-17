@@ -14,6 +14,7 @@ import javax.ws.rs.core.Response;
 import tm.AlohAndesTransactionManager;
 import vos.Oferta;
 import vos.UsoCliente;
+import vos.UsoTipo;
 
 /**
  *  @author Cristian Amaya - cm.amaya10@uniandes.edu.co
@@ -90,7 +91,7 @@ public class ClienteService {
 
 		try {
 			AlohAndesTransactionManager tm = new AlohAndesTransactionManager(getPath());
-			List<UsoCliente> usos;
+			List<UsoTipo> usos;
 			usos = tm.getUsosByVinculo();
 			return Response.status(200).entity(usos).build();
 		} 

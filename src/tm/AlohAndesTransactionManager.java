@@ -37,6 +37,7 @@ import vos.OfertaPopular;
 import vos.Operador;
 import vos.Reserva;
 import vos.UsoCliente;
+import vos.UsoTipo;
 
 /**
  * @author Cristian M. Amaya	- 	cm.amaya10@uniandes.edu.co
@@ -679,14 +680,13 @@ public class AlohAndesTransactionManager {
 	}
 	
 	/**
-	 * Metodo que modela la transaccion que retorna los usos de un cliente en la base de datos.
-	 * @param id - id del Cliente 
-	 * @return List<UsoCliente> - Lista de usos de un cliente que contiene el resultado de la consulta.
+	 * Metodo que modela la transaccion que retorna los usos por los diferentes tipos de clientes en la base de datos.
+	 * @return List<UsoTipo> - Lista de por los diferentes tipos de clientes.
 	 * @throws Exception - Cualquier error que se genere durante la transaccion
 	 */
-	public List<UsoCliente> getUsosByVinculo() throws Exception {
+	public List<UsoTipo> getUsosByVinculo() throws Exception {
 		DAOCliente daoCliente = new DAOCliente();
-		List<UsoCliente> usos;
+		List<UsoTipo> usos;
 		try {
 			this.conn = darConexion();
 			daoCliente.setConn(conn);
