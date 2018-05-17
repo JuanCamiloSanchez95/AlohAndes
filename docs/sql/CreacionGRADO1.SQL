@@ -36,6 +36,7 @@ descripcion varchar(32),
 costo double precision NOT NULL,
 minimoPeriodo int NOT NULL,
 CONSTRAINT PKaloj PRIMARY KEY (id),
+CONSTRAINT CKtipoAloja  CHECK (tipo IN ('Apartamento','HabitacionHotel','HabitacionHostal','Vivienda','HabitacionVivienda','HabitacionUniversitaria')),
 CONSTRAINT CKminimo CHECK (minimoPeriodo>=0),
 CONSTRAINT CKcostoAloja CHECK (costo>0)
 );
