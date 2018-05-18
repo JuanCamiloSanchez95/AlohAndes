@@ -19,6 +19,8 @@ insert into Apartamentos (id, amoblado, administracion) values (17, 'N', 78.06);
 insert into Apartamentos (id, amoblado, administracion) values (18, 'N', 66.23);
 insert into Apartamentos (id, amoblado, administracion) values (19, 'Y', 55.8);
 insert into Apartamentos (id, amoblado, administracion) values (20, 'N', 62.86);
+
+--HabitacionHotel
 insert into HabitacionesHotel(id,capacidad,tipo,numeroHabitacion,tamano) values(6,3,'Suite',124,'Grande');
 
 
@@ -67,7 +69,7 @@ insert into HabitacionesVivienda (id, compartida, urlEsquema) values (59, 'Y', '
 insert into HabitacionesVivienda (id, compartida, urlEsquema) values (60, 'Y', 'White-throated monitor');
 
 	--ALOJAMIENTOSOPERADORES
-insert into AlojamientosOperadores (OperadorId, alojamientoId) values (7, 43);
+insert into AlojamientosOperadores (OperadorId, alojamientoId) values (2, 43);
 insert into AlojamientosOperadores (OperadorId, alojamientoId) values (2, 18);
 insert into AlojamientosOperadores (OperadorId, alojamientoId) values (13, 26);
 insert into AlojamientosOperadores (OperadorId, alojamientoId) values (13, 50);
