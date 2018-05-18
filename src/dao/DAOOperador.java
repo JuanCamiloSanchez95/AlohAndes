@@ -13,6 +13,8 @@ import vos.DineroOperador;
 import vos.Hostal;
 import vos.Hotel;
 import vos.Operador;
+import vos.Persona;
+import vos.ViviendaUniversitaria;
 import tm.AlohAndesTransactionManager;
 
 public class DAOOperador {
@@ -100,10 +102,10 @@ public class DAOOperador {
 	}
 	
 	/**
-	 * Metodo que agregar la informacion de un nuevo hotel en la Base de Datos a
+	 * Metodo que agregar la informacion de un nuevo hostal en la Base de Datos a
 	 * partir del parametro ingresado
 	 * <b>Precondicion: </b> la conexion a sido inicializadoa 
-	 * @param hotel Hotel que desea agregar a la Base de Datos
+	 * @param hostal Hostal que desea agregar a la Base de Datos
 	 * @throws SQLException - SQLException Genera excepcion si hay error en la conexion o en la  consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
@@ -122,6 +124,60 @@ public class DAOOperador {
 		sql = String.format("INSERT INTO %1$s.HOSTALES (ID, NOMBREHOSTAL, REGISTROSI, REGISTROCAMARA,HORARIOAPERTURA,HORARIOCIERRE) VALUES (%2$s, '%3$s', '%4$s','%5$s', '%6$s','%7$s')",
 				AlohAndesTransactionManager.USUARIO, hostal.getId(), hostal.getNombreHostal(), hostal.getRegistroST(), hostal.getRegistroCamara(),hostal.getHorarioApertura(),hostal.getHorarioCierre());
 		System.out.println(sql);
+
+		prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+	}
+	
+	/**
+	 * Metodo que agregar la informacion de una nueva persona  en la Base de Datos a
+	 * partir del parametro ingresado
+	 * <b>Precondicion: </b> la conexion a sido inicializadoa 
+	 * @param persona Persona que desea agregar a la Base de Datos
+	 * @throws SQLException - SQLException Genera excepcion si hay error en la conexion o en la  consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
+	 */
+	public void addPersona(Persona persona) throws SQLException, Exception {
+		
+		//Creacion del Operador
+		String sql = String.format("INSERT INTO %1$s.OPERADORES (ID, TIPO, NOMBRE) VALUES (%2$s, '%3$s', '%4$s')",
+				AlohAndesTransactionManager.USUARIO, persona.getId(), persona.getTipo(), persona.getNombre());
+		
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+		
+		// Creacion Persona
+		sql = String.format("INSERT INTO %1$s.PERSONANATURURAL (ID, VINCULO) VALUES (%2$s, '%3$s')",
+				AlohAndesTransactionManager.USUARIO, persona.getId(), persona.getVinculo());
+
+		prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+	}
+	
+	/**
+	 * Metodo que agregar la informacion de una nueva persona  en la Base de Datos a
+	 * partir del parametro ingresado
+	 * <b>Precondicion: </b> la conexion a sido inicializadoa 
+	 * @param persona Persona que desea agregar a la Base de Datos
+	 * @throws SQLException - SQLException Genera excepcion si hay error en la conexion o en la  consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
+	 */
+	public void addViviendaUniversitaria(ViviendaUniversitaria viv) throws SQLException, Exception {
+		
+		//Creacion del Operador
+		String sql = String.format("INSERT INTO %1$s.OPERADORES (ID, TIPO, NOMBRE) VALUES (%2$s, '%3$s', '%4$s')",
+				AlohAndesTransactionManager.USUARIO, viv.getId(), viv.getTipo(), viv.getNombre());
+		
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+		
+		// Creacion vivienda universitaria
+		sql = String.format("INSERT INTO %1$s.PERSONANATURURAL (ID, VINCULO) VALUES (%2$s)",
+				AlohAndesTransactionManager.USUARIO, viv.getId());
 
 		prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);

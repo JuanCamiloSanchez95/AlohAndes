@@ -35,9 +35,11 @@ import vos.IndiceOcupacion;
 import vos.Oferta;
 import vos.OfertaPopular;
 import vos.Operador;
+import vos.Persona;
 import vos.Reserva;
 import vos.UsoCliente;
 import vos.UsoTipo;
+import vos.ViviendaUniversitaria;
 
 /**
  * @author Cristian M. Amaya	- 	cm.amaya10@uniandes.edu.co
@@ -814,6 +816,87 @@ public class AlohAndesTransactionManager {
 				}
 				daoOperador.addHostal(hostal);
 
+			} catch (SQLException sqlException) {
+				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+				sqlException.printStackTrace();
+				throw sqlException;
+			} catch (Exception exception) {
+				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			} finally {
+				try {
+					daoOperador.cerrarRecursos();
+					if (this.conn != null) {
+						this.conn.close();
+					}
+				} catch (SQLException exception) {
+					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}
+		}
+		
+		//METODOS PERSONA
+		/**
+		 * Metodo que modela la transaccion que agrega una persona a la base de datos.
+		 * <b> post: </b> se ha agregado la persona que entra como parametro
+		 * @param persona - la persona a agregar. persona != null
+		 * @throws Exception - Cualquier error que se genere agregando el persona
+		 */
+		public void addPersona(Persona persona) throws Exception {
+
+			DAOOperador daoOperador = new DAOOperador();
+			try {
+				this.conn = darConexion();
+				daoOperador.setConn(conn);
+				String vinculo= persona.getVinculo();
+				if( vinculo.equals("profesor") || vinculo.equals("estudiante") || vinculo.equals("padre")|| vinculo.equals("egresado") || vinculo.equals("evento") || vinculo.equals("profinvitado")) {
+					daoOperador.addPersona(persona);
+
+				}
+				else {
+					throw new Exception("El vinculo no es correcto.");
+				}
+				
+			} catch (SQLException sqlException) {
+				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+				sqlException.printStackTrace();
+				throw sqlException;
+			} catch (Exception exception) {
+				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			} finally {
+				try {
+					daoOperador.cerrarRecursos();
+					if (this.conn != null) {
+						this.conn.close();
+					}
+				} catch (SQLException exception) {
+					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}
+		}
+		
+		//Metodos Vivienda Universitaria
+		/**
+		 * Metodo que modela la transaccion que agrega un vivienda universitaria a la base de datos.
+		 * <b> post: </b> se ha agregado la  vivienda que entra como parametro
+		 * @param vivienda - la vivienda a agregar. vivienda != null
+		 * @throws Exception - Cualquier error que se genere agregando el vivienda
+		 */
+		public void addVivienda(ViviendaUniversitaria viv) throws Exception {
+
+			DAOOperador daoOperador = new DAOOperador();
+			try {
+				this.conn = darConexion();
+				daoOperador.setConn(conn);
+				daoOperador.addViviendaUniversitaria(viv);
+				
 			} catch (SQLException sqlException) {
 				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 				sqlException.printStackTrace();
