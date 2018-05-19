@@ -166,7 +166,6 @@ public class DAOOperador {
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
 	public void addViviendaUniversitaria(ViviendaUniversitaria viv) throws SQLException, Exception {
-		
 		//Creacion del Operador
 		String sql = String.format("INSERT INTO %1$s.OPERADORES (ID, TIPO, NOMBRE) VALUES (%2$s, '%3$s', '%4$s')",
 				AlohAndesTransactionManager.USUARIO, viv.getId(), viv.getTipo(), viv.getNombre());

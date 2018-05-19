@@ -11,7 +11,7 @@ Proyecto de sistrans
 
 2. Requerimientos Funcionales
    - [ ] Iteracion 1
-     - [ ] RF1 - Registro de Operadores
+     - [x] RF1 - Registro de Operadores
      - [ ] RF2 - Registro Propuestas de Alojamiento
      - [ ] RF3- Registro Usuarios
      - [ ] RF4 - Registro Reserva

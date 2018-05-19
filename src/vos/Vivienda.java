@@ -25,7 +25,13 @@ public class Vivienda extends Alojamiento
 			@JsonProperty(value="menaje")
 			private String menaje;
 			
-		
+			/**
+			 *  Seguro de la vivienda 
+			 */
+			@JsonProperty(value="seguro")
+			private Seguro seguro;
+			
+			
 			
 			//----------------------------------------------------------------------------------------------------------------------------------
 			// METODO CONSTRUCTOR
@@ -46,6 +52,18 @@ public class Vivienda extends Alojamiento
 
 				public int getNumeroHabitaciones() {
 					return numeroHabitaciones;
+				}
+
+
+
+				public Seguro getSeguro() {
+					return seguro;
+				}
+
+
+
+				public void setSeguro(Seguro seguro) {
+					this.seguro = seguro;
 				}
 
 

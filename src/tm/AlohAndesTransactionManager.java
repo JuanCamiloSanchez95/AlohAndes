@@ -182,7 +182,7 @@ public class AlohAndesTransactionManager {
 			if(operador.getTipo()==null || operador.getNombre() == null) {
 				throw new Exception(
 						"El operador tiene un parametro vacio");
-			}
+			}		
 			daoOperador.addOperador(operador);
 
 		} catch (SQLException sqlException) {
@@ -207,6 +207,171 @@ public class AlohAndesTransactionManager {
 		}
 	}
 	
+
+	//Metodos de Hotel
+	
+	
+	/**
+	 * Metodo que modela la transaccion que agrega un hotel a la base de datos.
+	 * <b> post: </b> se ha agregado el hotel que entra como parametro
+	 * @param hotel - el hotel a agregar. hotel != null
+	 * @throws Exception - Cualquier error que se genere agregando el operador
+	 */
+	public void addHotel(Hotel hotel) throws Exception {
+
+		DAOOperador daoOperador = new DAOOperador();
+		try {
+			this.conn = darConexion();
+			daoOperador.setConn(conn);
+			daoOperador.addHotel(hotel);
+
+		} catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} finally {
+			try {
+				daoOperador.cerrarRecursos();
+				if (this.conn != null) {
+					this.conn.close();
+				}
+			} catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
+	
+	//Metodos de Hostal
+	
+	
+		/**
+		 * Metodo que modela la transaccion que agrega un hostal a la base de datos.
+		 * <b> post: </b> se ha agregado el hostal que entra como parametro
+		 * @param hostal - el hostal a agregar. hostal != null
+		 * @throws Exception - Cualquier error que se genere agregando el hostal
+		 */
+		public void addHostal(Hostal hostal) throws Exception {
+
+			DAOOperador daoOperador = new DAOOperador();
+			try {
+				this.conn = darConexion();
+				daoOperador.setConn(conn);
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+				LocalTime inicio = LocalTime.parse(hostal.getHorarioApertura(), formatter);
+				LocalTime fin = LocalTime.parse(hostal.getHorarioCierre(), formatter);
+				if(fin.isAfter(inicio)) {
+					throw new Exception("Los horarios son incompatibles.");
+				}
+				daoOperador.addHostal(hostal);
+
+			} catch (SQLException sqlException) {
+				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+				sqlException.printStackTrace();
+				throw sqlException;
+			} catch (Exception exception) {
+				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			} finally {
+				try {
+					daoOperador.cerrarRecursos();
+					if (this.conn != null) {
+						this.conn.close();
+					}
+				} catch (SQLException exception) {
+					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}
+		}
+		
+		//METODOS PERSONA
+		/**
+		 * Metodo que modela la transaccion que agrega una persona a la base de datos.
+		 * <b> post: </b> se ha agregado la persona que entra como parametro
+		 * @param persona - la persona a agregar. persona != null
+		 * @throws Exception - Cualquier error que se genere agregando el persona
+		 */
+		public void addPersona(Persona persona) throws Exception {
+
+			DAOOperador daoOperador = new DAOOperador();
+			try {
+				this.conn = darConexion();
+				daoOperador.setConn(conn);
+				String vinculo= persona.getVinculo();
+				if( vinculo.equals("profesor") || vinculo.equals("estudiante") || vinculo.equals("padre")|| vinculo.equals("egresado") || vinculo.equals("evento") || vinculo.equals("profinvitado")) {
+					daoOperador.addPersona(persona);
+
+				}
+				else {
+					throw new Exception("El vinculo no es correcto.");
+				}
+				
+			} catch (SQLException sqlException) {
+				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+				sqlException.printStackTrace();
+				throw sqlException;
+			} catch (Exception exception) {
+				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			} finally {
+				try {
+					daoOperador.cerrarRecursos();
+					if (this.conn != null) {
+						this.conn.close();
+					}
+				} catch (SQLException exception) {
+					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}
+		}
+		
+		//Metodos Vivienda Universitaria
+		/**
+		 * Metodo que modela la transaccion que agrega un vivienda universitaria a la base de datos.
+		 * <b> post: </b> se ha agregado la  vivienda que entra como parametro
+		 * @param vivienda - la vivienda a agregar. vivienda != null
+		 * @throws Exception - Cualquier error que se genere agregando el vivienda
+		 */
+		public void addVivienda(ViviendaUniversitaria viv) throws Exception {
+
+			DAOOperador daoOperador = new DAOOperador();
+			try {
+				this.conn = darConexion();
+				daoOperador.setConn(conn);
+				daoOperador.addViviendaUniversitaria(viv);
+				
+			} catch (SQLException sqlException) {
+				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+				sqlException.printStackTrace();
+				throw sqlException;
+			} catch (Exception exception) {
+				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			} finally {
+				try {
+					daoOperador.cerrarRecursos();
+					if (this.conn != null) {
+						this.conn.close();
+					}
+				} catch (SQLException exception) {
+					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}
+		}
 
 	
 	/**
@@ -897,168 +1062,4 @@ public class AlohAndesTransactionManager {
 		return alojamientos;
 	}
 
-	//Metodos de Hotel
-	
-	
-	/**
-	 * Metodo que modela la transaccion que agrega un hotel a la base de datos.
-	 * <b> post: </b> se ha agregado el hotel que entra como parametro
-	 * @param hotel - el hotel a agregar. hotel != null
-	 * @throws Exception - Cualquier error que se genere agregando el operador
-	 */
-	public void addHotel(Hotel hotel) throws Exception {
-
-		DAOOperador daoOperador = new DAOOperador();
-		try {
-			this.conn = darConexion();
-			daoOperador.setConn(conn);
-			daoOperador.addHotel(hotel);
-
-		} catch (SQLException sqlException) {
-			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
-			sqlException.printStackTrace();
-			throw sqlException;
-		} catch (Exception exception) {
-			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
-			exception.printStackTrace();
-			throw exception;
-		} finally {
-			try {
-				daoOperador.cerrarRecursos();
-				if (this.conn != null) {
-					this.conn.close();
-				}
-			} catch (SQLException exception) {
-				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-	}
-	
-	//Metodos de Hostal
-	
-	
-		/**
-		 * Metodo que modela la transaccion que agrega un hostal a la base de datos.
-		 * <b> post: </b> se ha agregado el hostal que entra como parametro
-		 * @param hostal - el hostal a agregar. hostal != null
-		 * @throws Exception - Cualquier error que se genere agregando el hostal
-		 */
-		public void addHostal(Hostal hostal) throws Exception {
-
-			DAOOperador daoOperador = new DAOOperador();
-			try {
-				this.conn = darConexion();
-				daoOperador.setConn(conn);
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-				LocalTime inicio = LocalTime.parse(hostal.getHorarioApertura(), formatter);
-				LocalTime fin = LocalTime.parse(hostal.getHorarioCierre(), formatter);
-				if(fin.isAfter(inicio)) {
-					throw new Exception("Los horarios son incompatibles.");
-				}
-				daoOperador.addHostal(hostal);
-
-			} catch (SQLException sqlException) {
-				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
-				sqlException.printStackTrace();
-				throw sqlException;
-			} catch (Exception exception) {
-				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			} finally {
-				try {
-					daoOperador.cerrarRecursos();
-					if (this.conn != null) {
-						this.conn.close();
-					}
-				} catch (SQLException exception) {
-					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
-				}
-			}
-		}
-		
-		//METODOS PERSONA
-		/**
-		 * Metodo que modela la transaccion que agrega una persona a la base de datos.
-		 * <b> post: </b> se ha agregado la persona que entra como parametro
-		 * @param persona - la persona a agregar. persona != null
-		 * @throws Exception - Cualquier error que se genere agregando el persona
-		 */
-		public void addPersona(Persona persona) throws Exception {
-
-			DAOOperador daoOperador = new DAOOperador();
-			try {
-				this.conn = darConexion();
-				daoOperador.setConn(conn);
-				String vinculo= persona.getVinculo();
-				if( vinculo.equals("profesor") || vinculo.equals("estudiante") || vinculo.equals("padre")|| vinculo.equals("egresado") || vinculo.equals("evento") || vinculo.equals("profinvitado")) {
-					daoOperador.addPersona(persona);
-
-				}
-				else {
-					throw new Exception("El vinculo no es correcto.");
-				}
-				
-			} catch (SQLException sqlException) {
-				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
-				sqlException.printStackTrace();
-				throw sqlException;
-			} catch (Exception exception) {
-				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			} finally {
-				try {
-					daoOperador.cerrarRecursos();
-					if (this.conn != null) {
-						this.conn.close();
-					}
-				} catch (SQLException exception) {
-					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
-				}
-			}
-		}
-		
-		//Metodos Vivienda Universitaria
-		/**
-		 * Metodo que modela la transaccion que agrega un vivienda universitaria a la base de datos.
-		 * <b> post: </b> se ha agregado la  vivienda que entra como parametro
-		 * @param vivienda - la vivienda a agregar. vivienda != null
-		 * @throws Exception - Cualquier error que se genere agregando el vivienda
-		 */
-		public void addVivienda(ViviendaUniversitaria viv) throws Exception {
-
-			DAOOperador daoOperador = new DAOOperador();
-			try {
-				this.conn = darConexion();
-				daoOperador.setConn(conn);
-				daoOperador.addViviendaUniversitaria(viv);
-				
-			} catch (SQLException sqlException) {
-				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
-				sqlException.printStackTrace();
-				throw sqlException;
-			} catch (Exception exception) {
-				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			} finally {
-				try {
-					daoOperador.cerrarRecursos();
-					if (this.conn != null) {
-						this.conn.close();
-					}
-				} catch (SQLException exception) {
-					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
-				}
-			}
-		}
 }

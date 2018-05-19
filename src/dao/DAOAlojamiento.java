@@ -11,10 +11,16 @@ import java.util.Date;
 
 import tm.AlohAndesTransactionManager;
 import vos.Alojamiento;
+import vos.Apartamento;
 import vos.Cliente;
 import vos.ClienteFrecuente;
+import vos.HabitacionHostal;
+import vos.HabitacionHotel;
+import vos.HabitacionUniversitaria;
+import vos.HabitacionVivienda;
 import vos.Oferta;
 import vos.Operador;
+import vos.Vivienda;
 
 public class DAOAlojamiento {
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -46,6 +52,166 @@ public class DAOAlojamiento {
 	// METODOS DE COMUNICACION CON LA BASE DE DATOS
 	//----------------------------------------------------------------------------------------------------------------------------------
 
+
+	/**
+	 * Metodo que agregar la informacion de un nuevo alojamiento  en la Base de Datos a
+	 * partir del parametro ingresado<br/>
+	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
+	 * 
+	 * @param alojamiento- alojamiento que desea agregar a la Base de Datos
+	 * @throws SQLException
+	 *             SQLException Genera excepcion si hay error en la conexion o en la
+	 *             consulta SQL
+	 * @throws Exception
+	 *             Si se genera un error dentro del metodo.
+	 */
+	public void addAlojamiento(Alojamiento alojamiento) throws SQLException, Exception {
+
+		String sql = String.format("INSERT INTO %1$s.ALOJAMIENTOS (ID, TIPO, NOMBRE, UBICACION,DESCRIPCION, COSTO,MINIMOPERIODO) VALUES (%2$s, '%3$s', '%4$s','%5$s''%6$s','%7$s')",
+				AlohAndesTransactionManager.USUARIO, alojamiento.getId(), alojamiento.getTipo(), alojamiento.getNombre(),alojamiento.getUbicacion(),alojamiento.getCosto(),alojamiento.getMinimoPeriodo());
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+
+	}
+	
+
+	/**
+	 * Metodo que agregar la informacion de un nuevo Apartamento  en la Base de Datos a
+	 * partir del parametro ingresado<br/>
+	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
+	 * 
+	 * @param Apartamento- Apartamento que desea agregar a la Base de Datos
+	 * @throws SQLException
+	 *             SQLException Genera excepcion si hay error en la conexion o en la
+	 *             consulta SQL
+	 * @throws Exception
+	 *             Si se genera un error dentro del metodo.
+	 */
+	public void addApartamento(Apartamento apa) throws SQLException, Exception {
+
+		String sql = String.format("INSERT INTO %1$s.APARTAMENTOS (ID, TIPO, NOMBRE, UBICACION,DESCRIPCION, COSTO,MINIMOPERIODO,AMOBLADO,ADMINISTRACION) VALUES (%2$s, '%3$s', '%4$s','%5$s''%6$s','%7$s','%8$s''%9$s')",
+				AlohAndesTransactionManager.USUARIO, apa.getId(), apa.getTipo(), apa.getNombre(),apa.getUbicacion(),apa.getCosto(),apa.getMinimoPeriodo(),apa.isAmoblado(),apa.getAdministracion());
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+
+	}
+	
+
+	/**
+	 * Metodo que agregar la informacion de un nuevo HabitacionUniversitaria  en la Base de Datos a
+	 * partir del parametro ingresado<br/>
+	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
+	 * 
+	 * @param HabitacionUniversitaria- HabitacionUniversitaria que desea agregar a la Base de Datos
+	 * @throws SQLException
+	 *             SQLException Genera excepcion si hay error en la conexion o en la
+	 *             consulta SQL
+	 * @throws Exception
+	 *             Si se genera un error dentro del metodo.
+	 */
+	public void addHabitacionUniversitaria(HabitacionUniversitaria hu) throws SQLException, Exception {
+
+		String sql = String.format("INSERT INTO %1$s.HABITACIONESUNIVERSITARIAS (ID, TIPO, NOMBRE, UBICACION,DESCRIPCION, COSTO,MINIMOPERIODO,COMPARTIDA,NUMEROHABITACION,CAPACIDAD,MENAJE,UBICACIONH) VALUES (%2$s, '%3$s', '%4$s','%5$s''%6$s','%7$s','%8$s','%9$s','%10$s''%11$s','%12$s')",
+				AlohAndesTransactionManager.USUARIO, hu.getId(), hu.getTipo(), hu.getNombre(),hu.getUbicacion(),hu.getCosto(),hu.getMinimoPeriodo(),hu.isCompartida(),hu.getNumHabitacion(),hu.getCapacidad(),hu.getMenaje(),hu.getUbicacionH());
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+
+	}
+	
+	
+	/**
+	 * Metodo que agregar la informacion de un nuevo HabitacionVivienda  en la Base de Datos a
+	 * partir del parametro ingresado<br/>
+	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
+	 * 
+	 * @param HabitacionVivienda- HabitacionVivienda que desea agregar a la Base de Datos
+	 * @throws SQLException
+	 *             SQLException Genera excepcion si hay error en la conexion o en la
+	 *             consulta SQL
+	 * @throws Exception
+	 *             Si se genera un error dentro del metodo.
+	 */
+	public void addHabitacionesVivienda(HabitacionVivienda viv) throws SQLException, Exception {
+
+		String sql = String.format("INSERT INTO %1$s.HABITACIONESVIVIENDA (ID, TIPO, NOMBRE, UBICACION,DESCRIPCION, COSTO,MINIMOPERIODO,COMPARTIDA,URLESQUEMA) VALUES (%2$s, '%3$s', '%4$s','%5$s''%6$s','%7$s','%8$s','%9$s')",
+				AlohAndesTransactionManager.USUARIO, viv.getId(), viv.getTipo(), viv.getNombre(),viv.getUbicacion(),viv.getCosto(),viv.getMinimoPeriodo(),viv.isCompartida(),viv.getUrlEsquema());
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+
+	}
+	
+	/**
+	 * Metodo que agregar la informacion de un nuevo Vivienda  en la Base de Datos a
+	 * partir del parametro ingresado<br/>
+	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
+	 * 
+	 * @param Vivienda- Vivienda que desea agregar a la Base de Datos
+	 * @throws SQLException
+	 *             SQLException Genera excepcion si hay error en la conexion o en la
+	 *             consulta SQL
+	 * @throws Exception
+	 *             Si se genera un error dentro del metodo.
+	 */
+	public void addVivienda(Vivienda viv) throws SQLException, Exception {
+
+		String sql = String.format("INSERT INTO %1$s.VIVIENDAS (ID, TIPO, NOMBRE, UBICACION,DESCRIPCION, COSTO,MINIMOPERIODO,NUMEROHABITACIONES,MENAJE,IDS) VALUES (%2$s, '%3$s', '%4$s','%5$s''%6$s','%7$s','%8$s','%9$s','%10$s')",
+				AlohAndesTransactionManager.USUARIO, viv.getId(), viv.getTipo(), viv.getNombre(),viv.getUbicacion(),viv.getCosto(),viv.getMinimoPeriodo(),viv.getNumeroHabitaciones(),viv.getMenaje(),viv.getSeguro());
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+
+	}
+	
+	
+	/**
+	 * Metodo que agregar la informacion de un nuevo HabitacionHostal  en la Base de Datos a
+	 * partir del parametro ingresado<br/>
+	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
+	 * 
+	 * @param HabitacionHostal- HabitacionHostal que desea agregar a la Base de Datos
+	 * @throws SQLException
+	 *             SQLException Genera excepcion si hay error en la conexion o en la
+	 *             consulta SQL
+	 * @throws Exception
+	 *             Si se genera un error dentro del metodo.
+	 */
+	public void addHabitacionHostal(HabitacionHostal ha) throws SQLException, Exception {
+
+		String sql = String.format("INSERT INTO %1$s.HABITACIONESHOSTAL (ID, TIPO, NOMBRE, UBICACION,DESCRIPCION, COSTO,MINIMOPERIODO,CAPACIDAD,TIPO,NUMEROHABITACION,TAMANO) VALUES (%2$s, '%3$s', '%4$s','%5$s''%6$s','%7$s','%8$s','%9$s','%10$s','%11$s')",
+				AlohAndesTransactionManager.USUARIO, ha.getId(), ha.getTipo(), ha.getNombre(),ha.getUbicacion(),ha.getCosto(),ha.getMinimoPeriodo(),ha.getCapacidad(),ha.getTipo(),ha.getNumeroHabitacion(),ha.getTamano());
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+
+	}
+	
+
+	/**
+	 * Metodo que agregar la informacion de un nuevo HabitacionHotel  en la Base de Datos a
+	 * partir del parametro ingresado<br/>
+	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
+	 * 
+	 * @param HabitacionHotel- HabitacionHotel que desea agregar a la Base de Datos
+	 * @throws SQLException
+	 *             SQLException Genera excepcion si hay error en la conexion o en la
+	 *             consulta SQL
+	 * @throws Exception
+	 *             Si se genera un error dentro del metodo.
+	 */
+	public void addHabitacionHotel(HabitacionHotel ha) throws SQLException, Exception {
+
+		String sql = String.format("INSERT INTO %1$s.HABITACIONESHOTEL (ID, TIPO, NOMBRE, UBICACION,DESCRIPCION, COSTO,MINIMOPERIODO,CAPACIDAD,TIPO,NUMEROHABITACION,TAMANO) VALUES (%2$s, '%3$s', '%4$s','%5$s''%6$s','%7$s','%8$s','%9$s','%10$s','%11$s')",
+				AlohAndesTransactionManager.USUARIO, ha.getId(), ha.getTipo(), ha.getNombre(),ha.getUbicacion(),ha.getCosto(),ha.getMinimoPeriodo(),ha.getCapacidad(),ha.getTipo(),ha.getNumeroHabitacion(),ha.getTamano());
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+
+	}
+	
 	/**
 	 * Metodo que obtiene la informacion de un alojamiento en la Base de Datos que tiene
 	 * el identificador dado por parametro 

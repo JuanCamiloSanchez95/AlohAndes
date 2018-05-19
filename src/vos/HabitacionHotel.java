@@ -9,7 +9,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
  * @author Juan
  * Clase que representa una habitacion  
  */
-public class HabitacionH extends Alojamiento
+public class HabitacionHotel extends Alojamiento
 {
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// ATRIBUTOS
@@ -65,7 +65,7 @@ public class HabitacionH extends Alojamiento
 		 * @param ubicacionH
 		 * @param tamano
 		 */
-		public HabitacionH(@JsonProperty(value="id") Integer id,@JsonProperty(value="nombre") String nombre, @JsonProperty(value="tipo") String tipo,@JsonProperty(value="ubicacion") String ubicacion,@JsonProperty(value="descripcion") String descripcion,@JsonProperty(value="costo") double costo, @JsonProperty(value="minimoPeriodo")int minimoPeriodo,@JsonProperty(value="capacidad")int capacidad,@JsonProperty(value="tipoHabitacion")String tipoHabitacion,@JsonProperty(value="numeroHabitacion")int numeroHabitacion,@JsonProperty(value="ubicacionH")String ubicacionH,@JsonProperty(value="tamano")String tamano) 
+		public HabitacionHotel(@JsonProperty(value="id") Integer id,@JsonProperty(value="nombre") String nombre, @JsonProperty(value="tipo") String tipo,@JsonProperty(value="ubicacion") String ubicacion,@JsonProperty(value="descripcion") String descripcion,@JsonProperty(value="costo") double costo, @JsonProperty(value="minimoPeriodo")int minimoPeriodo,@JsonProperty(value="capacidad")int capacidad,@JsonProperty(value="tipoHabitacion")String tipoHabitacion,@JsonProperty(value="numeroHabitacion")int numeroHabitacion,@JsonProperty(value="ubicacionH")String ubicacionH,@JsonProperty(value="tamano")String tamano) 
 		{
 			super(id, nombre, tipo, ubicacion, descripcion, costo, minimoPeriodo);
 			this.capacidad=capacidad;
