@@ -206,7 +206,7 @@ public class AlohAndesTransactionManager {
 		}
 	}
 	
-	
+
 	
 	/**
 	 * Metodo que modela la transaccion que busca el operador en la base de datos que

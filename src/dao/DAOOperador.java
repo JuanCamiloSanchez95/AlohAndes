@@ -183,30 +183,23 @@ public class DAOOperador {
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
 	}
-
+ 
 	/**
 	 * Metodo que obtiene la informacion de todos los operadores en la Base de Datos
 	 * <b>Precondicion: </b> la conexion a sido inicializadoa
-	 * 
-	 * @return lista con la informacion de todos los operadores que se encuentran en
-	 *         la Base de Datos
-	 * @throws SQLException
-	 *             Genera excepcion si hay error en la conexion o en la consulta SQL
-	 * @throws Exception
-	 *             Si se genera un error dentro del metodo.
+	 * @return lista con la informacion de todos los operadores que se encuentran en   la Base de Datos
+	 * @throws SQLException  Genera excepcion si hay error en la conexion o en la consulta SQL
+	 * @throws Exception  Si se genera un error dentro del metodo.
 	 */
 	public ArrayList<Operador> getOperadores() throws SQLException, Exception {
 		ArrayList<Operador> operadores = new ArrayList<Operador>();
 		String sql = String.format("SELECT * FROM %1$s.OPERADORES", AlohAndesTransactionManager.USUARIO);
-
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
-
 		while (rs.next()) {
 			operadores.add(convertResultSetToOperador(rs));
 		}
-
 		return operadores;
 	}
 
@@ -215,21 +208,13 @@ public class DAOOperador {
 	 * el identificador dado por parametro 
 	 * <b>Precondicion: </b> la conexion a sido inicializado
 	 * @param id el identificador del operador
-	 * @return la informacion del operador que cumple con los criterios de la
-	 *         sentecia SQL Null si no existe el operador con los criterios
-	 *         establecidos
-	 * @throws SQLException
-	 *             SQLException Genera excepcion si hay error en la conexion o en la
-	 *             consulta SQL
-	 * @throws Exception
-	 *             Si se genera un error dentro del metodo.
+	 * @return la informacion del operador que cumple con los criterios de la  sentecia SQL Null si no existe el operador con los criterios   establecidos
+	 * @throws SQLException  SQLException Genera excepcion si hay error en la conexion o en la  consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
 	public Operador findOperadorById(Long id) throws SQLException, Exception {
 		Operador operador = null;
-
-		String sql = String.format("SELECT * FROM %1$s.OPERADORES WHERE ID = %2$d", AlohAndesTransactionManager.USUARIO,
-				id);
-
+		String sql = String.format("SELECT * FROM %1$s.OPERADORES WHERE ID = %2$d", AlohAndesTransactionManager.USUARIO,id);
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
@@ -237,7 +222,6 @@ public class DAOOperador {
 		if (rs.next()) {
 			operador = convertResultSetToOperador(rs);
 		}
-
 		return operador;
 	}
 
@@ -245,15 +229,10 @@ public class DAOOperador {
 	 * Metodo que obtiene la informacion del diero obtenido por cada operador en la
 	 * Base de Datos en el año dado por parametro <b>Precondicion: </b> la conexion
 	 * a sido inicializado
-	 * 
 	 * @param year - el año de consulta
-	 * @return Lista de cadenas con la informacion por operador del dinero ganado en
-	 *         el año
-	 * @throws SQLException
-	 *             SQLException Genera excepcion si hay error en la conexion o en la
-	 *             consulta SQL
-	 * @throws Exception
-	 *             Si se genera un error dentro del metodo.
+	 * @return Lista de cadenas con la informacion por operador del dinero ganado en   el año
+	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la   consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
 	public ArrayList<DineroOperador> getDineroRecibidoOperadores(int year) throws SQLException, Exception {
 		ArrayList<DineroOperador> dinero = new ArrayList<DineroOperador>();
