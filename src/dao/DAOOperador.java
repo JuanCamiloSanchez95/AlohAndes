@@ -223,6 +223,8 @@ public class DAOOperador {
 		}
 		return operador;
 	}
+	
+	//RFC1
 
 	/**
 	 * Metodo que obtiene la informacion del diero obtenido por cada operador en la
@@ -235,6 +237,7 @@ public class DAOOperador {
 	 */
 	public ArrayList<DineroOperador> getDineroRecibidoOperadores(int year) throws SQLException, Exception {
 		ArrayList<DineroOperador> dinero = new ArrayList<DineroOperador>();
+		long startTime = System.currentTimeMillis();
 		String sql = String.format("SELECT \"A2\".\"NOMBRE\" \"NOMBRE\",\"A2\".\"TIPO\" \"TIPO\",SUM(\"A1\".\"PRECIOESTADIA\"*\"A1\".\"DIAS\") \"SUMA\" "
 				+ "FROM \"%1$s\".\"OPERADORES\" \"A2\", "
 				+ "(SELECT \"A4\".\"OPERADOR\" \"OPERADOR\",\"A4\".\"PRECIOESTADIA\" \"PRECIOESTADIA\","
@@ -249,6 +252,11 @@ public class DAOOperador {
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
+		
+		long stopTime = System.currentTimeMillis();
+	    long elapsedTime = stopTime - startTime;
+	    double time = ((double)elapsedTime/1000);
+	    System.out.println("Tiempo de Consulta: "+String.format("%.2f", time)+" segundos");
 
 		while (rs.next()) {
 			dinero.add(convertResultSetToDineroOperador(rs));

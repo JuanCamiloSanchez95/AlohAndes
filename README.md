@@ -62,6 +62,8 @@ Proyecto de sistrans
 
 * Se cambia el parametro nombre en Hotel y Hostal a nombreHotel/nombreHostal, para no confundirlo con el nombre del operador.
 
+* Se añadieron clases para poder diferenciar las habitaciones de  cada alojamiento Hotel/Hostal
+
 * Se remueve la clase AlohAndes de la base de datos y sus tablas relacionadas
 
 * Formato de horario para Hostal es de 24 h

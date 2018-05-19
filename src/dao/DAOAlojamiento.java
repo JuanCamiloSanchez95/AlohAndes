@@ -240,6 +240,8 @@ public class DAOAlojamiento {
 		return alojamiento;
 	}
 	
+	//RFC8
+	
 	/**
 	 * Metodo que obtiene la informacion de los clientes frecuentes de un alojamiento cuyo id es dado en la Base de Datos
 	 * <b>Precondicion: </b> la conexion a sido inicializada
@@ -250,7 +252,7 @@ public class DAOAlojamiento {
 	 */
 	public ArrayList<ClienteFrecuente> findClienteFrecuentes(Long id)throws SQLException, Exception {
 		ArrayList<ClienteFrecuente> clientes = new ArrayList<ClienteFrecuente>();
-		
+		long startTime = System.currentTimeMillis();
 		String sql = String.format("SELECT \"A1\".\"NOMBRE\" \"NOMBRE\",\"A1\".\"VINCULO\" \"VINCULO\",\"A1\".\"NUMUSOS\" \"NUMUSOS\",\"A1\".\"NUMDIAS\" \"NUMDIAS\""
 				+ " FROM  (SELECT \"A5\".\"NOMBRE\" \"NOMBRE\",\"A5\".\"VINCULO\" \"VINCULO\",COUNT(*) \"NUMUSOS\",SUM(\"A3\".\"CANTIDADDIAS\") \"NUMDIAS\" "
 				+ "FROM \"%1$s\".\"CLIENTES\" \"A5\",\"%1$s\".\"RESERVASCLIENTE\" \"A4\",\"%1$s\".\"RESERVAS\" \"A3\",\"%1$s\".\"OFERTAS\" \"A2\" "
@@ -263,6 +265,11 @@ public class DAOAlojamiento {
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
 		
+		long stopTime = System.currentTimeMillis();
+	    long elapsedTime = stopTime - startTime;
+	    double time = ((double)elapsedTime/1000);
+	    System.out.println("Tiempo de Consulta: "+String.format("%.2f", time)+" segundos");
+	    
 		while (rs.next()) {
 			clientes.add(convertResultSetToClienteFrecuente(rs));
 		}
@@ -270,6 +277,8 @@ public class DAOAlojamiento {
 		return clientes;
 		
 	}
+	
+	//RFC4
 	
 	/**
 	 * Metodo que obtiene la informacion de los alojamientos disponibles en un rango de fechas dado por el usuario en la Base de Datos,
@@ -282,8 +291,9 @@ public class DAOAlojamiento {
 	public ArrayList<Alojamiento> getAlojamientosByFechaAndServicios(Date inicio, Date fin, String servicios) throws SQLException, Exception {
 		ArrayList<Alojamiento> alojamientos = new ArrayList<Alojamiento>();
 		
-		Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+		long startTime = System.currentTimeMillis();
 		
+		Format formatter = new SimpleDateFormat("dd/MM/yyyy");
 		String[] parts=servicios.split(",");
 		StringBuilder sql = new StringBuilder();
 		
@@ -309,6 +319,11 @@ public class DAOAlojamiento {
 		PreparedStatement prepStmt = conn.prepareStatement(sql.toString());
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
+		
+		long stopTime = System.currentTimeMillis();
+	    long elapsedTime = stopTime - startTime;
+	    double time = ((double)elapsedTime/1000);
+	    System.out.println("Tiempo de Consulta: "+String.format("%.2f", time)+" segundos");
 
 		while (rs.next()) {
 			alojamientos.add(convertResultSetToAlojamiento(rs));
