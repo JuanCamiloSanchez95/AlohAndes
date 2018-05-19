@@ -34,6 +34,7 @@ import vos.Hostal;
 import vos.Hotel;
 import vos.IndiceOcupacion;
 import vos.Oferta;
+import vos.OfertaBajaDemanda;
 import vos.OfertaPopular;
 import vos.Operador;
 import vos.Persona;
@@ -765,6 +766,50 @@ public class AlohAndesTransactionManager {
 		}	
 	}
 	
+	//RFC9
+	
+		/**
+		 * Metodo que modela la transaccion que encuentra las ofertas con menor demanda.
+		 * <b> post: </b> se ha encontrado las ofertas con menor demanda.
+		 * @return Lista de Ofertas mas populares en la base de datos
+		 * @throws Exception - Cualquier error que se genere buscando las ofertas.
+		 */
+		public ArrayList<OfertaBajaDemanda> getOfertasMenorDemanda() throws Exception 
+		{
+			DAOOferta daoOferta= new DAOOferta( );
+			try
+			{
+				this.conn = darConexion();
+				daoOferta.setConn( conn );
+				return daoOferta.getOfertasConBajaDemanda();
+
+			}
+			catch (SQLException sqlException) {
+				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+				sqlException.printStackTrace();
+				throw sqlException;
+			} 
+			catch (Exception exception) {
+				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			} 
+			finally {
+				try {
+					daoOferta.cerrarRecursos();
+					if(this.conn!=null){
+						this.conn.close();					
+					}
+				}
+				catch (SQLException exception) {
+					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}	
+		}
+	
+		//RFC3
 	/**
 	 * Metodo que modela la transaccion que encuentra los indices de ocupacion de las ofertas.
 	 * <b> post: </b> se ha encontrado las ofertas con su respectivo indices de ocupacion.

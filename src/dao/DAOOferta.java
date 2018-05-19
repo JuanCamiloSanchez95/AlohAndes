@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import tm.AlohAndesTransactionManager;
 import vos.IndiceOcupacion;
 import vos.Oferta;
+import vos.OfertaBajaDemanda;
 import vos.OfertaPopular;
 
 public class DAOOferta {
@@ -127,15 +128,13 @@ public class DAOOferta {
 	 */
 	public void deleteOferta(Oferta oferta) throws SQLException, Exception {
 
-		String sql = String.format("DELETE FROM %1$s.OFERTAS WHERE ID = %2$d", AlohAndesTransactionManager.USUARIO, oferta.getId());
-
-		System.out.println(sql);
-		
+		String sql = String.format("DELETE FROM %1$s.OFERTAS WHERE ID = %2$d", AlohAndesTransactionManager.USUARIO, oferta.getId());		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
 	}
 	
+	//RFC3
 	
 	/**
 	 * Metodo que obtiene la informacion de los indices de ocupacion de las ofertas.
@@ -146,7 +145,7 @@ public class DAOOferta {
 	 */
 	public ArrayList<IndiceOcupacion> getIndicesOcupacion() throws SQLException, Exception {
 		ArrayList<IndiceOcupacion> indices = new ArrayList<IndiceOcupacion>();
-		
+		long startTime = System.currentTimeMillis();
 		String sql = String.format("SELECT \"A2\".\"ID\" \"ID\",\"A2\".\"NOMBRE\" \"NOMBRE\",\"A2\".\"CAPACIDAD\" \"CAPACIDAD\",SUM(CASE  WHEN \"A2\".\"ID\"=\"A1\".\"OFERTA\" THEN 1 ELSE 0 END ) \"NUMRESERVAS\" "
 				+ "FROM \"%1$s\".\"OFERTAS\" \"A2\",\"%1$s\".\"RESERVAS\" \"A1\" "
 				+ "GROUP BY \"A2\".\"ID\",\"A2\".\"NOMBRE\",\"A2\".\"CAPACIDAD\" "
@@ -155,12 +154,20 @@ public class DAOOferta {
 				PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
+		
+		long stopTime = System.currentTimeMillis();
+	    long elapsedTime = stopTime - startTime;
+	    double time = ((double)elapsedTime/1000);
+	    System.out.println("Tiempo de Consulta: "+String.format("%.2f", time)+" segundos");
 
 		while (rs.next()) {
 			indices.add(convertResultSetToIndiceOcupacion(rs));
 		}
+
 		return indices;
 	}
+	
+	//RFC2
 	
 	/**
 	 * Metodo que obtiene la informacion de las 20 ofertas mas populares en la Base de Datos 
@@ -171,6 +178,7 @@ public class DAOOferta {
 	 */
 	public ArrayList<OfertaPopular> getOfertasMasPopulares() throws SQLException, Exception {
 		ArrayList<OfertaPopular> ofertas = new ArrayList<OfertaPopular>();
+		long startTime = System.currentTimeMillis();
 		String sql = String.format("SELECT \"A1\".\"ID\" \"ID\",\"A1\".\"NOMBRE\" \"NOMBRE\",\"A1\".\"NUMRESERVAS\" \"NUMRESERVAS\" "
 				+ "FROM  (SELECT \"A3\".\"ID\" \"ID\",\"A3\".\"NOMBRE\" \"NOMBRE\",SUM(CASE  WHEN \"A3\".\"ID\"=\"A2\".\"OFERTA\" THEN 1 ELSE 0 END ) \"NUMRESERVAS\""
 				+ " FROM \"%1$s\".\"OFERTAS\" \"A3\",\"%1$s\".\"RESERVAS\" \"A2\" "
@@ -180,10 +188,58 @@ public class DAOOferta {
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
+		
+		long stopTime = System.currentTimeMillis();
+	    long elapsedTime = stopTime - startTime;
+	    double time = ((double)elapsedTime/1000);
+	    System.out.println("Tiempo de Consulta: "+String.format("%.2f", time)+" segundos");
 
 		while (rs.next()) {
 			ofertas.add(convertResultSetToOfertaPopular(rs));
 		}
+
+		return ofertas;
+	}
+	
+	//RFC9
+	
+	/**
+	 * Metodo que obtiene la informacion de las ofertas con menor demanda en la Base de Datos 
+	 * <b>Precondicion: </b> la conexion a sido inicializado
+	 * @return	lista con la informacion de las ofertas con menor demanda que se encuentran en la Base de Datos
+	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
+	 */
+	public ArrayList<OfertaBajaDemanda> getOfertasConBajaDemanda() throws SQLException, Exception {
+		ArrayList<OfertaBajaDemanda> ofertas = new ArrayList<OfertaBajaDemanda>();
+		long startTime = System.currentTimeMillis();
+		String sql = String.format("SELECT \"A3\".\"OFERTA\" \"ID\",\"A1\".\"NOMBRE\" \"NOMBRE\",SUM(CASE  WHEN \"A1\".\"ID\"=\"A3\".\"OFERTA\" THEN 1 ELSE 0 END )+1 \"NUMRESERVAS\",MAX(\"A3\".\"FECHALLEGADA\"-(\"A2\".\"FECHALLEGADA\"+\"A2\".\"CANTIDADDIAS\")) \"DISTANCIA\""
+				+ " FROM  (SELECT ROWNUM \"ROWN\",\"A4\".\"FECHALLEGADA\" \"FECHALLEGADA\",\"A4\".\"CANTIDADDIAS\" \"CANTIDADDIAS\",\"A4\".\"OFERTA\" \"OFERTA\" "
+				+ "FROM  (SELECT \"A7\".\"FECHALLEGADA\" \"FECHALLEGADA\",\"A7\".\"CANTIDADDIAS\" \"CANTIDADDIAS\",\"A7\".\"OFERTA\" \"OFERTA\" "
+				+ "FROM \"%1$s\".\"RESERVAS\" \"A7\" "
+				+ "ORDER BY \"A7\".\"OFERTA\",\"A7\".\"FECHALLEGADA\") \"A4\") \"A3\","
+				+ " (SELECT ROWNUM \"ROWN\",\"A5\".\"FECHALLEGADA\" \"FECHALLEGADA\",\"A5\".\"CANTIDADDIAS\" \"CANTIDADDIAS\",\"A5\".\"OFERTA\" \"OFERTA\""
+				+ " FROM  (SELECT \"A6\".\"FECHALLEGADA\" \"FECHALLEGADA\",\"A6\".\"CANTIDADDIAS\" \"CANTIDADDIAS\",\"A6\".\"OFERTA\" \"OFERTA\""
+				+ " FROM \"%1$s\".\"RESERVAS\" \"A6\""
+				+ " ORDER BY \"A6\".\"OFERTA\",\"A6\".\"FECHALLEGADA\") \"A5\") \"A2\",\"%1$s\".\"OFERTAS\" \"A1\""
+				+ " WHERE \"A3\".\"ROWN\"=\"A2\".\"ROWN\"+1 "
+				+ "AND \"A3\".\"OFERTA\"=\"A2\".\"OFERTA\" "
+				+ "AND \"A3\".\"OFERTA\"=\"A1\".\"ID\" "
+				+ "GROUP BY \"A3\".\"OFERTA\",\"A1\".\"NOMBRE\""
+				+ " HAVING MAX(\"A3\".\"FECHALLEGADA\"-(\"A2\".\"FECHALLEGADA\"+\"A2\".\"CANTIDADDIAS\"))>=30",AlohAndesTransactionManager.USUARIO);
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+		
+		long stopTime = System.currentTimeMillis();
+	    long elapsedTime = stopTime - startTime;
+	    double time = ((double)elapsedTime/1000);
+	    System.out.println("Tiempo de Consulta: "+String.format("%.2f", time)+" segundos");
+
+		while (rs.next()) {
+			ofertas.add(convertResultSetToOfertaBajaDemanda(rs));
+		}
+
 		return ofertas;
 	}
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -257,6 +313,23 @@ public class DAOOferta {
 			String nombre = resultSet.getString("NOMBRE");
 			Integer numReservas = resultSet.getInt("NUMRESERVAS");
 			OfertaPopular oferta = new OfertaPopular(id, nombre, numReservas);
+
+			return oferta;
+	}
+	
+	/**
+	 * Metodo que transforma el resultado obtenido de una consulta SQL (sobre la tabla OFERTAS) en una instancia de la clase OfertaPopular.
+	 * @param resultSet ResultSet con la informacion de una oferta popular que se obtuvo de la base de datos.
+	 * @return OfertaPopular cuyos atributos corresponden a los valores asociados a un registro particular de la tabla OFERTAS.
+	 * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
+	 */
+	public OfertaBajaDemanda convertResultSetToOfertaBajaDemanda(ResultSet resultSet) throws SQLException {
+
+			Long id= resultSet.getLong("ID");
+			String nombre = resultSet.getString("NOMBRE");
+			Integer numReservas = resultSet.getInt("NUMRESERVAS");
+			Integer distanciaReservas = resultSet.getInt("DISTANCIA");
+			OfertaBajaDemanda oferta = new OfertaBajaDemanda (id, nombre, numReservas, distanciaReservas);
 
 			return oferta;
 	}

@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "d09b4d75-315d-427e-a937-d5c2e8641252",
-		"name": "AlohAndes",
+		"name": "AlohAndes RFC",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -287,6 +287,45 @@
 					]
 				},
 				"description": "Para un alojamiento dado, encontrar la información de sus clientes frecuentes. se considera frecuente a un cliente si ha utilizado (o tiene reservado) ese alojamiento por lo menos en tres ocasiones o por lo menos 15 noches, durante todo el periodo de operación de AlohAndes."
+			},
+			"response": []
+		},
+		{
+			"name": "RFC9",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9936376d-1b07-438e-a1cc-ca1bf1a8fffd",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code===200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/AlohAndes/rest/ofertas/bajademanda",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AlohAndes",
+						"rest",
+						"ofertas",
+						"bajademanda"
+					]
+				},
+				"description": "Encontrar las ofertas de alojamiento que no han recibido clientes en periodos superiores a 1 mes, durante todo\r\nel periodo de operación de AlohAndes."
 			},
 			"response": []
 		}
