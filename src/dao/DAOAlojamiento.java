@@ -90,7 +90,7 @@ public class DAOAlojamiento {
 				+ "FROM \"%1$s\".\"CLIENTES\" \"A5\",\"%1$s\".\"RESERVASCLIENTE\" \"A4\",\"%1$s\".\"RESERVAS\" \"A3\",\"%1$s\".\"OFERTAS\" \"A2\" "
 				+ "WHERE \"A5\".\"DOCUMENTO\"=\"A4\".\"CLIENTEID\" AND \"A4\".\"RESERVAID\"=\"A3\".\"ID\" AND \"A3\".\"OFERTA\"=\"A2\".\"ID\" AND \"A2\".\"ALOJAMIENTOID\"= %2$d "
 				+ "GROUP BY \"A5\".\"NOMBRE\",\"A5\".\"VINCULO\") \"A1\" "
-				+ "WHERE \"A1\".\"NUMUSOS\">=3 OR \"A1\".\"NUMDIAS\">=15;", AlohAndesTransactionManager.USUARIO,
+				+ "WHERE \"A1\".\"NUMUSOS\">=3 OR \"A1\".\"NUMDIAS\">=15", AlohAndesTransactionManager.USUARIO,
 				id);
 		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
