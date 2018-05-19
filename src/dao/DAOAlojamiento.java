@@ -240,6 +240,8 @@ public class DAOAlojamiento {
 		return alojamiento;
 	}
 	
+	public AnalisisOperacion 
+	
 	//RFC8
 	
 	/**
@@ -274,8 +276,7 @@ public class DAOAlojamiento {
 			clientes.add(convertResultSetToClienteFrecuente(rs));
 		}
 		
-		return clientes;
-		
+		return clientes;	
 	}
 	
 	//RFC4
