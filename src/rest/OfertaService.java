@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response;
 import tm.AlohAndesTransactionManager;
 import vos.IndiceOcupacion;
 import vos.Oferta;
+import vos.OfertaBajaDemanda;
 import vos.OfertaPopular;
 
 @Path("ofertas")
@@ -78,7 +79,7 @@ public class OfertaService {
 	/**
 	 * Metodo GET que trae las 20 ofertas mas populares en la Base de datos.
 	 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario
-	 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/oferta/populares
+	 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/ofertas/populares
 	 * @return	<b>Response Status 200</b> - JSON que contiene las 20 ofertas mas populares que estan en la Base de Datos 
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */			
@@ -91,6 +92,29 @@ public class OfertaService {
 			AlohAndesTransactionManager tm = new AlohAndesTransactionManager(getPath());
 			List<OfertaPopular> ofertas;
 			ofertas = tm.getOfertasMasPopulares();
+			return Response.status(200).entity(ofertas).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+	
+	/**
+	 * Metodo GET que trae las ofertas con menor demanda en la Base de datos.
+	 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario
+	 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/ofertas/bajademanda
+	 * @return	<b>Response Status 200</b> - JSON que contiene las ofertas con menor demanda que estan en la Base de Datos 
+	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
+	 */			
+	@GET
+	@Path("/bajademanda")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getOfertasBajaDemanda() {
+		
+		try {
+			AlohAndesTransactionManager tm = new AlohAndesTransactionManager(getPath());
+			List<OfertaBajaDemanda> ofertas;
+			ofertas = tm.getOfertasMenorDemanda();
 			return Response.status(200).entity(ofertas).build();
 		} 
 		catch (Exception e) {

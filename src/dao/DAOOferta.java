@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import tm.AlohAndesTransactionManager;
 import vos.IndiceOcupacion;
 import vos.Oferta;
+import vos.OfertaBajaDemanda;
 import vos.OfertaPopular;
 
 public class DAOOferta {
@@ -186,6 +187,39 @@ public class DAOOferta {
 		}
 		return ofertas;
 	}
+	
+	/**
+	 * Metodo que obtiene la informacion de las ofertas con menor demanda en la Base de Datos 
+	 * <b>Precondicion: </b> la conexion a sido inicializado
+	 * @return	lista con la informacion de las ofertas con menor demanda que se encuentran en la Base de Datos
+	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
+	 */
+	public ArrayList<OfertaBajaDemanda> getOfertasConBajaDemanda() throws SQLException, Exception {
+		ArrayList<OfertaBajaDemanda> ofertas = new ArrayList<OfertaBajaDemanda>();
+		String sql = String.format("SELECT \"A3\".\"OFERTA\" \"ID\",\"A1\".\"NOMBRE\" \"NOMBRE\",SUM(CASE  WHEN \"A1\".\"ID\"=\"A3\".\"OFERTA\" THEN 1 ELSE 0 END )+1 \"NUMRESERVAS\",MAX(\"A3\".\"FECHALLEGADA\"-(\"A2\".\"FECHALLEGADA\"+\"A2\".\"CANTIDADDIAS\")) \"DISTANCIA\""
+				+ " FROM  (SELECT ROWNUM \"ROWN\",\"A4\".\"FECHALLEGADA\" \"FECHALLEGADA\",\"A4\".\"CANTIDADDIAS\" \"CANTIDADDIAS\",\"A4\".\"OFERTA\" \"OFERTA\" "
+				+ "FROM  (SELECT \"A7\".\"FECHALLEGADA\" \"FECHALLEGADA\",\"A7\".\"CANTIDADDIAS\" \"CANTIDADDIAS\",\"A7\".\"OFERTA\" \"OFERTA\" "
+				+ "FROM \"%1$s\".\"RESERVAS\" \"A7\" "
+				+ "ORDER BY \"A7\".\"OFERTA\",\"A7\".\"FECHALLEGADA\") \"A4\") \"A3\","
+				+ " (SELECT ROWNUM \"ROWN\",\"A5\".\"FECHALLEGADA\" \"FECHALLEGADA\",\"A5\".\"CANTIDADDIAS\" \"CANTIDADDIAS\",\"A5\".\"OFERTA\" \"OFERTA\""
+				+ " FROM  (SELECT \"A6\".\"FECHALLEGADA\" \"FECHALLEGADA\",\"A6\".\"CANTIDADDIAS\" \"CANTIDADDIAS\",\"A6\".\"OFERTA\" \"OFERTA\""
+				+ " FROM \"%1$s\".\"RESERVAS\" \"A6\""
+				+ " ORDER BY \"A6\".\"OFERTA\",\"A6\".\"FECHALLEGADA\") \"A5\") \"A2\",\"%1$s\".\"OFERTAS\" \"A1\""
+				+ " WHERE \"A3\".\"ROWN\"=\"A2\".\"ROWN\"+1 "
+				+ "AND \"A3\".\"OFERTA\"=\"A2\".\"OFERTA\" "
+				+ "AND \"A3\".\"OFERTA\"=\"A1\".\"ID\" "
+				+ "GROUP BY \"A3\".\"OFERTA\",\"A1\".\"NOMBRE\""
+				+ " HAVING MAX(\"A3\".\"FECHALLEGADA\"-(\"A2\".\"FECHALLEGADA\"+\"A2\".\"CANTIDADDIAS\"))>=30",AlohAndesTransactionManager.USUARIO);
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			ofertas.add(convertResultSetToOfertaBajaDemanda(rs));
+		}
+		return ofertas;
+	}
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODOS AUXILIARES
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -257,6 +291,23 @@ public class DAOOferta {
 			String nombre = resultSet.getString("NOMBRE");
 			Integer numReservas = resultSet.getInt("NUMRESERVAS");
 			OfertaPopular oferta = new OfertaPopular(id, nombre, numReservas);
+
+			return oferta;
+	}
+	
+	/**
+	 * Metodo que transforma el resultado obtenido de una consulta SQL (sobre la tabla OFERTAS) en una instancia de la clase OfertaPopular.
+	 * @param resultSet ResultSet con la informacion de una oferta popular que se obtuvo de la base de datos.
+	 * @return OfertaPopular cuyos atributos corresponden a los valores asociados a un registro particular de la tabla OFERTAS.
+	 * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
+	 */
+	public OfertaBajaDemanda convertResultSetToOfertaBajaDemanda(ResultSet resultSet) throws SQLException {
+
+			Long id= resultSet.getLong("ID");
+			String nombre = resultSet.getString("NOMBRE");
+			Integer numReservas = resultSet.getInt("NUMRESERVAS");
+			Integer distanciaReservas = resultSet.getInt("DISTANCIA");
+			OfertaBajaDemanda oferta = new OfertaBajaDemanda (id, nombre, numReservas, distanciaReservas);
 
 			return oferta;
 	}

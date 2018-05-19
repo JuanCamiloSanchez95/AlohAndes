@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "83291464-8471-413c-9174-f49682ad4951",
-		"name": "AlohAndes  Funcional",
+		"name": "AlohAndes Funcional",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -172,6 +172,28 @@
 				"description": "Fallido por vinculo invalido"
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "2b53f574-3316-49ef-b980-5e2e298dd1d3",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "8ee48ca1-85c4-450f-b6d1-98e1afcc4932",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
