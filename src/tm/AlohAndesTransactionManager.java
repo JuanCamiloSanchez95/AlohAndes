@@ -27,9 +27,12 @@ import dao.DAOOferta;
 import dao.DAOOperador;
 import dao.DAOReserva;
 import vos.Alojamiento;
+import vos.Apartamento;
 import vos.Cliente;
 import vos.ClienteFrecuente;
 import vos.DineroOperador;
+import vos.HabitacionHostal;
+import vos.HabitacionHotel;
 import vos.Hostal;
 import vos.Hotel;
 import vos.IndiceOcupacion;
@@ -496,7 +499,161 @@ public class AlohAndesTransactionManager {
 			}	
 		}
 		
-	
+	//Metodo de Alojamiento
+		/**
+		 * Metodo que modela la transaccion que agrega un Alojamiento a la base de datos.
+		 * <b> post: </b> se ha agregado el Alojamiento que entra como parametro
+		 * @param operador - el Alojamiento a agregar. Alojamiento != null
+		 * @throws Exception - Cualquier error que se genere agregando el Alojamiento
+		 */
+		public void addAlojamiento(Alojamiento alojamiento) throws Exception {
+
+			DAOAlojamiento daoalojamiento = new DAOAlojamiento();
+			try {
+				this.conn = darConexion();
+				daoalojamiento.setConn(conn);
+				if(alojamiento.getTipo()==null || alojamiento.getNombre() == null) {
+					throw new Exception(
+							"El alojamiento tiene un parametro vacio");
+				}		
+				daoalojamiento.addAlojamiento(alojamiento);
+
+			} catch (SQLException sqlException) {
+				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+				sqlException.printStackTrace();
+				throw sqlException;
+			} catch (Exception exception) {
+				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			} finally {
+				try {
+					daoalojamiento.cerrarRecursos();
+					if (this.conn != null) {
+						this.conn.close();
+					}
+				} catch (SQLException exception) {
+					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}
+		}
+		
+		
+		
+		/**
+		 * Metodo que modela la transaccion que agrega un Apartamento a la base de datos.
+		 * <b> post: </b> se ha agregado la  Apartamento que entra como parametro
+		 * @param Apartamento - la Apartamento a agregar. Apartamento != null
+		 * @throws Exception - Cualquier error que se genere agregando el Apartamento
+		 */
+		public void addApartamento(Apartamento apa) throws Exception {
+
+			DAOAlojamiento daoalojamiento = new DAOAlojamiento();
+			try {
+				this.conn = darConexion();
+				daoalojamiento.setConn(conn);
+				daoalojamiento.addApartamento(apa);
+				
+			} catch (SQLException sqlException) {
+				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+				sqlException.printStackTrace();
+				throw sqlException;
+			} catch (Exception exception) {
+				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			} finally {
+				try {
+					daoalojamiento.cerrarRecursos();
+					if (this.conn != null) {
+						this.conn.close();
+					}
+				} catch (SQLException exception) {
+					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}
+		}
+		
+		
+		/**
+		 * Metodo que modela la transaccion que agrega un HabitacionHostal a la base de datos.
+		 * <b> post: </b> se ha agregado la  HabitacionHostal que entra como parametro
+		 * @param HabitacionHostal - la HabitacionHostal a agregar. HabitacionHostal != null
+		 * @throws Exception - Cualquier error que se genere agregando el HabitacionHostal
+		 */
+		public void addHabitacionHostal(HabitacionHostal hab) throws Exception {
+
+			DAOAlojamiento daoalojamiento = new DAOAlojamiento();
+			try {
+				this.conn = darConexion();
+				daoalojamiento.setConn(conn);
+				daoalojamiento.addHabitacionHostal(hab);
+				
+			} catch (SQLException sqlException) {
+				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+				sqlException.printStackTrace();
+				throw sqlException;
+			} catch (Exception exception) {
+				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			} finally {
+				try {
+					daoalojamiento.cerrarRecursos();
+					if (this.conn != null) {
+						this.conn.close();
+					}
+				} catch (SQLException exception) {
+					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}
+		}
+		
+		/**
+		 * Metodo que modela la transaccion que agrega un HabitacionHotel a la base de datos.
+		 * <b> post: </b> se ha agregado la  HabitacionHotel que entra como parametro
+		 * @param HabitacionHotel - la HabitacionHostal a agregar. HabitacionHotel != null
+		 * @throws Exception - Cualquier error que se genere agregando el HabitacionHotel
+		 */
+		public void addHabitacionHotel(HabitacionHotel hab) throws Exception {
+
+			DAOAlojamiento daoalojamiento = new DAOAlojamiento();
+			try {
+				this.conn = darConexion();
+				daoalojamiento.setConn(conn);
+				daoalojamiento.addHabitacionHotel(hab);
+				
+			} catch (SQLException sqlException) {
+				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+				sqlException.printStackTrace();
+				throw sqlException;
+			} catch (Exception exception) {
+				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			} finally {
+				try {
+					daoalojamiento.cerrarRecursos();
+					if (this.conn != null) {
+						this.conn.close();
+					}
+				} catch (SQLException exception) {
+					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}
+		}
+		
+
+		
+
 	// Metodo de Reserva
 	
 	/**
