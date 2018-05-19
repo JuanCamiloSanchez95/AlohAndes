@@ -64,36 +64,36 @@ insert into ofertas (id, precioEstadia, NOMBRE, Fechapublicacion, descripcion, a
 
 --		reservas
 --se priorizo la oferta 47,46
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (1, TO_DATE('02/09/2017', 'DD/MM/YYYY'), 0, 356, 47);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (2, TO_DATE('5/11/2017', 'DD/MM/YYYY'), 0, 168, 4);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (3, TO_DATE('13/3/2018', 'DD/MM/YYYY'), 0, 338, 47);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (4, TO_DATE('29/6/2017', 'DD/MM/YYYY'), 0, 38, 16);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (5, TO_DATE('29/3/2018', 'DD/MM/YYYY'), 0, 15, 46);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (6, TO_DATE('4/2/2018', 'DD/MM/YYYY'), 0, 155, 29);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (7, TO_DATE('22/7/2017', 'DD/MM/YYYY'), 0, 300, 9);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (8, TO_DATE('19/2/2018', 'DD/MM/YYYY'), 0, 65, 15);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (9, TO_DATE('6/9/2017', 'DD/MM/YYYY'), 0, 140, 47);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (10, TO_DATE('24/8/2017', 'DD/MM/YYYY'), 0, 294, 26);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (11, TO_DATE('26/6/2017', 'DD/MM/YYYY'), 0, 252, 29);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (12, TO_DATE('10/3/2018', 'DD/MM/YYYY'), 0, 201, 47);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (13, TO_DATE('31/12/2017', 'DD/MM/YYYY'), 0, 184, 34);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (14, TO_DATE('18/10/2017', 'DD/MM/YYYY'), 0, 66, 31);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (15, TO_DATE('26/1/2018', 'DD/MM/YYYY'), 0, 209, 32);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (16, TO_DATE('7/11/2017', 'DD/MM/YYYY'), 0, 322, 8);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (17, TO_DATE('11/1/2018', 'DD/MM/YYYY'), 0, 16, 29);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (18, TO_DATE('10/11/2017', 'DD/MM/YYYY'), 0, 338, 13);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (19, TO_DATE('24/1/2018', 'DD/MM/YYYY'), 0, 50, 5);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (20, TO_DATE('15/12/2017', 'DD/MM/YYYY'), 0, 328, 29);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (21, TO_DATE('15/12/2017', 'DD/MM/YYYY'), 0, 28, 37);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (22, TO_DATE('5/12/2017', 'DD/MM/YYYY'), 0, 212, 46);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (23, TO_DATE('1/9/2017', 'DD/MM/YYYY'), 0, 75, 46);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (24, TO_DATE('15/7/2017', 'DD/MM/YYYY'), 0, 32, 47);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (25, TO_DATE('22/9/2017', 'DD/MM/YYYY'), 0, 182, 51);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (26, TO_DATE('16/7/2017', 'DD/MM/YYYY'), 0, 310, 46);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (27, TO_DATE('6/2/2018', 'DD/MM/YYYY'), 0, 224, 27);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (28, TO_DATE('21/3/2018', 'DD/MM/YYYY'), 0, 220, 46);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (29, TO_DATE('2/10/2017', 'DD/MM/YYYY'), 0, 299, 46);
-insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta) values (30, TO_DATE('7/8/2017', 'DD/MM/YYYY'), 0, 124, 49);
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (1, TO_DATE('02/09/2017', 'DD/MM/YYYY'), 0, 356, 47,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (2, TO_DATE('5/11/2017', 'DD/MM/YYYY'), 0, 168, 4,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (3, TO_DATE('13/3/2018', 'DD/MM/YYYY'), 0, 338, 47,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (4, TO_DATE('29/6/2017', 'DD/MM/YYYY'), 0, 38, 16,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta,vigente) values (5, TO_DATE('29/3/2018', 'DD/MM/YYYY'), 0, 15, 46,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (6, TO_DATE('4/2/2018', 'DD/MM/YYYY'), 0, 155, 29,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (7, TO_DATE('22/7/2017', 'DD/MM/YYYY'), 0, 300, 9,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (8, TO_DATE('19/2/2018', 'DD/MM/YYYY'), 0, 65, 15,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta,vigente) values (9, TO_DATE('6/9/2017', 'DD/MM/YYYY'), 0, 140, 47,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (10, TO_DATE('24/8/2017', 'DD/MM/YYYY'), 0, 294, 26,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (11, TO_DATE('26/6/2017', 'DD/MM/YYYY'), 0, 252, 29,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (12, TO_DATE('10/3/2018', 'DD/MM/YYYY'), 0, 201, 47,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (13, TO_DATE('31/12/2017', 'DD/MM/YYYY'), 0, 184, 34,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (14, TO_DATE('18/10/2017', 'DD/MM/YYYY'), 0, 66, 31,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (15, TO_DATE('26/1/2018', 'DD/MM/YYYY'), 0, 209, 32,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (16, TO_DATE('7/11/2017', 'DD/MM/YYYY'), 0, 322, 8,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (17, TO_DATE('11/1/2018', 'DD/MM/YYYY'), 0, 16, 29,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (18, TO_DATE('10/11/2017', 'DD/MM/YYYY'), 0, 338, 13,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (19, TO_DATE('24/1/2018', 'DD/MM/YYYY'), 0, 50, 5,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (20, TO_DATE('15/12/2017', 'DD/MM/YYYY'), 0, 328, 29,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (21, TO_DATE('15/12/2017', 'DD/MM/YYYY'), 0, 28, 37,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (22, TO_DATE('5/12/2017', 'DD/MM/YYYY'), 0, 212, 46,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (23, TO_DATE('1/9/2017', 'DD/MM/YYYY'), 0, 75, 46,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (24, TO_DATE('15/7/2017', 'DD/MM/YYYY'), 0, 32, 47,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (25, TO_DATE('22/9/2017', 'DD/MM/YYYY'), 0, 182, 51,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (26, TO_DATE('16/7/2017', 'DD/MM/YYYY'), 0, 310, 46,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (27, TO_DATE('6/2/2018', 'DD/MM/YYYY'), 0, 224, 27,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (28, TO_DATE('21/3/2018', 'DD/MM/YYYY'), 0, 220, 46,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (29, TO_DATE('2/10/2017', 'DD/MM/YYYY'), 0, 299, 46,'Y');
+insert into reservas (id, fechaLlegada, recargo, cantidadDias, OFerta, vigente) values (30, TO_DATE('7/8/2017', 'DD/MM/YYYY'), 0, 124, 49,'Y');
 
 
 --		ReservasCliente
