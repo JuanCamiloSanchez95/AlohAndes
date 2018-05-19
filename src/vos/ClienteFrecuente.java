@@ -29,6 +29,13 @@ public class ClienteFrecuente {
 	 */
 	@JsonProperty(value="numUsos")
 	private int numUsos;
+	
+	/**
+	 * Numero de dias
+	 */
+	@JsonProperty(value="numDias")
+	private int numDias;
+
 
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODO CONSTRUCTOR
@@ -40,10 +47,11 @@ public class ClienteFrecuente {
 	 * @param vinculo - vinculo del cliente
 	 * @param numUsos - numero de usos en el alojamiento
 	 */
-	public ClienteFrecuente(@JsonProperty(value="nombre") String nombre,@JsonProperty(value="vinculo") String vinculo,@JsonProperty(value="numUsos") int numUsos) {
+	public ClienteFrecuente(@JsonProperty(value="nombre") String nombre,@JsonProperty(value="vinculo") String vinculo,@JsonProperty(value="numUsos") int numUsos,@JsonProperty(value="numDias") int numDias) {
 		this.nombre = nombre;
 		this.vinculo = vinculo;
 		this.numUsos = numUsos;
+		this.numDias = numDias;
 	}
 	
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -72,6 +80,14 @@ public class ClienteFrecuente {
 
 	public void setNumUsos(int numUsos) {
 		this.numUsos = numUsos;
+	}
+
+	public int getNumDias() {
+		return numDias;
+	}
+
+	public void setNumDias(int numDias) {
+		this.numDias = numDias;
 	}
 	
 	

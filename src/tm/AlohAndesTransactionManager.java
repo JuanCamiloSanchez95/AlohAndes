@@ -716,6 +716,50 @@ public class AlohAndesTransactionManager {
 		return usos;
 	}
 	
+	//Metodos Alojamientos
+	
+	/**
+	 * Metodo que modela la transaccion que busca un alojamiento en la base de datos que
+	 * tiene el ID dado por parametro. <br/>
+	 * 
+	 * @param id - id del alojamiento a buscar. id != null
+	 * @return Alojamiento - Alojamiento que se obtiene como resultado de la consulta.
+	 * @throws Exception- cualquier error que se genere durante la transaccion
+	 */
+	public Alojamiento getAlojamientoById(Long id) throws Exception {
+		DAOAlojamiento daoAlojamiento = new DAOAlojamiento();
+		Alojamiento alojamiento = null;
+		try {
+			this.conn = darConexion();
+			daoAlojamiento.setConn(conn);
+			alojamiento = daoAlojamiento.findAlojamientoById(id);
+			if (alojamiento == null) {
+				throw new Exception(
+						"El alojamiento con el id = " + id + " no se encuentra persistido en la base de datos.");
+			}
+		} catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} finally {
+			try {
+				daoAlojamiento.cerrarRecursos();
+				if (this.conn != null) {
+					this.conn.close();
+				}
+			} catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return alojamiento;
+	}
+	
 	/**
 	 * Metodo que modela la transaccion que retorna los alojamientos que cumplen los parametros en la base de datos.
 	 * @param inicio - Fecha inicial del rango de consulta
