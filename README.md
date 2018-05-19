@@ -13,7 +13,7 @@ Proyecto de sistrans
    - [ ] Iteracion 1
      - [ ] RF1 - Registro de Operadores
      - [ ] RF2 - Registro Propuestas de Alojamiento
-     - [ ] RF3- Registro Usuarios
+     - [x] RF3- Registro Usuarios
      - [ ] RF4 - Registro Reserva
      - [ ] RF5 - Cancelar Reserva
      - [ ] RF6 - Retirar Oferta 
@@ -39,11 +39,11 @@ Proyecto de sistrans
   	   - [ ] Eficiencia
      - [x] RFC6 - Mostrar el uso para un usuario dado
   	   - [ ] Eficiencia
-     - [ ] RFC7 - Analizar la Operacion de AlohAndes
+     - [] RFC7 - Analizar la Operacion de AlohAndes
   	   - [ ] Eficiencia
-     - [ ] RFC8 - Encontrar clientes frecuentes
+     - [x] RFC8 - Encontrar clientes frecuentes
   	   - [ ] Eficiencia
-     - [ ] RFC9 - Encontrar ofertas que no tienen mucha demanda
+     - [x] RFC9 - Encontrar ofertas que no tienen mucha demanda
   	   - [ ] Eficiencia
    - [ ] Iteracion 3
      - [ ] RFC9 - Encontrar ofertas que no tienen mucha demanda (Opcional)
@@ -65,4 +65,6 @@ Proyecto de sistrans
 * Se remueve la clase AlohAndes de la base de datos y sus tablas relacionadas
 
 * Formato de horario para Hostal es de 24 h
+
+* Se añade el atributo Vigente a Reserva, para la cancelacion.
 
