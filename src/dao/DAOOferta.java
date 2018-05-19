@@ -128,15 +128,13 @@ public class DAOOferta {
 	 */
 	public void deleteOferta(Oferta oferta) throws SQLException, Exception {
 
-		String sql = String.format("DELETE FROM %1$s.OFERTAS WHERE ID = %2$d", AlohAndesTransactionManager.USUARIO, oferta.getId());
-
-		System.out.println(sql);
-		
+		String sql = String.format("DELETE FROM %1$s.OFERTAS WHERE ID = %2$d", AlohAndesTransactionManager.USUARIO, oferta.getId());		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();
 	}
 	
+	//RFC3
 	
 	/**
 	 * Metodo que obtiene la informacion de los indices de ocupacion de las ofertas.
@@ -147,7 +145,7 @@ public class DAOOferta {
 	 */
 	public ArrayList<IndiceOcupacion> getIndicesOcupacion() throws SQLException, Exception {
 		ArrayList<IndiceOcupacion> indices = new ArrayList<IndiceOcupacion>();
-		
+		long startTime = System.currentTimeMillis();
 		String sql = String.format("SELECT \"A2\".\"ID\" \"ID\",\"A2\".\"NOMBRE\" \"NOMBRE\",\"A2\".\"CAPACIDAD\" \"CAPACIDAD\",SUM(CASE  WHEN \"A2\".\"ID\"=\"A1\".\"OFERTA\" THEN 1 ELSE 0 END ) \"NUMRESERVAS\" "
 				+ "FROM \"%1$s\".\"OFERTAS\" \"A2\",\"%1$s\".\"RESERVAS\" \"A1\" "
 				+ "GROUP BY \"A2\".\"ID\",\"A2\".\"NOMBRE\",\"A2\".\"CAPACIDAD\" "
@@ -156,12 +154,20 @@ public class DAOOferta {
 				PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
+		
+		long stopTime = System.currentTimeMillis();
+	    long elapsedTime = stopTime - startTime;
+	    double time = ((double)elapsedTime/1000);
+	    System.out.println("Tiempo de Consulta: "+String.format("%.2f", time)+" segundos");
 
 		while (rs.next()) {
 			indices.add(convertResultSetToIndiceOcupacion(rs));
 		}
+
 		return indices;
 	}
+	
+	//RFC2
 	
 	/**
 	 * Metodo que obtiene la informacion de las 20 ofertas mas populares en la Base de Datos 
@@ -172,6 +178,7 @@ public class DAOOferta {
 	 */
 	public ArrayList<OfertaPopular> getOfertasMasPopulares() throws SQLException, Exception {
 		ArrayList<OfertaPopular> ofertas = new ArrayList<OfertaPopular>();
+		long startTime = System.currentTimeMillis();
 		String sql = String.format("SELECT \"A1\".\"ID\" \"ID\",\"A1\".\"NOMBRE\" \"NOMBRE\",\"A1\".\"NUMRESERVAS\" \"NUMRESERVAS\" "
 				+ "FROM  (SELECT \"A3\".\"ID\" \"ID\",\"A3\".\"NOMBRE\" \"NOMBRE\",SUM(CASE  WHEN \"A3\".\"ID\"=\"A2\".\"OFERTA\" THEN 1 ELSE 0 END ) \"NUMRESERVAS\""
 				+ " FROM \"%1$s\".\"OFERTAS\" \"A3\",\"%1$s\".\"RESERVAS\" \"A2\" "
@@ -181,12 +188,20 @@ public class DAOOferta {
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
+		
+		long stopTime = System.currentTimeMillis();
+	    long elapsedTime = stopTime - startTime;
+	    double time = ((double)elapsedTime/1000);
+	    System.out.println("Tiempo de Consulta: "+String.format("%.2f", time)+" segundos");
 
 		while (rs.next()) {
 			ofertas.add(convertResultSetToOfertaPopular(rs));
 		}
+
 		return ofertas;
 	}
+	
+	//RFC9
 	
 	/**
 	 * Metodo que obtiene la informacion de las ofertas con menor demanda en la Base de Datos 
@@ -197,6 +212,7 @@ public class DAOOferta {
 	 */
 	public ArrayList<OfertaBajaDemanda> getOfertasConBajaDemanda() throws SQLException, Exception {
 		ArrayList<OfertaBajaDemanda> ofertas = new ArrayList<OfertaBajaDemanda>();
+		long startTime = System.currentTimeMillis();
 		String sql = String.format("SELECT \"A3\".\"OFERTA\" \"ID\",\"A1\".\"NOMBRE\" \"NOMBRE\",SUM(CASE  WHEN \"A1\".\"ID\"=\"A3\".\"OFERTA\" THEN 1 ELSE 0 END )+1 \"NUMRESERVAS\",MAX(\"A3\".\"FECHALLEGADA\"-(\"A2\".\"FECHALLEGADA\"+\"A2\".\"CANTIDADDIAS\")) \"DISTANCIA\""
 				+ " FROM  (SELECT ROWNUM \"ROWN\",\"A4\".\"FECHALLEGADA\" \"FECHALLEGADA\",\"A4\".\"CANTIDADDIAS\" \"CANTIDADDIAS\",\"A4\".\"OFERTA\" \"OFERTA\" "
 				+ "FROM  (SELECT \"A7\".\"FECHALLEGADA\" \"FECHALLEGADA\",\"A7\".\"CANTIDADDIAS\" \"CANTIDADDIAS\",\"A7\".\"OFERTA\" \"OFERTA\" "
@@ -214,10 +230,16 @@ public class DAOOferta {
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
+		
+		long stopTime = System.currentTimeMillis();
+	    long elapsedTime = stopTime - startTime;
+	    double time = ((double)elapsedTime/1000);
+	    System.out.println("Tiempo de Consulta: "+String.format("%.2f", time)+" segundos");
 
 		while (rs.next()) {
 			ofertas.add(convertResultSetToOfertaBajaDemanda(rs));
 		}
+
 		return ofertas;
 	}
 	//----------------------------------------------------------------------------------------------------------------------------------

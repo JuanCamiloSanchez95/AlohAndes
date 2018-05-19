@@ -26,7 +26,7 @@ public class AnalisisOperacion {
 	/**
 	 * Constructor de solicitud de analisis de operacion.
 	 * @param categoria - categoria de Alojamiento
-	 * @param unidadTiempo - Unitdad de Tiempo (Mes,Semana)
+	 * @param unidadTiempo - Unitdad de Tiempo (Diam Mes,Semana,Año)
 	 */
 	public AnalisisOperacion(@JsonProperty(value = "categoria") String categoria,@JsonProperty(value = "unidadTiempo") String unidadTiempo) {
 		this.categoria = categoria;
@@ -53,5 +53,13 @@ public class AnalisisOperacion {
 		this.unidadTiempo = unidadTiempo;
 	}
 	
+	public boolean validUnidadDeTiempo() {
+		return this.unidadTiempo.equalsIgnoreCase("DIA") || this.unidadTiempo.equalsIgnoreCase("SEMANA")|| this.unidadTiempo.equalsIgnoreCase("MES") ||this.unidadTiempo.equalsIgnoreCase("AÑO");
+	}
+	
+	public boolean validCategoria() {
+		return this.categoria.equalsIgnoreCase("Apartamento")||this.categoria.equalsIgnoreCase("HabitacionHotel")||this.categoria.equalsIgnoreCase("HabitacionHostal")||this.categoria.equalsIgnoreCase("Vivienda")
+				||this.categoria.equalsIgnoreCase("HabitacionVivienda")||this.categoria.equalsIgnoreCase("HabitacionUniversitaria");
+	}
 	
 }
