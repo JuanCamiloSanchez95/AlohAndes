@@ -46,6 +46,29 @@ public class DAOCliente {
 	// METODOS DE COMUNICACION CON LA BASE DE DATOS
 	//----------------------------------------------------------------------------------------------------------------------------------
 	/**
+	 * Metodo que agregar la informacion de un nuevo cliente en la Base de Datos a partir del parametro ingresado<br/>
+	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>  
+	 * @param cliente Cliente que desea agregar a la Base de Datos
+	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
+	 */
+	public void addCliente(Cliente cliente) throws SQLException, Exception {
+
+		String sql = String.format("INSERT INTO %1$s.CLIENTES (DOCUMENTO, NOMBRE, VINCULO) VALUES (%2$s, '%3$s', '%4$s')", 
+				AlohAndesTransactionManager.USUARIO, 
+									cliente.getDocumento(), 
+									cliente.getNombre(),
+									cliente.getVinculo());
+		System.out.println(sql);
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+
+	}
+	
+	
+	/**
 	 * Metodo que obtiene la informacion del cliente en la Base de Datos que tiene el identificador dado por parametro
 	 * <b>Precondicion: </b> la conexion a sido inicializado
 	 * @param documento - documento de identificacion del cliente
@@ -54,7 +77,7 @@ public class DAOCliente {
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */
-	public Cliente findClienteByDocument(int documento) throws SQLException, Exception 
+	public Cliente findClienteByDocument(Long documento) throws SQLException, Exception 
 	{
 		Cliente cliente = null;
 
@@ -79,7 +102,7 @@ public class DAOCliente {
 	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
 	 * @throws Exception Si se genera un error dentro del metodo.
 	 */	
-	public ArrayList<UsoCliente> usosDelCliente(int id) throws SQLException, Exception {
+	public ArrayList<UsoCliente> usosDelCliente(Long id) throws SQLException, Exception {
 		ArrayList<UsoCliente> usos = new ArrayList<UsoCliente>();
 		String sql=String.format("SELECT \"A5\".\"NOMBRE\" \"NOMBRE\",STATS_MODE(\"A1\".\"TIPO\") \"TIPOFRECUENTE\",SUM(\"A3\".\"CANTIDADDIAS\") \"DIAS\",SUM(\"A2\".\"PRECIOESTADIA\") \"PRECIOS\" "
 				+ "FROM \"%1$s\".\"CLIENTES\" \"A5\",\"%1$s\".\"RESERVASCLIENTE\" \"A4\",\"%1$s\".\"RESERVAS\" \"A3\",\"%1$s\".\"OFERTAS\" \"A2\",\"%1$s\".\"ALOJAMIENTOS\" \"A1\""
@@ -165,7 +188,7 @@ public class DAOCliente {
 	 * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
 	 */
 	public Cliente convertResultSetToCliente(ResultSet resultSet) throws SQLException {
-		Integer documento= resultSet.getInt("DOCUMENTO");
+		Long documento= resultSet.getLong("DOCUMENTO");
 		String nombre= resultSet.getString("NOMBRE");
 		String vinculo = resultSet.getString("VINCULO");
 		Cliente cliente = new Cliente(documento, nombre, vinculo);

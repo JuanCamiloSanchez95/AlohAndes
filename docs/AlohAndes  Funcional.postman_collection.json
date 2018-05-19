@@ -1,0 +1,177 @@
+{
+	"info": {
+		"_postman_id": "83291464-8471-413c-9174-f49682ad4951",
+		"name": "AlohAndes  Funcional",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET ALL operadores",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "42b815b4-9f18-4b89-bcb7-e9ba6108dd9d",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code===200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/AlohAndes/rest/operadores/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AlohAndes",
+						"rest",
+						"operadores",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Alojamiento",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9936376d-1b07-438e-a1cc-ca1bf1a8fffd",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code===200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"inicio\": \"2017-01-02\",\n\t\"fin\": \"2018-05-02\",\n\t\"servicios\": \"WiFi,TV Cable\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/AlohAndes/rest/alojamientos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AlohAndes",
+						"rest",
+						"alojamientos",
+						"1"
+					]
+				},
+				"description": "Exitoso"
+			},
+			"response": []
+		},
+		{
+			"name": "POST Cliente (RF3)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9936376d-1b07-438e-a1cc-ca1bf1a8fffd",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code===200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"documento\": \"10154585\",\n\t\"nombre\": \"Cristian Amaya\",\n\t\"vinculo\": \"Estudiante\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/AlohAndes/rest/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AlohAndes",
+						"rest",
+						"clientes"
+					]
+				},
+				"description": "Exitoso"
+			},
+			"response": []
+		},
+		{
+			"name": "POST Cliente (RF3) - Fallo por Vinculo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "58b549a0-80c4-417e-aacb-b314032b646f",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 500\"]=responseCode.code===500;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"documento\": \"101545856\",\n\t\"nombre\": \"Cristian Amaya P\",\n\t\"vinculo\": \"Estudiante Nuevo\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/AlohAndes/rest/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AlohAndes",
+						"rest",
+						"clientes"
+					]
+				},
+				"description": "Fallido por vinculo invalido"
+			},
+			"response": []
+		}
+	]
+}

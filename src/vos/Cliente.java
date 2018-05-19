@@ -19,7 +19,7 @@ public class Cliente
 		 * Id del cliente
 		 */
 		@JsonProperty(value="documento")
-		private int documento;
+		private Long documento;
 		
 		/**
 		 * Nombre del cliente
@@ -51,7 +51,7 @@ public class Cliente
 			 * @param nombre - Nombre del Cliente.
 			 * @param vinculo - Vinculo del cliente
 			 */
-			public Cliente(@JsonProperty(value="documento") Integer documento,@JsonProperty(value="nombre") String nombre,@JsonProperty(value="vinculo") String vinculo) 
+			public Cliente(@JsonProperty(value="documento") Long documento,@JsonProperty(value="nombre") String nombre,@JsonProperty(value="vinculo") String vinculo) 
 			{
 				this.documento= documento;
 				this.nombre=nombre;
@@ -63,12 +63,12 @@ public class Cliente
 			//----------------------------------------------------------------------------------------------------------------------------------
 				
 
-			public int getDocumento() {
+			public Long getDocumento() {
 				return documento;
 			}
 
 
-			public void setDocumento(int documento) {
+			public void setDocumento(Long documento) {
 				this.documento = documento;
 			}
 
@@ -102,6 +102,9 @@ public class Cliente
 				this.reservas = reservas;
 			}
 			
+			public boolean validVinculo() {
+				return this.vinculo.equals("Estudiante") ||this.vinculo.equals("Padre") || this.vinculo.equals("Egresado") || this.vinculo.equals("Empleado") || this.vinculo.equals("Profesor") || this.vinculo.equals("Evento") || this.vinculo.equals("Profesor invitado");
+			}
 			
 	 
 }
