@@ -94,6 +94,8 @@ public class DAOCliente {
 		return cliente;
 	}
 
+	//RFC6
+	
 	/**
 	 * Metodo que obtiene los usos de la plataforma por un cliente que tiene el identificador dado por parametro
 	 * <b>Precondicion: </b> la conexion a sido inicializado
@@ -104,6 +106,7 @@ public class DAOCliente {
 	 */	
 	public ArrayList<UsoCliente> usosDelCliente(Long id) throws SQLException, Exception {
 		ArrayList<UsoCliente> usos = new ArrayList<UsoCliente>();
+		long startTime = System.currentTimeMillis();
 		String sql=String.format("SELECT \"A5\".\"NOMBRE\" \"NOMBRE\",STATS_MODE(\"A1\".\"TIPO\") \"TIPOFRECUENTE\",SUM(\"A3\".\"CANTIDADDIAS\") \"DIAS\",SUM(\"A2\".\"PRECIOESTADIA\") \"PRECIOS\" "
 				+ "FROM \"%1$s\".\"CLIENTES\" \"A5\",\"%1$s\".\"RESERVASCLIENTE\" \"A4\",\"%1$s\".\"RESERVAS\" \"A3\",\"%1$s\".\"OFERTAS\" \"A2\",\"%1$s\".\"ALOJAMIENTOS\" \"A1\""
 				+ " WHERE \"A5\".\"DOCUMENTO\"= %2$d"
@@ -116,6 +119,11 @@ public class DAOCliente {
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
+		
+		long stopTime = System.currentTimeMillis();
+	    long elapsedTime = stopTime - startTime;
+	    double time = ((double)elapsedTime/1000);
+	    System.out.println("Tiempo de Consulta: "+String.format("%.2f", time)+" segundos");
 
 		while(rs.next()) {
 			usos.add(convertResultSetToUsoCliente(rs));
@@ -123,6 +131,8 @@ public class DAOCliente {
 
 		return usos;
 	}
+	
+	//RFC5
 
 	/**
 	 * Metodo que obtiene los usos de la plataforma por todos los tipos de clientes 
@@ -133,6 +143,7 @@ public class DAOCliente {
 	 */	
 	public ArrayList<UsoTipo> usosPorVinculo() throws SQLException, Exception {
 		ArrayList<UsoTipo> usos = new ArrayList<UsoTipo>();
+		long startTime = System.currentTimeMillis();
 		String sql = String.format(
 				"SELECT \"A5\".\"VINCULO\" \"VINCULO\",STATS_MODE(\"A1\".\"TIPO\") \"TIPOFRECUENTE\",SUM(\"A3\".\"CANTIDADDIAS\") \"DIAS\",SUM(\"A2\".\"PRECIOESTADIA\") \"PRECIOS\""
 				+ " FROM \"%1$s\".\"CLIENTES\" \"A5\",\"%1$s\".\"RESERVASCLIENTE\" \"A4\",\"%1$s\".\"RESERVAS\" \"A3\",\"%1$s\".\"OFERTAS\" \"A2\",\"%1$s\".\"ALOJAMIENTOS\" \"A1\" "
@@ -146,6 +157,11 @@ public class DAOCliente {
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
+		
+		long stopTime = System.currentTimeMillis();
+	    long elapsedTime = stopTime - startTime;
+	    double time = ((double)elapsedTime/1000);
+	    System.out.println("Tiempo de Consulta: "+String.format("%.2f", time)+" segundos");
 
 		while (rs.next()) {
 			usos.add(convertResultSetToUsoTipo(rs));
