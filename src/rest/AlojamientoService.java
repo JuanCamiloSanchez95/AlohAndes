@@ -8,6 +8,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -17,6 +18,8 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 import tm.AlohAndesTransactionManager;
 import vos.Alojamiento;
+import vos.Bebedor;
+import vos.ClienteFrecuente;
 import vos.ConsultaAlojamiento;
 import vos.UsoCliente;
 
@@ -53,6 +56,53 @@ public class AlojamientoService {
 	// METODOS REST
 	//----------------------------------------------------------------------------------------------------------------------------------
 
+	/**
+	 * Metodo GET que trae al alojamiento en la Base de Datos con el ID dado por parametro <br/>
+	 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
+	 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/alojamientos/{id} <br/>
+	 * @return	<b>Response Status 200</b> - JSON Alojamiento que contiene al alojamiento cuyo ID corresponda al parametro <br/>
+	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
+	 */
+	@GET
+	@Path( "{id: \\d+}" )
+	@Produces( { MediaType.APPLICATION_JSON } )
+	public Response getAlojamientoById( @PathParam( "id" ) Long id )
+	{
+		try{
+			AlohAndesTransactionManager tm = new AlohAndesTransactionManager( getPath( ) );
+			
+			Alojamiento alojamiento = tm.getAlojamientoById(id);
+			return Response.status( 200 ).entity( alojamiento ).build( );			
+		}
+		catch( Exception e )
+		{
+			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
+		}
+	}
+	
+	/**
+	 * Metodo GET que trae los clientes frecuentes del alojamiento en la Base de Datos con el ID dado por parametro <br/>
+	 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
+	 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/alojamientos/{id}/clientes <br/>
+	 * @return	<b>Response Status 200</b> - JSON Listas de clientes frecuentes del  alojamiento cuyo ID corresponda al parametro <br/>
+	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
+	 */
+	@GET
+	@Path( "{id: \\d+}/clientes" )
+	@Produces( { MediaType.APPLICATION_JSON } )
+	public Response getClientesFrecuentesById( @PathParam( "id" ) Long id )
+	{
+		try{
+			AlohAndesTransactionManager tm = new AlohAndesTransactionManager( getPath( ) );
+			List<ClienteFrecuente> clientes;
+			clientes = tm.getClientesFrecuentes(id);
+			return Response.status( 200 ).entity( clientes ).build( );			
+		}
+		catch( Exception e )
+		{
+			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
+		}
+	}
 
 	/**
 	 * Metodo GET que trae los alojamientos que esten en un rango de fechas y con unos servicios dados en la Base de datos. 

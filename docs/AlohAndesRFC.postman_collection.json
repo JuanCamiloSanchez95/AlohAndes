@@ -1,45 +1,10 @@
 {
 	"info": {
-		"_postman_id": "04ac9a2a-c1b2-4b07-bdca-fa5b26501fcd",
+		"_postman_id": "d09b4d75-315d-427e-a937-d5c2e8641252",
 		"name": "AlohAndes",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
-		{
-			"name": "GET ALL operadores",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "42b815b4-9f18-4b89-bcb7-e9ba6108dd9d",
-						"type": "text/javascript",
-						"exec": [
-							"tests[\"Status code is 200\"]=responseCode.code===200;"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {},
-				"url": {
-					"raw": "http://localhost:8080/AlohAndes/rest/operadores/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"AlohAndes",
-						"rest",
-						"operadores",
-						""
-					]
-				}
-			},
-			"response": []
-		},
 		{
 			"name": "RFC1",
 			"event": [
@@ -57,7 +22,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:8080/AlohAndes/rest/operadores/dinero",
 					"protocol": "http",
@@ -93,7 +61,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:8080/AlohAndes/rest/ofertas/populares",
 					"protocol": "http",
@@ -129,7 +100,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:8080/AlohAndes/rest/ofertas/indices",
 					"protocol": "http",
@@ -172,7 +146,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"inicio\": \"2018-01-02\",\n\t\"fin\": \"2018-05-02\",\n\t\"servicios\": \"WiFi\"\n}"
+					"raw": "{\n\t\"inicio\": \"2017-01-02\",\n\t\"fin\": \"2018-05-02\",\n\t\"servicios\": \"WiFi,TV Cable\"\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/AlohAndes/rest/alojamientos/busqueda",
@@ -209,7 +183,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:8080/AlohAndes/rest/clientes/usos",
 					"protocol": "http",
@@ -245,7 +222,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:8080/AlohAndes/rest/clientes/usos/4",
 					"protocol": "http",
@@ -262,6 +242,51 @@
 					]
 				},
 				"description": "MOSTRAR EL USO DE ALOHANDES PARA UN USUARIO DADO"
+			},
+			"response": []
+		},
+		{
+			"name": "RFC8",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9936376d-1b07-438e-a1cc-ca1bf1a8fffd",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code===200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"inicio\": \"2017-01-02\",\n\t\"fin\": \"2018-05-02\",\n\t\"servicios\": \"WiFi,TV Cable\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/AlohAndes/rest/alojamientos/1/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AlohAndes",
+						"rest",
+						"alojamientos",
+						"1",
+						"clientes"
+					]
+				},
+				"description": "Para un alojamiento dado, encontrar la información de sus clientes frecuentes. se considera frecuente a un cliente si ha utilizado (o tiene reservado) ese alojamiento por lo menos en tres ocasiones o por lo menos 15 noches, durante todo el periodo de operación de AlohAndes."
 			},
 			"response": []
 		}

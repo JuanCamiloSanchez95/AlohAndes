@@ -19,6 +19,8 @@ FechaLlegada Date NOT NULL,
 recargo double precision NOT NULL,
 cantidadDias  int NOT NULL,
 oferta int NOT NULL,
+vigente char(1) NOT NULL,
+CONSTRAINT CKvigente CHECK (vigente = 'Y' OR vigente='N'),
 CONSTRAINT PKreservaaa PRIMARY KEY (id),
 CONSTRAINT FKofertaRese FOREIGN KEY (oferta) REFERENCES Ofertas(id)
 );

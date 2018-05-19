@@ -27,7 +27,8 @@ import dao.DAOOferta;
 import dao.DAOOperador;
 import dao.DAOReserva;
 import vos.Alojamiento;
-import vos.Bebedor;
+import vos.Cliente;
+import vos.ClienteFrecuente;
 import vos.DineroOperador;
 import vos.Hostal;
 import vos.Hotel;
@@ -640,6 +641,58 @@ public class AlohAndesTransactionManager {
 		}	
 	}
 	
+	//Metodos del cliente
+	
+	//RF3
+	
+	/**
+	 * Metodo que modela la transaccion que agrega un cliente a la base de datos.
+	 * <b> post: </b> se ha agregado el bebedor que entra como parametro
+	 * @param cliente - el cliente a agregar. bebedor != null
+	 * @throws Exception - Cualquier error que se genere agregando el cliente
+	 */
+	public void addCliente(Cliente cliente) throws Exception {
+
+		DAOCliente daoCliente = new DAOCliente();
+		try {
+			this.conn = darConexion();
+			daoCliente.setConn(conn);
+			if(cliente.getNombre()==null || cliente.getNombre().isEmpty()) {
+				throw new Exception("Nombre vacio");
+			}
+			if(cliente.getDocumento()==null) {
+				throw new Exception("Documento vacio");
+			}
+			if(cliente.getVinculo()==null || cliente.getNombre().isEmpty() || !cliente.validVinculo()) {
+				throw new Exception("Vinculo invalido");
+			}
+			if(daoCliente.findClienteByDocument(cliente.getDocumento())!=null)
+			{
+				throw new Exception("Existe el cliente con este documento.");
+			}
+			daoCliente.addCliente(cliente);
+
+		} catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} finally {
+			try {
+				daoCliente.cerrarRecursos();
+				if (this.conn != null) {
+					this.conn.close();
+				}
+			} catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+	}
 	
 	/**
 	 * Metodo que modela la transaccion que retorna los usos de un cliente en la base de datos.
@@ -653,11 +706,11 @@ public class AlohAndesTransactionManager {
 		try {
 			this.conn = darConexion();
 			daoCliente.setConn(conn);
-			if(daoCliente.findClienteByDocument(id.intValue())==null)
+			if(daoCliente.findClienteByDocument(id)==null)
 			{
 				throw new Exception("El cliente no existe");
 			}
-			usos = daoCliente.usosDelCliente(id.intValue());
+			usos = daoCliente.usosDelCliente(id);
 		} catch (SQLException sqlException) {
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
@@ -715,6 +768,96 @@ public class AlohAndesTransactionManager {
 		}
 		return usos;
 	}
+	
+	//Metodos Alojamientos
+	
+	/**
+	 * Metodo que modela la transaccion que busca un alojamiento en la base de datos que
+	 * tiene el ID dado por parametro. <br/>
+	 * 
+	 * @param id - id del alojamiento a buscar. id != null
+	 * @return Alojamiento - Alojamiento que se obtiene como resultado de la consulta.
+	 * @throws Exception- cualquier error que se genere durante la transaccion
+	 */
+	public Alojamiento getAlojamientoById(Long id) throws Exception {
+		DAOAlojamiento daoAlojamiento = new DAOAlojamiento();
+		Alojamiento alojamiento = null;
+		try {
+			this.conn = darConexion();
+			daoAlojamiento.setConn(conn);
+			alojamiento = daoAlojamiento.findAlojamientoById(id);
+			if (alojamiento == null) {
+				throw new Exception(
+						"El alojamiento con el id = " + id + " no se encuentra persistido en la base de datos.");
+			}
+		} catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} finally {
+			try {
+				daoAlojamiento.cerrarRecursos();
+				if (this.conn != null) {
+					this.conn.close();
+				}
+			} catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return alojamiento;
+	}
+	
+	//RFC8
+	
+	/**
+	 * Metodo que modela la transaccion que retorna los alojamientos que cumplen los parametros en la base de datos.
+	 * @param inicio - Fecha inicial del rango de consulta
+	 * @param fin - Fecha final del rango de consulta
+	 * @param servicios - servicios que debe incluir el alojamiento
+	 * @return List<Alojamiento> - Lista de alojamientos que contiene el resultado de la consulta.
+	 * @throws Exception - Cualquier error que se genere durante la transaccion
+	 */
+	public List<ClienteFrecuente> getClientesFrecuentes(Long id) throws Exception {
+		DAOAlojamiento daoAlojamiento = new DAOAlojamiento();
+		List<ClienteFrecuente> clientes;
+		try {
+			this.conn = darConexion();
+			daoAlojamiento.setConn(conn);
+			if(daoAlojamiento.findAlojamientoById(id)==null)
+			{
+				throw new Exception("El alojamiento no existe");
+			}
+			clientes = daoAlojamiento.findClienteFrecuentes(id);
+		} catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} finally {
+			try {
+				daoAlojamiento.cerrarRecursos();
+				if (this.conn != null) {
+					this.conn.close();
+				}
+			} catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return clientes;
+	}
+	
+	//RFC4
 	
 	/**
 	 * Metodo que modela la transaccion que retorna los alojamientos que cumplen los parametros en la base de datos.

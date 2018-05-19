@@ -1,9 +1,13 @@
 package rest;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -12,6 +16,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.AlohAndesTransactionManager;
+import vos.Bebedor;
+import vos.Cliente;
 import vos.Oferta;
 import vos.UsoCliente;
 import vos.UsoTipo;
@@ -53,6 +59,34 @@ public class ClienteService {
 	// METODOS REST
 	//----------------------------------------------------------------------------------------------------------------------------------
 
+
+	
+	/**
+	 * Metodo que recibe un cliente en formato JSON y lo agrega a la Base de Datos <br/>
+	 * <b>Precondicion: </b> El archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
+	 * <b>Postcondicion: </b> Se agrega a la Base de datos la informacion correspondiente al cliente. <br/>
+	 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/clientes <br/>
+	 * @param bebedor JSON con la informacion del bebedor que se desea agregar
+	 * @return	<b>Response Status 200</b> - JSON que contiene al cliente que ha sido agregado <br/>
+	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
+	 */
+
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addBebedor(Cliente cliente) {
+		try{
+			AlohAndesTransactionManager tm = new AlohAndesTransactionManager(getPath());
+			tm.addCliente(cliente);
+			return Response.status( 200 ).entity( cliente ).build( );			
+		}
+		catch( Exception e )
+		{
+			return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
+		}
+	}
+	
+	
 	/**
 	 * Metodo GET que trae las usos de la plataforma de un cliente pasado por paramentro en la Base de datos. 
 	 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario.
