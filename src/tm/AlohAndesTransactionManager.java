@@ -28,6 +28,7 @@ import dao.DAOOperador;
 import dao.DAOReserva;
 import vos.Alojamiento;
 import vos.Bebedor;
+import vos.ClienteFrecuente;
 import vos.DineroOperador;
 import vos.Hostal;
 import vos.Hotel;
@@ -759,6 +760,52 @@ public class AlohAndesTransactionManager {
 		}
 		return alojamiento;
 	}
+	
+	//RFC8
+	
+	/**
+	 * Metodo que modela la transaccion que retorna los alojamientos que cumplen los parametros en la base de datos.
+	 * @param inicio - Fecha inicial del rango de consulta
+	 * @param fin - Fecha final del rango de consulta
+	 * @param servicios - servicios que debe incluir el alojamiento
+	 * @return List<Alojamiento> - Lista de alojamientos que contiene el resultado de la consulta.
+	 * @throws Exception - Cualquier error que se genere durante la transaccion
+	 */
+	public List<ClienteFrecuente> getClientesFrecuentes(Long id) throws Exception {
+		DAOAlojamiento daoAlojamiento = new DAOAlojamiento();
+		List<ClienteFrecuente> clientes;
+		try {
+			this.conn = darConexion();
+			daoAlojamiento.setConn(conn);
+			if(daoAlojamiento.findAlojamientoById(id)==null)
+			{
+				throw new Exception("El alojamiento no existe");
+			}
+			clientes = daoAlojamiento.findClienteFrecuentes(id);
+		} catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} finally {
+			try {
+				daoAlojamiento.cerrarRecursos();
+				if (this.conn != null) {
+					this.conn.close();
+				}
+			} catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return clientes;
+	}
+	
+	//RFC4
 	
 	/**
 	 * Metodo que modela la transaccion que retorna los alojamientos que cumplen los parametros en la base de datos.
