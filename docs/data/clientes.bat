@@ -1,0 +1,1 @@
+sqlldr CONTROL=clientes.ctl   skip=1   

@@ -8,7 +8,7 @@ public class EstadisticaOperacion {
 	 * Dia/Mes/Año o Semana
 	 */
 	@JsonProperty(value = "periodo")
-	private int periodo;
+	private String periodo;
 	
 	
 	/**
@@ -25,14 +25,14 @@ public class EstadisticaOperacion {
 	private int numReservas;
 
 
-	public EstadisticaOperacion(@JsonProperty(value = "periodo") int periodo, @JsonProperty(value = "ingresos") double ingresos,@JsonProperty(value = "numReservas") int numReservas) {
+	public EstadisticaOperacion(@JsonProperty(value = "periodo") String periodo, @JsonProperty(value = "ingresos") double ingresos,@JsonProperty(value = "numReservas") int numReservas) {
 		this.periodo = periodo;
 		this.ingresos = ingresos;
 		this.numReservas = numReservas;
 	}
 
 
-	public int getPeriodo() {
+	public String getPeriodo() {
 		return periodo;
 	}
 
@@ -47,7 +47,7 @@ public class EstadisticaOperacion {
 	}
 
 
-	public void setPeriodo(int periodo) {
+	public void setPeriodo(String periodo) {
 		this.periodo = periodo;
 	}
 

@@ -1,5 +1,7 @@
 package vos;
 
+import java.util.List;
+
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class AnalisisOperacion {
@@ -27,6 +29,12 @@ public class AnalisisOperacion {
 	 */
 	@JsonProperty(value = "menorOcupacion")
 	private EstadisticaOperacion menorOcupacion;
+	
+	/**
+	 * Estadisticas de todos los periodos
+	 */
+	@JsonProperty(value = "estadisticas")
+	private List<EstadisticaOperacion> estadisticas;
 
 	public AnalisisOperacion(String categoria, String unidadTiempo) {
 		this.categoria = categoria;
@@ -74,5 +82,13 @@ public class AnalisisOperacion {
 
 	public void setMenorOcupacion(EstadisticaOperacion menorOcupacion) {
 		this.menorOcupacion = menorOcupacion;
+	}
+
+	public List<EstadisticaOperacion> getEstadisticas() {
+		return estadisticas;
+	}
+
+	public void setEstadisticas(List<EstadisticaOperacion> estadisticas) {
+		this.estadisticas = estadisticas;
 	}
 }
