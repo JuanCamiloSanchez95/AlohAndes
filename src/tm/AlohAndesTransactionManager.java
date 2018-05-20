@@ -504,7 +504,51 @@ public class AlohAndesTransactionManager {
 			}	
 		}
 		
-	//Metodo de Alojamiento
+
+		//Metodos Alojamientos
+		
+		/**
+		 * Metodo que modela la transaccion que busca un alojamiento en la base de datos que
+		 * tiene el ID dado por parametro. <br/>
+		 * 
+		 * @param id - id del alojamiento a buscar. id != null
+		 * @return Alojamiento - Alojamiento que se obtiene como resultado de la consulta.
+		 * @throws Exception- cualquier error que se genere durante la transaccion
+		 */
+		public Alojamiento getAlojamientoById(Long id) throws Exception {
+			DAOAlojamiento daoAlojamiento = new DAOAlojamiento();
+			Alojamiento alojamiento = null;
+			try {
+				this.conn = darConexion();
+				daoAlojamiento.setConn(conn);
+				alojamiento = daoAlojamiento.findAlojamientoById(id);
+				if (alojamiento == null) {
+					throw new Exception(
+							"El alojamiento con el id = " + id + " no se encuentra persistido en la base de datos.");
+				}
+			} catch (SQLException sqlException) {
+				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+				sqlException.printStackTrace();
+				throw sqlException;
+			} catch (Exception exception) {
+				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			} finally {
+				try {
+					daoAlojamiento.cerrarRecursos();
+					if (this.conn != null) {
+						this.conn.close();
+					}
+				} catch (SQLException exception) {
+					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}
+			return alojamiento;
+		}
+		
 		/**
 		 * Metodo que modela la transaccion que agrega un Alojamiento a la base de datos.
 		 * <b> post: </b> se ha agregado el Alojamiento que entra como parametro
@@ -736,7 +780,7 @@ public class AlohAndesTransactionManager {
 		 * @param HabitacionVivienda - la HabitacionVivienda a agregar. HabitacionVivienda != null
 		 * @throws Exception - Cualquier error que se genere agregando el HabitacionVivienda
 		 */
-		public void addHabitacioa(HabitacionVivienda hab) throws Exception {
+		public void addHabitacioVivienda(HabitacionVivienda hab) throws Exception {
 
 			DAOAlojamiento daoalojamiento = new DAOAlojamiento();
 			try {
@@ -766,60 +810,7 @@ public class AlohAndesTransactionManager {
 			}
 		}
 
-	//Metodo de  Oferta
-		
-		/**
-		 * Metodo que modela la transaccion que agrega una oferta a la base de datos.
-		 * <b> post: </b> se ha agregado la oferta que entra como parametro
-		 * @param oferta - la oferta a agregar. oferta != null
-		 * @throws Exception - Cualquier error que se genere agregando la oferta
-		 */
-		public void addOferta(Oferta oferta) throws Exception 
-		{
-			DAOAlojamiento daoAlojamiento= new DAOAlojamiento();
-			DAOOperador daoOperador = new DAOOperador();
-			DAOOferta daoOferta = new DAOOferta();
-			try
-			{
-				if(daoOferta.findOfertaById(oferta.getId())!=null)
-				{
-					throw new Exception("Ya existe una oferta con el id indicado");
-				}
-				Long idAlojamiento= (long) oferta.getAlojamiento().getId();
-				if(daoAlojamiento.findAlojamientoById(idAlojamiento)==null)
-				{
-					throw new Exception("El Alojamiento  de la oferta no existe");
-				}
-				if(daoOperador.findOperadorById(oferta.getOperador().getId())==null)
-				{
-					throw new Exception("El Operador  de la oferta no existe");
-				}
-				daoOferta.addOferta(oferta);	
-			}
-			catch (SQLException sqlException) {
-				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
-				sqlException.printStackTrace();
-				throw sqlException;
-			} 
-			catch (Exception exception) {
-				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			} 
-			finally {
-				try {
-					daoOferta.cerrarRecursos();
-					if(this.conn!=null){
-						this.conn.close();					
-					}
-				}
-				catch (SQLException exception) {
-					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
-					exception.printStackTrace();
-					throw exception;
-				}
-			}
-		}
+	
 		
 		
 	// Metodo de Reserva
@@ -959,6 +950,61 @@ public class AlohAndesTransactionManager {
 	}
 	
 	// Metodo de Oferta
+	
+	//Metodo de  Oferta
+	
+			/**
+			 * Metodo que modela la transaccion que agrega una oferta a la base de datos.
+			 * <b> post: </b> se ha agregado la oferta que entra como parametro
+			 * @param oferta - la oferta a agregar. oferta != null
+			 * @throws Exception - Cualquier error que se genere agregando la oferta
+			 */
+			public void addOferta(Oferta oferta) throws Exception 
+			{
+				DAOAlojamiento daoAlojamiento= new DAOAlojamiento();
+				DAOOperador daoOperador = new DAOOperador();
+				DAOOferta daoOferta = new DAOOferta();
+				try
+				{
+					if(daoOferta.findOfertaById(oferta.getId())!=null)
+					{
+						throw new Exception("Ya existe una oferta con el id indicado");
+					}
+					Long idAlojamiento= (long) oferta.getAlojamiento().getId();
+					if(daoAlojamiento.findAlojamientoById(idAlojamiento)==null)
+					{
+						throw new Exception("El Alojamiento  de la oferta no existe");
+					}
+					if(daoOperador.findOperadorById(oferta.getOperador().getId())==null)
+					{
+						throw new Exception("El Operador  de la oferta no existe");
+					}
+					daoOferta.addOferta(oferta);	
+				}
+				catch (SQLException sqlException) {
+					System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+					sqlException.printStackTrace();
+					throw sqlException;
+				} 
+				catch (Exception exception) {
+					System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				} 
+				finally {
+					try {
+						daoOferta.cerrarRecursos();
+						if(this.conn!=null){
+							this.conn.close();					
+						}
+					}
+					catch (SQLException exception) {
+						System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+						exception.printStackTrace();
+						throw exception;
+					}
+				}
+			}
 	
 	/**
 	 * Metodo que modela la transaccion que elimina de la base de datos a la oferta que entra por parametro.
@@ -1304,49 +1350,7 @@ public class AlohAndesTransactionManager {
 		return usos;
 	}
 	
-	//Metodos Alojamientos
 	
-	/**
-	 * Metodo que modela la transaccion que busca un alojamiento en la base de datos que
-	 * tiene el ID dado por parametro. <br/>
-	 * 
-	 * @param id - id del alojamiento a buscar. id != null
-	 * @return Alojamiento - Alojamiento que se obtiene como resultado de la consulta.
-	 * @throws Exception- cualquier error que se genere durante la transaccion
-	 */
-	public Alojamiento getAlojamientoById(Long id) throws Exception {
-		DAOAlojamiento daoAlojamiento = new DAOAlojamiento();
-		Alojamiento alojamiento = null;
-		try {
-			this.conn = darConexion();
-			daoAlojamiento.setConn(conn);
-			alojamiento = daoAlojamiento.findAlojamientoById(id);
-			if (alojamiento == null) {
-				throw new Exception(
-						"El alojamiento con el id = " + id + " no se encuentra persistido en la base de datos.");
-			}
-		} catch (SQLException sqlException) {
-			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
-			sqlException.printStackTrace();
-			throw sqlException;
-		} catch (Exception exception) {
-			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
-			exception.printStackTrace();
-			throw exception;
-		} finally {
-			try {
-				daoAlojamiento.cerrarRecursos();
-				if (this.conn != null) {
-					this.conn.close();
-				}
-			} catch (SQLException exception) {
-				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
-				exception.printStackTrace();
-				throw exception;
-			}
-		}
-		return alojamiento;
-	}
 	
 	//RFC8
 	
