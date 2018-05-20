@@ -264,8 +264,17 @@ public class DAOAlojamiento {
 		return alojamiento;
 	}
 	
+
 	//RFC7
 	
+	/**
+	 * Metodo que obtiene el analisis de uso de un tipo de alojamiento en cierta unidad de tiempo
+	 * <b>Precondicion: </b> la conexion a sido inicializado
+	 * @param solicitud - clase que contiene los datos para la consulta
+	 * @return el analisis realizado por el tipo de alojamiento y unidad de tiempo
+	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
+	 */
 	public AnalisisOperacion analisisByAlojamiento(SolicitudAnalisisOperacion solicitud) throws SQLException, Exception{
 		AnalisisOperacion analisis = new AnalisisOperacion(solicitud.getCategoria(),solicitud.getUnidadTiempo());
 		ArrayList<EstadisticaOperacion> estadisticas = new ArrayList<EstadisticaOperacion>();

@@ -31,6 +31,7 @@ import vos.AnalisisOperacion;
 import vos.Apartamento;
 import vos.Cliente;
 import vos.ClienteFrecuente;
+import vos.ConsultaFuncionamiento;
 import vos.DineroOperador;
 import vos.HabitacionHostal;
 import vos.HabitacionHotel;
@@ -42,6 +43,7 @@ import vos.IndiceOcupacion;
 import vos.Oferta;
 import vos.OfertaBajaDemanda;
 import vos.OfertaPopular;
+import vos.OfertaRFC12;
 import vos.Operador;
 import vos.Persona;
 import vos.Reserva;
@@ -1476,4 +1478,39 @@ public class AlohAndesTransactionManager {
 		return analisis;
 	}
 
+	//RFC12
+	
+	public ArrayList<ConsultaFuncionamiento> consultaFuncionamiento() throws Exception{
+		DAOOferta daoOferta= new DAOOferta( );
+		DAOOperador daoOperador= new DAOOperador( );
+		ArrayList<ConsultaFuncionamiento> consultas = new ArrayList<ConsultaFuncionamiento>();
+		try {
+			this.conn = darConexion();
+			daoOferta.setConn(conn);
+			daoOperador.setConn(conn);
+			OfertaRFC12[] ofertas = daoOferta.consultaFuncionamiento();
+			
+		} catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} finally {
+			try {
+				daoOferta.cerrarRecursos();
+				daoOperador.cerrarRecursos();
+				if (this.conn != null) {
+					this.conn.close();
+				}
+			} catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return consultas;
+	}
 }

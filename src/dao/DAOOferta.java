@@ -13,6 +13,7 @@ import vos.IndiceOcupacion;
 import vos.Oferta;
 import vos.OfertaBajaDemanda;
 import vos.OfertaPopular;
+import vos.OfertaRFC12;
 import vos.Operador;
 
 public class DAOOferta {
@@ -266,6 +267,36 @@ public class DAOOferta {
 
 		return ofertas;
 	}
+	
+	//RFC12
+	
+	public OfertaRFC12[] consultaFuncionamiento() throws SQLException, Exception{
+		OfertaRFC12[] ofertas = new OfertaRFC12[53];
+		long startTime = System.currentTimeMillis();
+		String sql = String.format("SELECT CAST(TO_CHAR(\"A2\".\"FECHALLEGADA\",'IW') AS int) \"SEMANA\",\"A1\".\"ID\" \"ID\",SUM(\"A1\".\"PRECIOESTADIA\"*\"A2\".\"CANTIDADDIAS\") \"INGRESOS\",COUNT(*) \"NUMRESERVAS\""
+				+ " FROM \"%1$s\".\"RESERVAS\" \"A2\",\"%1$s\".\"OFERTAS\" \"A1\""
+				+ " WHERE \"A2\".\"OFERTA\"=\"A1\".\"ID\" "
+				+ "GROUP BY TO_CHAR(\"A2\".\"FECHALLEGADA\",'IW'),CAST(TO_CHAR(\"A2\".\"FECHALLEGADA\",'IW') AS int),\"A2\".\"FECHALLEGADA\",\"A1\".\"ID\" "
+				+ "ORDER BY TO_CHAR(\"A2\".\"FECHALLEGADA\",'IW')", AlohAndesTransactionManager.USUARIO);
+		
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+		
+		long stopTime = System.currentTimeMillis();
+	    long elapsedTime = stopTime - startTime;
+	    double time = ((double)elapsedTime/1000);
+	    System.out.println("Tiempo de Consulta: "+String.format("%.2f", time)+" segundos");
+	    
+	    while (rs.next()) {
+	    	Integer semana = rs.getInt("SEMANA");
+			ofertas[semana-1]=convertResultSetToOfertaRFC12(rs);
+		}
+	    
+		return ofertas;
+		
+	}
+	
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODOS AUXILIARES
 	//----------------------------------------------------------------------------------------------------------------------------------
@@ -374,5 +405,25 @@ public class DAOOferta {
 
 			return indice;
 	}
+	
+	/**
+	 *  Metodo que transforma el resultado obtenido de una consulta SQL en una instancia de la clase OfertaRFC12.
+	 * @param resultSet ResultSet con la informacion de una oferta que se obtuvo de la base de datos.
+	 * @return OfertaRFC12 cuyos atributos corresponden a los valores asociados a un registro particular de la tabla OFERTAS.
+	 * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
+	 */
+	public OfertaRFC12 convertResultSetToOfertaRFC12(ResultSet resultSet) throws SQLException,Exception {
+		Long id= resultSet.getLong("ID");
+		Double ingresos = resultSet.getDouble("INGRESOS");
+		Integer numReservas = resultSet.getInt("NUMRESERVAS");
+
+		OfertaRFC12 oferta = new OfertaRFC12 (ingresos, numReservas);
+		Oferta ofertaAsociada = findOfertaById(id);
+		
+		if(ofertaAsociada!=null)
+			oferta.setOferta(ofertaAsociada);
+
+		return oferta;
+}
 
 }

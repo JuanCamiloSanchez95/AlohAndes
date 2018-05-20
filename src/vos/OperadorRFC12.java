@@ -3,13 +3,7 @@ package vos;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 public class OperadorRFC12 {
-	/**
-	 * Numero de Semana
-	 */
-	@JsonProperty(value = "semana")
-	private int semana;
-	
-	
+
 	/**
 	 * Ingreso en el periodo
 	 */
@@ -36,15 +30,11 @@ public class OperadorRFC12 {
  * @param ingresos - ingresos en la semana
  * @param numReservas - numero de reservas en la semana
  */
-	public OperadorRFC12(int semana, double ingresos, int numReservas) {
-		this.semana = semana;
+	public OperadorRFC12(@JsonProperty(value = "ingresos") double ingresos,@JsonProperty(value = "numReservas") int numReservas) {
 		this.ingresos = ingresos;
 		this.numReservas = numReservas;
 	}
 
-	public int getSemana() {
-		return semana;
-	}
 
 	public double getIngresos() {
 		return ingresos;
@@ -56,10 +46,6 @@ public class OperadorRFC12 {
 
 	public Operador getOperador() {
 		return operador;
-	}
-
-	public void setSemana(int semana) {
-		this.semana = semana;
 	}
 
 	public void setIngresos(double ingresos) {

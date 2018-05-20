@@ -12,7 +12,10 @@ import vos.Bebedor;
 import vos.DineroOperador;
 import vos.Hostal;
 import vos.Hotel;
+import vos.Oferta;
+import vos.OfertaRFC12;
 import vos.Operador;
+import vos.OperadorRFC12;
 import vos.Persona;
 import vos.ViviendaUniversitaria;
 import tm.AlohAndesTransactionManager;
@@ -263,6 +266,35 @@ public class DAOOperador {
 		}
 		return dinero;
 	}
+	
+	//RFC12
+	
+	public OperadorRFC12[] consultaFuncionamiento() throws SQLException, Exception{
+		OperadorRFC12[] operadores = new OperadorRFC12[53];
+		long startTime = System.currentTimeMillis();
+		String sql = String.format("SELECT CAST(TO_CHAR(\"A3\".\"FECHALLEGADA\",'IW') AS int) \"SEMANA\",\"A1\".\"ID\" \"ID\",SUM(\"A2\".\"PRECIOESTADIA\"*\"A3\".\"CANTIDADDIAS\") \"INGRESOS\",COUNT(*) \"NUMRESERVAS\""
+				+ " FROM \"%1$s\".\"RESERVAS\" \"A3\",\"%1$s\".\"OFERTAS\" \"A2\",\"%1$s\".\"OPERADORES\" \"A1\""
+				+ " WHERE \"A3\".\"OFERTA\"=\"A2\".\"ID\" AND \"A2\".\"OPERADOR\"=\"A1\".\"ID\" "
+				+ "GROUP BY TO_CHAR(\"A3\".\"FECHALLEGADA\",'IW'),\"A3\".\"FECHALLEGADA\",\"A1\".\"ID\",CAST(TO_CHAR(\"A3\".\"FECHALLEGADA\",'IW') AS int) "
+				+ "ORDER BY TO_CHAR(\"A3\".\"FECHALLEGADA\",'IW')", AlohAndesTransactionManager.USUARIO);
+		
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+		
+		long stopTime = System.currentTimeMillis();
+	    long elapsedTime = stopTime - startTime;
+	    double time = ((double)elapsedTime/1000);
+	    System.out.println("Tiempo de Consulta: "+String.format("%.2f", time)+" segundos");
+	    
+	    while (rs.next()) {
+	    	Integer semana = rs.getInt("SEMANA");
+			operadores[semana-1]=convertResultSetToOperadorRFC12(rs);
+		}
+	    
+		return operadores;
+		
+	}
 
 	// ----------------------------------------------------------------------------------------------------------------------------------
 	// METODOS AUXILIARES
@@ -333,5 +365,25 @@ public class DAOOperador {
 		DineroOperador dOperador= new DineroOperador(nombre,tipo,dinero);
 		return dOperador;
 	}
+	
+	/**
+	 *  Metodo que transforma el resultado obtenido de una consulta SQL en una instancia de la clase OperadorRFC12.
+	 * @param resultSet ResultSet con la informacion de un operador que se obtuvo de la base de datos.
+	 * @return OperadorRFC12 cuyos atributos corresponden a los valores asociados a un registro particular de la tabla OPERADORES.
+	 * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
+	 */
+	public OperadorRFC12 convertResultSetToOperadorRFC12(ResultSet resultSet) throws SQLException,Exception {
+		Long id= resultSet.getLong("ID");
+		Double ingresos = resultSet.getDouble("INGRESOS");
+		Integer numReservas = resultSet.getInt("NUMRESERVAS");
+
+		OperadorRFC12 operador = new OperadorRFC12 (ingresos, numReservas);
+		Operador operadorAsociado = findOperadorById(id);
+		
+		if(operadorAsociado!=null)
+			operador.setOperador(operadorAsociado);
+
+		return operador;
+}
 
 }

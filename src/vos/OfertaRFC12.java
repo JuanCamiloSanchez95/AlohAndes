@@ -2,14 +2,7 @@ package vos;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class AlojamientoRFC12 {
-	
-	/**
-	 * Numero de Semana
-	 */
-	@JsonProperty(value = "semana")
-	private int semana;
-	
+public class OfertaRFC12 {
 	
 	/**
 	 * Ingreso en el periodo
@@ -25,26 +18,20 @@ public class AlojamientoRFC12 {
 	private int numReservas;
 	
 	/**
-	 * Alojamiento asociado
+	 * Oferta asociada
 	 */
-	@JsonProperty(value = "alojamiento")
-	private Alojamiento alojamiento;
+	@JsonProperty(value = "oferta")
+	private Oferta oferta;
 	
 	
 /**
- * Metodo constructor para el alojamiento del Requerimiento RFC12
- * @param semana - numero de semana
+ * Metodo constructor para la oferta del Requerimiento RFC12
  * @param ingresos - ingresos en la semana
  * @param numReservas - numero de reservas en la semana
  */
-	public AlojamientoRFC12(int semana, double ingresos, int numReservas) {
-		this.semana = semana;
+	public OfertaRFC12(@JsonProperty(value = "ingresos") double ingresos,@JsonProperty(value = "numReservas") int numReservas) {
 		this.ingresos = ingresos;
 		this.numReservas = numReservas;
-	}
-
-	public int getSemana() {
-		return semana;
 	}
 
 	public double getIngresos() {
@@ -55,13 +42,6 @@ public class AlojamientoRFC12 {
 		return numReservas;
 	}
 
-	public Alojamiento getAlojamiento() {
-		return alojamiento;
-	}
-
-	public void setSemana(int semana) {
-		this.semana = semana;
-	}
 
 	public void setIngresos(double ingresos) {
 		this.ingresos = ingresos;
@@ -71,8 +51,13 @@ public class AlojamientoRFC12 {
 		this.numReservas = numReservas;
 	}
 
-	public void setAlojamiento(Alojamiento alojamiento) {
-		this.alojamiento = alojamiento;
+	public Oferta getOferta() {
+		return oferta;
 	}
+
+	public void setOferta(Oferta oferta) {
+		this.oferta = oferta;
+	}
+
 
 }
