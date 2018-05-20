@@ -271,6 +271,13 @@ public class DAOOferta {
 	
 	//RFC12
 	
+	/**
+	 * Metodo que obtiene la informacion de las ofertas con menor y mayor demanda por semana en la Base de Datos 
+	 * <b>Precondicion: </b> la conexion a sido inicializado
+	 * @return	lista con la informacion de las ofertas con menor y mayor demanda por semana  que se encuentran en la Base de Datos
+	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
+	 */
 	public OfertasRFC12 consultaFuncionamiento() throws SQLException, Exception {
 		OfertaRFC12[] ofertasMas = new OfertaRFC12[53];
 		OfertaRFC12[] ofertasMenos = new OfertaRFC12[53];
@@ -316,6 +323,10 @@ public class DAOOferta {
 		
 	}
 	
+	/**
+	 * Clase de Apoyo al RFC12
+	 * @author cmama
+	 */
 	public class OfertasRFC12
 	{
 	    private OfertaRFC12[] mas;
