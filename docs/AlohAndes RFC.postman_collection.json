@@ -579,6 +579,42 @@
 				"description": "Encontrar las ofertas de alojamiento que no han recibido clientes en periodos superiores a 1 mes, durante todo\r\nel periodo de operación de AlohAndes."
 			},
 			"response": []
+		},
+		{
+			"name": "RFC13",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9936376d-1b07-438e-a1cc-ca1bf1a8fffd",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code===200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/AlohAndes/rest/admin/ClientesBuenos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AlohAndes",
+						"rest",
+						"admin",
+						"ClientesBuenos"
+					]
+				},
+				"description": "Los buenos clientes son de tres tipos: aquellos que hacen reservas en AlohAndes al menos una vez al mes, aquellos que siempre reservan alojamientos costosos (Entiéndase costoso, por ejemplo, como mayor a USD 150 por noche) y aquellos que siempre reservan suites."
+			},
+			"response": []
 		}
 	]
 }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import tm.AlohAndesTransactionManager;
 import vos.Cliente;
+import vos.ClienteBueno;
 import vos.Oferta;
 import vos.UsoCliente;
 import vos.UsoTipo;
@@ -168,6 +169,79 @@ public class DAOCliente {
 		}
 		return usos;
 	}
+	
+	//RFC13
+	
+	public ArrayList<ClienteBueno> consultaClientesBuenos()throws SQLException, Exception{
+		ArrayList<ClienteBueno> clientes = new ArrayList<ClienteBueno>();
+		long startTime = System.currentTimeMillis();
+		String sql = String.format(
+				"SELECT \"A1\".\"DOCUMENTO\" \"DOCUMENTO\",\"A1\".\"AÑO\" \"AÑO\",\"A1\".\"NUMRESERVAS\" \"NUMRESERVAS\""
+				+ " FROM  (SELECT \"A4\".\"DOCUMENTO\" \"DOCUMENTO\",TO_CHAR(\"A3\".\"FECHALLEGADA\",'YYYY') \"AÑO\",COUNT(*) \"NUMRESERVAS\""
+				+ " FROM \"%1$s\".\"CLIENTES\" \"A4\",\"%1$s\".\"RESERVAS\" \"A3\",\"%1$s\".\"RESERVASCLIENTE\" \"A2\""
+				+ " WHERE \"A3\".\"ID\"=\"A2\".\"RESERVAID\" AND \"A2\".\"CLIENTEID\"=\"A4\".\"DOCUMENTO\" GROUP BY \"A4\".\"DOCUMENTO\",TO_CHAR(\"A3\".\"FECHALLEGADA\",'YYYY')"
+				+ " ORDER BY \"A4\".\"DOCUMENTO\") \"A1\""
+				+ " WHERE \"A1\".\"NUMRESERVAS\">=12",
+				AlohAndesTransactionManager.USUARIO);
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+
+		long stopTime = System.currentTimeMillis();
+	    long elapsedTime = stopTime - startTime;
+	    double time = ((double)elapsedTime/1000);
+	    System.out.println("Tiempo de Consulta: "+String.format("%.2f", time)+" segundos");
+
+		while (rs.next()) {
+			clientes.add(convertResultSetToClienteBueno(rs));
+		}
+		
+		sql = String.format(
+				" SELECT \"A1\".\"DOCUMENTO\" \"DOCUMENTO\",\"A1\".\"NUMRESERVAS\" \"NUMRESERVAS\",\"A1\".\"ALOJAMIENTOSCAROS\" \"ALOJAMIENTOSCAROS\""
+				+ " FROM  (SELECT \"A5\".\"DOCUMENTO\" \"DOCUMENTO\",COUNT(*) \"NUMRESERVAS\",SUM(CASE  WHEN \"A2\".\"PRECIOESTADIA\">150 THEN 1 ELSE 0 END ) \"ALOJAMIENTOSCAROS\" "
+				+ "FROM \"%1$s\".\"CLIENTES\" \"A5\",\"%1$s\".\"RESERVAS\" \"A4\",\"%1$s\".\"RESERVASCLIENTE\" \"A3\",\"%1$s\".\"OFERTAS\" \"A2\" WHERE \"A4\".\"ID\"=\"A3\".\"RESERVAID\""
+				+ " AND \"A3\".\"CLIENTEID\"=\"A5\".\"DOCUMENTO\" AND \"A4\".\"OFERTA\"=\"A2\".\"ID\""
+				+ " GROUP BY \"A5\".\"DOCUMENTO\") \"A1\" "
+				+ "WHERE \"A1\".\"NUMRESERVAS\"=\"A1\".\"ALOJAMIENTOSCAROS\"",
+				AlohAndesTransactionManager.USUARIO);
+		
+		prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		rs = prepStmt.executeQuery();
+		
+		stopTime = System.currentTimeMillis();
+	    elapsedTime = stopTime - startTime;
+	    time = ((double)elapsedTime/1000);
+	    System.out.println("Tiempo de Consulta: "+String.format("%.2f", time)+" segundos");
+	    
+	    while (rs.next()) {
+			clientes.add(convertResultSetToClienteBueno(rs));
+		}
+	    
+	    sql = String.format(
+				"SELECT \"A1\".\"DOCUMENTO\" \"DOCUMENTO\",\"A1\".\"NUMRESERVAS\" \"NUMRESERVAS\",\"A1\".\"SUITES\" \"SUITES\""
+				+ " FROM  (SELECT \"A6\".\"DOCUMENTO\" \"DOCUMENTO\",COUNT(*) \"NUMRESERVAS\",SUM(CASE  WHEN \"A2\".\"TIPO\"='Suite' THEN 1 ELSE 0 END ) \"SUITES\""
+				+ " FROM \"%1$s\".\"CLIENTES\" \"A6\",\"%1$s\".\"RESERVAS\" \"A5\",\"%1$s\".\"RESERVASCLIENTE\" \"A4\",\"%1$s\".\"OFERTAS\" \"A3\",\"%1$s\".\"HABITACIONESHOTEL\" \"A2\""
+				+ " WHERE \"A5\".\"ID\"=\"A4\".\"RESERVAID\" AND \"A4\".\"CLIENTEID\"=\"A6\".\"DOCUMENTO\" AND \"A5\".\"OFERTA\"=\"A3\".\"ID\" AND \"A3\".\"ALOJAMIENTOID\"=\"A2\".\"ID\" "
+				+ "GROUP BY \"A6\".\"DOCUMENTO\") \"A1\""
+				+ " WHERE \"A1\".\"SUITES\"=\"A1\".\"NUMRESERVAS\"",
+				AlohAndesTransactionManager.USUARIO);
+		
+		prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		rs = prepStmt.executeQuery();
+		
+		stopTime = System.currentTimeMillis();
+	    elapsedTime = stopTime - startTime;
+	    time = ((double)elapsedTime/1000);
+	    System.out.println("Tiempo de Consulta: "+String.format("%.2f", time)+" segundos");
+	    
+	    while (rs.next()) {
+			clientes.add(convertResultSetToClienteBueno(rs));
+		}
+		
+		return clientes;
+	}
 
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODOS AUXILIARES
@@ -242,5 +316,25 @@ public class DAOCliente {
 		UsoTipo uso=new UsoTipo(tipoCliente,dias,tipo,dias*precio);
 
 		return uso;
+	}
+	
+	
+	public ClienteBueno convertResultSetToClienteBueno(ResultSet resultSet) throws SQLException,Exception {
+		Long documento= resultSet.getLong("DOCUMENTO");
+		Integer numReservas = resultSet.getInt("NUMRESERVAS");
+		String ano = resultSet.getString("AÑO");
+		Integer alojamientos = resultSet.getInt("ALOJAMIETOSCAROS");
+		Integer suites = resultSet.getInt("SUITES");
+
+		Cliente cliente = findClienteByDocument(documento);
+		ClienteBueno clienteBueno = new ClienteBueno();
+		clienteBueno.setCliente(cliente);
+		clienteBueno.setNumReservas(numReservas);
+		if(numReservas!=null && ano != null && !ano.isEmpty())
+			clienteBueno.setReservasMensuales(numReservas/12);
+		if(suites != null) clienteBueno.setReservasSuites(suites);
+		if(alojamientos != null) clienteBueno.setReservasCostosas(alojamientos);
+
+		return clienteBueno;
 	}
 }

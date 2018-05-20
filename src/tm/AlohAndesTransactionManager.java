@@ -32,6 +32,7 @@ import vos.Alojamiento;
 import vos.AnalisisOperacion;
 import vos.Apartamento;
 import vos.Cliente;
+import vos.ClienteBueno;
 import vos.ClienteFrecuente;
 import vos.ConsultaFuncionamiento;
 import vos.DineroOperador;
@@ -1322,7 +1323,7 @@ public class AlohAndesTransactionManager {
 	
 	/**
 	 * Metodo que modela la transaccion que retorna los usos por los diferentes tipos de clientes en la base de datos.
-	 * @return List<UsoTipo> - Lista de por los diferentes tipos de clientes.
+	 * @return List<UsoTipo> - Lista de por los diferentes usos para los tipos de clientes.
 	 * @throws Exception - Cualquier error que se genere durante la transaccion
 	 */
 	public List<UsoTipo> getUsosByVinculo() throws Exception {
@@ -1355,6 +1356,42 @@ public class AlohAndesTransactionManager {
 		return usos;
 	}
 	
+	//RFC13
+	
+	/**
+	 * Metodo que modela la transaccion que retorna los clientes buenos  en la base de datos.
+	 * @return List<ClienteBueno> - Lista de clientes buenos
+	 * @throws Exception - Cualquier error que se genere durante la transaccion
+	 */
+	public List<ClienteBueno> consultaClienteBuenos() throws Exception {
+		DAOCliente daoCliente = new DAOCliente();
+		List<ClienteBueno> clientes;
+		try {
+			this.conn = darConexion();
+			daoCliente.setConn(conn);
+			clientes = daoCliente.consultaClientesBuenos();
+		} catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} finally {
+			try {
+				daoCliente.cerrarRecursos();
+				if (this.conn != null) {
+					this.conn.close();
+				}
+			} catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return clientes;
+	}
 	
 	
 	//RFC8

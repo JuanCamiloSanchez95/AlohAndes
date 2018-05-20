@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tm.AlohAndesTransactionManager;
+import vos.ClienteBueno;
 import vos.ClienteFrecuente;
 import vos.ConsultaFuncionamiento;
 
@@ -58,13 +59,37 @@ public class AdminService {
 		@GET
 		@Path( "/funcionamiento" )
 		@Produces( { MediaType.APPLICATION_JSON } )
-		public Response getClientesFrecuentesById( )
+		public Response getConsultaFuncionamiento( )
 		{
 			try{
 				AlohAndesTransactionManager tm = new AlohAndesTransactionManager( getPath( ) );
 				List<ConsultaFuncionamiento> consultas;
 				consultas = tm.consultaFuncionamiento();
 				return Response.status( 200 ).entity( consultas ).build( );			
+			}
+			catch( Exception e )
+			{
+				return Response.status( 500 ).entity( doErrorMessage( e ) ).build( );
+			}
+		}
+		
+		/**
+		 * Metodo GET que trae los clientes buenos en la Base de Datos
+		 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
+		 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/admin/funcionamiento
+		 * @return	<b>Response Status 200</b> - JSON Listas de consultas de funcionamiento por semana
+		 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
+		 */
+		@GET
+		@Path( "/ClientesBuenos" )
+		@Produces( { MediaType.APPLICATION_JSON } )
+		public Response getClientesBuenos( )
+		{
+			try{
+				AlohAndesTransactionManager tm = new AlohAndesTransactionManager( getPath( ) );
+				List<ClienteBueno> clientes;
+				clientes = tm.consultaClienteBuenos();
+				return Response.status( 200 ).entity( clientes ).build( );			
 			}
 			catch( Exception e )
 			{
