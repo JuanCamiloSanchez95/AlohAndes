@@ -248,6 +248,9 @@ public class DAOAlojamiento {
 	public AnalisisOperacion analisisByAlojamiento(SolicitudAnalisisOperacion solicitud) throws SQLException, Exception{
 		AnalisisOperacion analisis = new AnalisisOperacion(solicitud.getCategoria(),solicitud.getUnidadTiempo());
 		ArrayList<EstadisticaOperacion> estadisticas = new ArrayList<EstadisticaOperacion>();
+		
+		long startTime = System.currentTimeMillis();
+		
 		String timeUnit = null;
 		if(solicitud.getUnidadTiempo().equalsIgnoreCase("SEMANA")) 
 			timeUnit="IW";
@@ -268,6 +271,12 @@ public class DAOAlojamiento {
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
+		
+		long stopTime = System.currentTimeMillis();
+	    long elapsedTime = stopTime - startTime;
+	    double time = ((double)elapsedTime/1000);
+	    System.out.println("Tiempo de Consulta: "+String.format("%.2f", time)+" segundos");
+	    
 		while (rs.next()) {
 			estadisticas.add(convertResultSetToEstadisticaOperacion(rs));
 		}
