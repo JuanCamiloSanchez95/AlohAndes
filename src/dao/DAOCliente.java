@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import tm.AlohAndesTransactionManager;
 import vos.Cliente;
 import vos.ClienteBueno;
+import vos.ConsultaConsumo;
 import vos.Oferta;
 import vos.UsoCliente;
 import vos.UsoTipo;
@@ -241,6 +242,11 @@ public class DAOCliente {
 		}
 		
 		return clientes;
+	}
+	
+	
+	public ArrayList<Consumo> consultaConsumo(ConsultaConsumo consulta) {
+		
 	}
 
 	//----------------------------------------------------------------------------------------------------------------------------------
