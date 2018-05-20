@@ -268,9 +268,10 @@ public class DAOOperador {
 	}
 	
 	//RFC12
-	
-	public OperadorRFC12[] consultaFuncionamiento() throws SQLException, Exception{
-		OperadorRFC12[] operadores = new OperadorRFC12[53];
+		
+	public OperadoresRFC12 consultaFuncionamiento() throws SQLException, Exception{
+		OperadorRFC12[] operadoresMas = new OperadorRFC12[53];
+		OperadorRFC12[] operadoresMenos = new OperadorRFC12[53];
 		long startTime = System.currentTimeMillis();
 		String sql = String.format("SELECT CAST(TO_CHAR(\"A3\".\"FECHALLEGADA\",'IW') AS int) \"SEMANA\",\"A1\".\"ID\" \"ID\",SUM(\"A2\".\"PRECIOESTADIA\"*\"A3\".\"CANTIDADDIAS\") \"INGRESOS\",COUNT(*) \"NUMRESERVAS\""
 				+ " FROM \"%1$s\".\"RESERVAS\" \"A3\",\"%1$s\".\"OFERTAS\" \"A2\",\"%1$s\".\"OPERADORES\" \"A1\""
@@ -289,11 +290,40 @@ public class DAOOperador {
 	    
 	    while (rs.next()) {
 	    	Integer semana = rs.getInt("SEMANA");
-			operadores[semana-1]=convertResultSetToOperadorRFC12(rs);
+	    	OperadorRFC12 operador = convertResultSetToOperadorRFC12(rs);
+	    	if(operadoresMas[semana-1]==null)
+			operadoresMas[semana-1]=operador;
+	    	else {
+	    		if(operador.getNumReservas()<operadoresMas[semana-1].getNumReservas()) {
+	    			operadoresMas[semana-1]=operador;
+	    		}
+	    	}
+	    	
+	    	if(operadoresMenos[semana-1]==null)
+			operadoresMenos[semana-1]=operador;
+	    	else {
+	    		if(operador.getNumReservas()<operadoresMenos[semana-1].getNumReservas()) {
+	    			operadoresMenos[semana-1]=operador;
+	    		}
+	    	}
 		}
 	    
-		return operadores;
+		return new OperadoresRFC12(operadoresMas,operadoresMenos);
 		
+	}
+	
+	public class OperadoresRFC12
+	{
+	    private OperadorRFC12[] mas;
+	    private OperadorRFC12[] menos;
+	    public OperadoresRFC12(OperadorRFC12[] mas, OperadorRFC12[] menos)
+	    {
+	        this.mas = mas;
+	        this.menos = menos;
+
+	    }
+	    public OperadorRFC12[] getMas() { return mas; }
+	    public OperadorRFC12[] getMenos() { return menos; }
 	}
 
 	// ----------------------------------------------------------------------------------------------------------------------------------

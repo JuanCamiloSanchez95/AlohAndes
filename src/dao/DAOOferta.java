@@ -15,6 +15,7 @@ import vos.OfertaBajaDemanda;
 import vos.OfertaPopular;
 import vos.OfertaRFC12;
 import vos.Operador;
+import vos.OperadorRFC12;
 
 public class DAOOferta {
 
@@ -270,31 +271,63 @@ public class DAOOferta {
 	
 	//RFC12
 	
-	public OfertaRFC12[] consultaFuncionamiento() throws SQLException, Exception{
-		OfertaRFC12[] ofertas = new OfertaRFC12[53];
+	public OfertasRFC12 consultaFuncionamiento() throws SQLException, Exception {
+		OfertaRFC12[] ofertasMas = new OfertaRFC12[53];
+		OfertaRFC12[] ofertasMenos = new OfertaRFC12[53];
 		long startTime = System.currentTimeMillis();
-		String sql = String.format("SELECT CAST(TO_CHAR(\"A2\".\"FECHALLEGADA\",'IW') AS int) \"SEMANA\",\"A1\".\"ID\" \"ID\",SUM(\"A1\".\"PRECIOESTADIA\"*\"A2\".\"CANTIDADDIAS\") \"INGRESOS\",COUNT(*) \"NUMRESERVAS\""
-				+ " FROM \"%1$s\".\"RESERVAS\" \"A2\",\"%1$s\".\"OFERTAS\" \"A1\""
-				+ " WHERE \"A2\".\"OFERTA\"=\"A1\".\"ID\" "
-				+ "GROUP BY TO_CHAR(\"A2\".\"FECHALLEGADA\",'IW'),CAST(TO_CHAR(\"A2\".\"FECHALLEGADA\",'IW') AS int),\"A2\".\"FECHALLEGADA\",\"A1\".\"ID\" "
-				+ "ORDER BY TO_CHAR(\"A2\".\"FECHALLEGADA\",'IW')", AlohAndesTransactionManager.USUARIO);
-		
+		String sql = String.format(
+				"SELECT CAST(TO_CHAR(\"A2\".\"FECHALLEGADA\",'IW') AS int) \"SEMANA\",\"A1\".\"ID\" \"ID\",SUM(\"A1\".\"PRECIOESTADIA\"*\"A2\".\"CANTIDADDIAS\") \"INGRESOS\",COUNT(*) \"NUMRESERVAS\""
+						+ " FROM \"%1$s\".\"RESERVAS\" \"A2\",\"%1$s\".\"OFERTAS\" \"A1\""
+						+ " WHERE \"A2\".\"OFERTA\"=\"A1\".\"ID\" "
+						+ "GROUP BY TO_CHAR(\"A2\".\"FECHALLEGADA\",'IW'),CAST(TO_CHAR(\"A2\".\"FECHALLEGADA\",'IW') AS int),\"A2\".\"FECHALLEGADA\",\"A1\".\"ID\" "
+						+ "ORDER BY TO_CHAR(\"A2\".\"FECHALLEGADA\",'IW')",
+				AlohAndesTransactionManager.USUARIO);
+
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		ResultSet rs = prepStmt.executeQuery();
-		
+
 		long stopTime = System.currentTimeMillis();
-	    long elapsedTime = stopTime - startTime;
-	    double time = ((double)elapsedTime/1000);
-	    System.out.println("Tiempo de Consulta: "+String.format("%.2f", time)+" segundos");
-	    
-	    while (rs.next()) {
-	    	Integer semana = rs.getInt("SEMANA");
-			ofertas[semana-1]=convertResultSetToOfertaRFC12(rs);
+		long elapsedTime = stopTime - startTime;
+		double time = ((double) elapsedTime / 1000);
+		System.out.println("Tiempo de Consulta: " + String.format("%.2f", time) + " segundos");
+
+		while (rs.next()) {
+			Integer semana = rs.getInt("SEMANA");
+	    	OfertaRFC12 oferta = convertResultSetToOfertaRFC12(rs);
+	    	if(ofertasMas[semana-1]==null)
+			ofertasMas[semana-1]=oferta;
+	    	else {
+	    		if(oferta.getNumReservas()<ofertasMas[semana-1].getNumReservas()) {
+	    			ofertasMas[semana-1]=oferta;
+	    		}
+	    	}
+	    	
+	    	if(ofertasMenos[semana-1]==null)
+			ofertasMenos[semana-1]=oferta;
+	    	else {
+	    		if(oferta.getNumReservas()<ofertasMenos[semana-1].getNumReservas()) {
+	    			ofertasMenos[semana-1]=oferta;
+	    		}
+	    	}
 		}
 	    
-		return ofertas;
+		return new OfertasRFC12(ofertasMas,ofertasMenos);
 		
+	}
+	
+	public class OfertasRFC12
+	{
+	    private OfertaRFC12[] mas;
+	    private OfertaRFC12[] menos;
+	    public OfertasRFC12(OfertaRFC12[] mas, OfertaRFC12[] menos)
+	    {
+	        this.mas = mas;
+	        this.menos = menos;
+
+	    }
+	    public OfertaRFC12[] getMas() { return mas; }
+	    public OfertaRFC12[] getMenos() { return menos; }
 	}
 	
 	//----------------------------------------------------------------------------------------------------------------------------------

@@ -24,7 +24,9 @@ import java.util.Properties;
 import dao.DAOAlojamiento;
 import dao.DAOCliente;
 import dao.DAOOferta;
+import dao.DAOOferta.OfertasRFC12;
 import dao.DAOOperador;
+import dao.DAOOperador.OperadoresRFC12;
 import dao.DAOReserva;
 import vos.Alojamiento;
 import vos.AnalisisOperacion;
@@ -45,6 +47,7 @@ import vos.OfertaBajaDemanda;
 import vos.OfertaPopular;
 import vos.OfertaRFC12;
 import vos.Operador;
+import vos.OperadorRFC12;
 import vos.Persona;
 import vos.Reserva;
 import vos.SolicitudAnalisisOperacion;
@@ -1492,8 +1495,38 @@ public class AlohAndesTransactionManager {
 			this.conn = darConexion();
 			daoOferta.setConn(conn);
 			daoOperador.setConn(conn);
-			OfertaRFC12[] ofertas = daoOferta.consultaFuncionamiento();
+			OfertasRFC12 ofertas = daoOferta.consultaFuncionamiento();
+			OperadoresRFC12 operadores = daoOperador.consultaFuncionamiento();
 			
+			OfertaRFC12[] ofertaMas = ofertas.getMas();
+			OfertaRFC12[] ofertaMenos = ofertas.getMenos();
+			OperadorRFC12[] operadorMas = operadores.getMas();
+			OperadorRFC12[] operadorMenos = operadores.getMenos();
+			
+			for(int i=0;i<53;i++) {
+				ConsultaFuncionamiento consulta = new ConsultaFuncionamiento(i+1);
+				int con = 0;
+				
+				if(operadorMas[i]!=null) {
+					consulta.setOperadorMayorSolicitud(operadorMas[i]);
+					con++;
+				}
+				if(operadorMenos[i]!=null) {
+					consulta.setOperadorMenorSolicitud(operadorMenos[i]);;
+					con++;
+				}
+				if(ofertaMas[i]!=null) {
+					consulta.setOfertaMayorOcupacion(ofertaMas[i]);
+					con++;
+				}
+				if(ofertaMenos[i]!=null) {
+					consulta.setOfertaMenorOcupacion(ofertaMenos[i]);
+					con++;
+				}
+				if(con>0) {
+					consultas.add(consulta);
+				}
+			}
 		} catch (SQLException sqlException) {
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();
