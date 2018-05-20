@@ -13,6 +13,7 @@ import vos.IndiceOcupacion;
 import vos.Oferta;
 import vos.OfertaBajaDemanda;
 import vos.OfertaPopular;
+import vos.Operador;
 
 public class DAOOferta {
 
@@ -43,6 +44,29 @@ public class DAOOferta {
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODOS DE COMUNICACION CON LA BASE DE DATOS
 	//----------------------------------------------------------------------------------------------------------------------------------
+	/**
+	 * Metodo que agregar la informacion de una nueva oferta en la Base de Datos a
+	 * partir del parametro ingresado<br/>
+	 * <b>Precondicion: </b> la conexion a sido inicializadoa <br/>
+	 * 
+	 * @param oferta- oferta que desea agregar a la Base de Datos
+	 * @throws SQLException
+	 *             SQLException Genera excepcion si hay error en la conexion o en la
+	 *             consulta SQL
+	 * @throws Exception
+	 *             Si se genera un error dentro del metodo.
+	 */
+	public void addOferta(Oferta oferta) throws SQLException, Exception {
+
+		String sql = String.format("INSERT INTO %1$s.OFERTAS (ID, PRECIOESTADIA, NOMBRE, FECHAPUBLICACION,DESCRIPCION,ALOJAMIENDOID,OPERADOR,CAPACIDAD) VALUES (%2$s, '%3$s', '%4$s','%5$s','%6$s','%7$s','%8$s')",
+				AlohAndesTransactionManager.USUARIO, oferta.getId(), oferta.getPrecioEstadia(), oferta.getNombre(), oferta.getFechaPublicacion(),oferta.getDescripcion(),oferta.getAlojamiento(),oferta.getOperador(),oferta.getCapacidad());
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+
+	}
+	
 	
 	/**
 	 * Metodo que obtiene la informacion de todos las ofertas en la Base de Datos

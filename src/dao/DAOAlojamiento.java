@@ -212,6 +212,27 @@ public class DAOAlojamiento {
 
 	}
 	
+	
+	/**
+	 * Metodo que obtiene la informacion de los alojamientos disponibles 
+	 * 	 * <b>Precondicion: </b> la conexion a sido inicializada
+	 * @return	lista con lla informacion de los alojamientos que se cumplen las condiciones en la Base de Datos
+	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
+	 */
+	public ArrayList<Alojamiento> getAlojamientos() throws SQLException, Exception {
+		ArrayList<Alojamiento> alojamientos = new ArrayList<Alojamiento>();
+		StringBuilder sql = new StringBuilder();
+		sql.append(String.format("SELECT * FROM %1$s.ALOJAMIENTOS",AlohAndesTransactionManager.USUARIO));
+		PreparedStatement prepStmt = conn.prepareStatement(sql.toString());
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+		while (rs.next()) {
+			alojamientos.add(convertResultSetToAlojamiento(rs));
+		}
+		return alojamientos;
+	}
+	
 	/**
 	 * Metodo que obtiene la informacion de un alojamiento en la Base de Datos que tiene
 	 * el identificador dado por parametro 

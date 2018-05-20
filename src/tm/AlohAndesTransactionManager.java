@@ -33,6 +33,8 @@ import vos.ClienteFrecuente;
 import vos.DineroOperador;
 import vos.HabitacionHostal;
 import vos.HabitacionHotel;
+import vos.HabitacionUniversitaria;
+import vos.HabitacionVivienda;
 import vos.Hostal;
 import vos.Hotel;
 import vos.IndiceOcupacion;
@@ -44,6 +46,7 @@ import vos.Persona;
 import vos.Reserva;
 import vos.UsoCliente;
 import vos.UsoTipo;
+import vos.Vivienda;
 import vos.ViviendaUniversitaria;
 
 /**
@@ -347,7 +350,7 @@ public class AlohAndesTransactionManager {
 		 * @param vivienda - la vivienda a agregar. vivienda != null
 		 * @throws Exception - Cualquier error que se genere agregando el vivienda
 		 */
-		public void addVivienda(ViviendaUniversitaria viv) throws Exception {
+		public void addViviendaUniersitaria(ViviendaUniversitaria viv) throws Exception {
 
 			DAOOperador daoOperador = new DAOOperador();
 			try {
@@ -651,9 +654,172 @@ public class AlohAndesTransactionManager {
 			}
 		}
 		
+		
+		/**
+		 * Metodo que modela la transaccion que agrega un HabitacionUniversitaria a la base de datos.
+		 * <b> post: </b> se ha agregado la  HabitacionUniversitaria que entra como parametro
+		 * @param HabitacionUniversitaria - la HabitacionUniversitaria a agregar. HabitacionUniversitaria != null
+		 * @throws Exception - Cualquier error que se genere agregando el HabitacionUniversitaria
+		 */
+		public void addHabitacionUniversitaria(HabitacionUniversitaria hab) throws Exception {
 
+			DAOAlojamiento daoalojamiento = new DAOAlojamiento();
+			try {
+				this.conn = darConexion();
+				daoalojamiento.setConn(conn);
+				daoalojamiento.addHabitacionUniversitaria(hab);
+				
+			} catch (SQLException sqlException) {
+				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+				sqlException.printStackTrace();
+				throw sqlException;
+			} catch (Exception exception) {
+				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			} finally {
+				try {
+					daoalojamiento.cerrarRecursos();
+					if (this.conn != null) {
+						this.conn.close();
+					}
+				} catch (SQLException exception) {
+					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}
+		}
+		
+		/**
+		 * Metodo que modela la transaccion que agrega un HabitacionVivienda a la base de datos.
+		 * <b> post: </b> se ha agregado la  HabitacionVivienda que entra como parametro
+		 * @param HabitacionVivienda - la HabitacionVivienda a agregar. HabitacionVivienda != null
+		 * @throws Exception - Cualquier error que se genere agregando el HabitacionVivienda
+		 */
+		public void addVivienda(Vivienda hab) throws Exception {
+
+			DAOAlojamiento daoalojamiento = new DAOAlojamiento();
+			try {
+				this.conn = darConexion();
+				daoalojamiento.setConn(conn);
+				daoalojamiento.addVivienda(hab);
+				
+			} catch (SQLException sqlException) {
+				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+				sqlException.printStackTrace();
+				throw sqlException;
+			} catch (Exception exception) {
+				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			} finally {
+				try {
+					daoalojamiento.cerrarRecursos();
+					if (this.conn != null) {
+						this.conn.close();
+					}
+				} catch (SQLException exception) {
+					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}
+		}
 		
 
+		/**
+		 * Metodo que modela la transaccion que agrega un HabitacionVivienda a la base de datos.
+		 * <b> post: </b> se ha agregado la  HabitacionVivienda que entra como parametro
+		 * @param HabitacionVivienda - la HabitacionVivienda a agregar. HabitacionVivienda != null
+		 * @throws Exception - Cualquier error que se genere agregando el HabitacionVivienda
+		 */
+		public void addHabitacioa(HabitacionVivienda hab) throws Exception {
+
+			DAOAlojamiento daoalojamiento = new DAOAlojamiento();
+			try {
+				this.conn = darConexion();
+				daoalojamiento.setConn(conn);
+				daoalojamiento.addHabitacionesVivienda(hab);
+				
+			} catch (SQLException sqlException) {
+				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+				sqlException.printStackTrace();
+				throw sqlException;
+			} catch (Exception exception) {
+				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			} finally {
+				try {
+					daoalojamiento.cerrarRecursos();
+					if (this.conn != null) {
+						this.conn.close();
+					}
+				} catch (SQLException exception) {
+					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}
+		}
+
+	//Metodo de  Oferta
+		
+		/**
+		 * Metodo que modela la transaccion que agrega una oferta a la base de datos.
+		 * <b> post: </b> se ha agregado la oferta que entra como parametro
+		 * @param oferta - la oferta a agregar. oferta != null
+		 * @throws Exception - Cualquier error que se genere agregando la oferta
+		 */
+		public void addOferta(Oferta oferta) throws Exception 
+		{
+			DAOAlojamiento daoAlojamiento= new DAOAlojamiento();
+			DAOOperador daoOperador = new DAOOperador();
+			DAOOferta daoOferta = new DAOOferta();
+			try
+			{
+				if(daoOferta.findOfertaById(oferta.getId())!=null)
+				{
+					throw new Exception("Ya existe una oferta con el id indicado");
+				}
+				Long idAlojamiento= (long) oferta.getAlojamiento().getId();
+				if(daoAlojamiento.findAlojamientoById(idAlojamiento)==null)
+				{
+					throw new Exception("El Alojamiento  de la oferta no existe");
+				}
+				if(daoOperador.findOperadorById(oferta.getOperador().getId())==null)
+				{
+					throw new Exception("El Operador  de la oferta no existe");
+				}
+				daoOferta.addOferta(oferta);	
+			}
+			catch (SQLException sqlException) {
+				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+				sqlException.printStackTrace();
+				throw sqlException;
+			} 
+			catch (Exception exception) {
+				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			} 
+			finally {
+				try {
+					daoOferta.cerrarRecursos();
+					if(this.conn!=null){
+						this.conn.close();					
+					}
+				}
+				catch (SQLException exception) {
+					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}
+		}
+		
+		
 	// Metodo de Reserva
 	
 	/**
