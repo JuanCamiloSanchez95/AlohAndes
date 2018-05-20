@@ -27,32 +27,21 @@ Proyecto de sistrans
 3. Requerimientos de consulta
    - [ ] Iteracion 1
      - [x] RFC1 - Mostrar Dinero recibido por Proveedor
-	   - [ ] Eficiencia
      - [x] RFC2 - Mostrar 20 Ofertas Mas populares
-       - [ ] Eficiencia
    - [ ] Iteracion 2 
      - [x] RFC3 - Mostrar Indice de Ocupacion por Oferta
-       - [ ] Eficiencia
      - [ ] RFC4 - Mostrar Alojamientos en una fecha y con un conjunto de servicios
-	   - [ ] Eficiencia
      - [x] RFC5 - Mostrar el Uso para cada tipo de usuario
-  	   - [ ] Eficiencia
      - [x] RFC6 - Mostrar el uso para un usuario dado
-  	   - [ ] Eficiencia
-     - [] RFC7 - Analizar la Operacion de AlohAndes
-  	   - [ ] Eficiencia
+     - [x] RFC7 - Analizar la Operacion de AlohAndes
      - [x] RFC8 - Encontrar clientes frecuentes
-  	   - [ ] Eficiencia
      - [x] RFC9 - Encontrar ofertas que no tienen mucha demanda
-  	   - [ ] Eficiencia
    - [ ] Iteracion 3
-     - [ ] RFC9 - Encontrar ofertas que no tienen mucha demanda (Opcional)
-       - [ ] Eficiencia
      - [ ] RFC10 - Consultar consumo 
   	   - [ ] Eficiencia
      - [ ] RFC11 - Consultar consuma v2
   	   - [ ] Eficiencia
-     - [ ] RFC12 - Consultar Funcionamiento
+     - [x] RFC12 - Consultar Funcionamiento
   	   - [ ] Eficiencia
      - [ ] RFC13 - Consulta buenos clientes
   	   - [ ] Eficiencia
@@ -62,11 +51,11 @@ Proyecto de sistrans
 
 * Se cambia el parametro nombre en Hotel y Hostal a nombreHotel/nombreHostal, para no confundirlo con el nombre del operador.
 
-* Se a�adieron clases para poder diferenciar las habitaciones de  cada alojamiento Hotel/Hostal
+* Se añadieron clases para poder diferenciar las habitaciones de  cada alojamiento Hotel/Hostal
 
 * Se remueve la clase AlohAndes de la base de datos y sus tablas relacionadas
 
 * Formato de horario para Hostal es de 24 h
 
-* Se añade el atributo Vigente a Reserva, para la cancelacion.
+* Se aÃ±ade el atributo Vigente a Reserva, para la cancelacion.
 
