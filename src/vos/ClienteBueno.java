@@ -1,30 +1,37 @@
 package vos;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 public class ClienteBueno {
 
 	/**
 	 * Numero de reservas
 	 */
+	@JsonProperty(value="numReservas")
 	private int numReservas;
 	
 	/**
 	 * Promedio de reservas mensuales
 	 */
+	@JsonProperty(value="reservasMensuales")
 	private double reservasMensuales;
 	
 	/**
 	 * Numero de reservas en suites
 	 */
+	@JsonProperty(value="reservasSuites")
 	private int reservasSuites;
 	
 	/**
 	 * Numero de reservas costosas
 	 */
+	@JsonProperty(value="reservasCostosas")
 	private int reservasCostosas;
 	
 	/**
 	 * Cliente bueno
 	 */
+	@JsonProperty(value="cliente")
 	private Cliente cliente;
 	
 	/**
