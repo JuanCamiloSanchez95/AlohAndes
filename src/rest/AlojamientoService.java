@@ -18,9 +18,11 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 import tm.AlohAndesTransactionManager;
 import vos.Alojamiento;
+import vos.AnalisisOperacion;
 import vos.Bebedor;
 import vos.ClienteFrecuente;
 import vos.ConsultaAlojamiento;
+import vos.SolicitudAnalisisOperacion;
 import vos.UsoCliente;
 
 @Path("alojamientos")
@@ -105,7 +107,7 @@ public class AlojamientoService {
 	}
 
 	/**
-	 * Metodo GET que trae los alojamientos que esten en un rango de fechas y con unos servicios dados en la Base de datos. 
+	 * Metodo POST que trae los alojamientos que esten en un rango de fechas y con unos servicios dados en la Base de datos. 
 	 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario.
 	 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/alojamientos/busqueda
 	 * @return	<b>Response Status 200</b> - JSON que contiene los alojamientos resultantes de la busqueda en la Base de Datos.
@@ -122,6 +124,30 @@ public class AlojamientoService {
 			List<Alojamiento> alojamientos;
 			alojamientos=tm.getAlojamientosByFechasAndServicios(request.getInicio(), request.getFin(), request.getServicios());
 			return Response.status(200).entity(alojamientos).build();
+		} 
+		catch (Exception e) {
+			return Response.status(500).entity(doErrorMessage(e)).build();
+		}
+	}
+	
+	/**
+	 * Metodo POST que obtiene un analisis de operacion para un tipo de analisis en la Base de datos. 
+	 * <b>Precondicion: </b> el archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario.
+	 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/alojamientos/analisis
+	 * @return	<b>Response Status 200</b> - JSON que contiene el analisis dado por la busqueda en la Base de Datos.
+	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
+	 */			
+	@POST
+	@Path( "/analisis" )
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response analisisByTipoDeAlojamiento(SolicitudAnalisisOperacion solicitud) {
+
+		try {
+			AlohAndesTransactionManager tm = new AlohAndesTransactionManager(getPath());
+			AnalisisOperacion analisis;
+			analisis=tm.analisisByAlojamiento(solicitud);
+			return Response.status(200).entity(analisis).build();
 		} 
 		catch (Exception e) {
 			return Response.status(500).entity(doErrorMessage(e)).build();

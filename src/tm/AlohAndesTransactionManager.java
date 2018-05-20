@@ -27,6 +27,7 @@ import dao.DAOOferta;
 import dao.DAOOperador;
 import dao.DAOReserva;
 import vos.Alojamiento;
+import vos.AnalisisOperacion;
 import vos.Apartamento;
 import vos.Cliente;
 import vos.ClienteFrecuente;
@@ -44,6 +45,7 @@ import vos.OfertaPopular;
 import vos.Operador;
 import vos.Persona;
 import vos.Reserva;
+import vos.SolicitudAnalisisOperacion;
 import vos.UsoCliente;
 import vos.UsoTipo;
 import vos.Vivienda;
@@ -1428,6 +1430,50 @@ public class AlohAndesTransactionManager {
 			}
 		}
 		return alojamientos;
+	}
+	
+	//RFC7
+	
+	/**
+	 * Metodo que modela la transaccion que retorna el analisis de operacion de un tipo de alojamiento en la base de datos.
+	 * @param solicitud - solicitud del analisis que contiene el tipo de alojamiento y unidad de tiempo de consulta.
+	 * @return List<Alojamiento> - Lista de alojamientos que contiene el resultado de la consulta.
+	 * @throws Exception - Cualquier error que se genere durante la transaccion
+	 */
+	public AnalisisOperacion analisisByAlojamiento(SolicitudAnalisisOperacion solicitud) throws Exception {
+		DAOAlojamiento daoAlojamiento = new DAOAlojamiento();
+		AnalisisOperacion analisis;
+		try {
+			this.conn = darConexion();
+			daoAlojamiento.setConn(conn);
+			if(!solicitud.validCategoria()){
+				throw new Exception("Categoria de alojamiento no valida");
+			}
+			if(!solicitud.validUnidadDeTiempo()){
+				throw new Exception("Unidad de tiempo no valida");
+			}
+			analisis = daoAlojamiento.analisisByAlojamiento(solicitud);
+		} catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} finally {
+			try {
+				daoAlojamiento.cerrarRecursos();
+				if (this.conn != null) {
+					this.conn.close();
+				}
+			} catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return analisis;
 	}
 
 }

@@ -11,15 +11,18 @@ import java.util.Date;
 
 import tm.AlohAndesTransactionManager;
 import vos.Alojamiento;
+import vos.AnalisisOperacion;
 import vos.Apartamento;
 import vos.Cliente;
 import vos.ClienteFrecuente;
+import vos.EstadisticaOperacion;
 import vos.HabitacionHostal;
 import vos.HabitacionHotel;
 import vos.HabitacionUniversitaria;
 import vos.HabitacionVivienda;
 import vos.Oferta;
 import vos.Operador;
+import vos.SolicitudAnalisisOperacion;
 import vos.Vivienda;
 
 public class DAOAlojamiento {
@@ -261,6 +264,71 @@ public class DAOAlojamiento {
 		return alojamiento;
 	}
 	
+	//RFC7
+	
+	public AnalisisOperacion analisisByAlojamiento(SolicitudAnalisisOperacion solicitud) throws SQLException, Exception{
+		AnalisisOperacion analisis = new AnalisisOperacion(solicitud.getCategoria(),solicitud.getUnidadTiempo());
+		ArrayList<EstadisticaOperacion> estadisticas = new ArrayList<EstadisticaOperacion>();
+		
+		long startTime = System.currentTimeMillis();
+		
+		String timeUnit = null;
+		if(solicitud.getUnidadTiempo().equalsIgnoreCase("SEMANA")) 
+			timeUnit="IW";
+		else if(solicitud.getUnidadTiempo().equalsIgnoreCase("DIA"))
+			timeUnit="DD";
+		else if(solicitud.getUnidadTiempo().equalsIgnoreCase("AÑO"))
+			timeUnit="YYYY";
+		else if(solicitud.getUnidadTiempo().equalsIgnoreCase("MES"))
+			timeUnit="MON";
+		
+		String sql = String.format("SELECT TO_CHAR(RESERVAS.FECHALLEGADA,'%1$s') as periodo, sum(OFERTAS.PRECIOESTADIA*RESERVAS.CANTIDADDIAS)AS ingresos, count(*) as numreservas " + 
+				"FROM %2$s.RESERVAS, %2$s.OFERTAS, %2$s.ALOJAMIENTOS " + 
+				"WHERE RESERVAS.OFERTA=OFERTAS.ID " + 
+				"AND ALOJAMIENTOS.ID = OFERTAS.ALOJAMIENTOID " + 
+				"AND ALOJAMIENTOS.TIPO='%3$s' " + 
+				"group by TO_CHAR(RESERVAS.FECHALLEGADA,'%1$s')",timeUnit, AlohAndesTransactionManager.USUARIO,solicitud.getCategoria());
+		
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		ResultSet rs = prepStmt.executeQuery();
+		
+		long stopTime = System.currentTimeMillis();
+	    long elapsedTime = stopTime - startTime;
+	    double time = ((double)elapsedTime/1000);
+	    System.out.println("Tiempo de Consulta: "+String.format("%.2f", time)+" segundos");
+	    
+		while (rs.next()) {
+			estadisticas.add(convertResultSetToEstadisticaOperacion(rs));
+		}
+		
+		if (!estadisticas.isEmpty()) {
+			EstadisticaOperacion mayorIngreso = estadisticas.get(0);
+			EstadisticaOperacion mayorDemanda = estadisticas.get(0);
+			EstadisticaOperacion menorOcupacion = estadisticas.get(0);
+
+			for (int i = 0; i < estadisticas.size(); i++) {
+				EstadisticaOperacion actual = estadisticas.get(i);
+				if (actual.getIngresos() > mayorIngreso.getIngresos()) {
+					mayorIngreso = actual;
+				}
+				if (actual.getNumReservas() > mayorDemanda.getNumReservas()) {
+					mayorDemanda = actual;
+				}
+				if (menorOcupacion.getNumReservas() > actual.getNumReservas()) {
+					menorOcupacion = actual;
+				}
+			}
+
+			analisis.setMayorDemanda(mayorDemanda);
+			analisis.setMayorIngreso(mayorIngreso);
+			analisis.setMenorOcupacion(menorOcupacion);
+			analisis.setEstadisticas(estadisticas);
+		}
+		System.out.println(sql);
+		return analisis;
+	}
+	
 	//RFC8
 	
 	/**
@@ -295,8 +363,7 @@ public class DAOAlojamiento {
 			clientes.add(convertResultSetToClienteFrecuente(rs));
 		}
 		
-		return clientes;
-		
+		return clientes;	
 	}
 	
 	//RFC4
@@ -412,5 +479,20 @@ public class DAOAlojamiento {
 		ClienteFrecuente cliente = new ClienteFrecuente(nombre,vinculo,usos,dias);
 
 		return cliente;
+	}
+	
+	/**
+	 * Metodo que transforma el resultado obtenido de una consulta SQL en una instancia de la clase ClienteFrecuente.
+	 * @param resultSet ResultSet con la informacion de un cliente que se obtuvo de la base de datos.
+	 * @return ClienteFrecuente cuyos atributos corresponden a los valores asociados a un registro particular de la tabla CLIENTE.
+	 * @throws SQLException Si existe algun problema al extraer la informacion del ResultSet.
+	 */
+	public EstadisticaOperacion convertResultSetToEstadisticaOperacion(ResultSet resultSet) throws SQLException {
+		String periodo= resultSet.getString("PERIODO");
+		Integer numReservas= resultSet.getInt("NUMRESERVAS");
+		Double ingresos= resultSet.getDouble("INGRESOS");
+		EstadisticaOperacion estadistica = new EstadisticaOperacion(periodo,ingresos,numReservas);
+
+		return estadistica;
 	}
 }
