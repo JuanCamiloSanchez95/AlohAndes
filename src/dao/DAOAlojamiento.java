@@ -13,15 +13,12 @@ import tm.AlohAndesTransactionManager;
 import vos.Alojamiento;
 import vos.AnalisisOperacion;
 import vos.Apartamento;
-import vos.Cliente;
 import vos.ClienteFrecuente;
 import vos.EstadisticaOperacion;
 import vos.HabitacionHostal;
 import vos.HabitacionHotel;
 import vos.HabitacionUniversitaria;
 import vos.HabitacionVivienda;
-import vos.Oferta;
-import vos.Operador;
 import vos.SolicitudAnalisisOperacion;
 import vos.Vivienda;
 

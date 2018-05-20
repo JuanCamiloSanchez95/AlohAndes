@@ -230,7 +230,7 @@ public class DAOOperador {
 	//RFC1
 
 	/**
-	 * Metodo que obtiene la informacion del diero obtenido por cada operador en la
+	 * Metodo que obtiene la informacion del dinero obtenido por cada operador en la
 	 * Base de Datos en el año dado por parametro <b>Precondicion: </b> la conexion
 	 * a sido inicializado
 	 * @param year - el año de consulta
@@ -268,7 +268,14 @@ public class DAOOperador {
 	}
 	
 	//RFC12
-		
+	
+	/**
+	 * Metodo que obtiene la informacion de los operadores con menor y mayor solicitud por semana en la Base de Datos 
+	 * <b>Precondicion: </b> la conexion a sido inicializado
+	 * @return	lista con la informacion de los operadores con menor y mayor solicitud por semana  que se encuentran en la Base de Datos
+	 * @throws SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
+	 */
 	public OperadoresRFC12 consultaFuncionamiento() throws SQLException, Exception{
 		OperadorRFC12[] operadoresMas = new OperadorRFC12[53];
 		OperadorRFC12[] operadoresMenos = new OperadorRFC12[53];
@@ -312,6 +319,11 @@ public class DAOOperador {
 		
 	}
 	
+	/**
+	 * Clase de Apoyo RFC12
+	 * @author cmama
+	 *
+	 */
 	public class OperadoresRFC12
 	{
 	    private OperadorRFC12[] mas;
