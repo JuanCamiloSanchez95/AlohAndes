@@ -44,6 +44,26 @@ public class DAOReserva {
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODOS DE COMUNICACION CON LA BASE DE DATOS
 	//----------------------------------------------------------------------------------------------------------------------------------
+
+	/**
+	 * Metodo que agregar la informacion de una nueva reserva en la Base de Datos a partir del parametro ingresado
+	 * <b>Precondicion: </b> la conexion a sido inicializado
+	 * @param reserva Reserva que desea agregar a la Base de Datos
+	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
+	 * @throws Exception Si se genera un error dentro del metodo.
+	 */
+	public void addReserva(Reserva reserva) throws SQLException, Exception {
+
+		String sql = "INSERT INTO RESERVAS (ID, FECHALLEGADA,RECARGO,CANTIDADDIAS,OFERTA) VALUES ("
+				+reserva.getId()+","+reserva.getDiaLlegada()+","+reserva.getRecarga()+","+ reserva.getCantidadDias()+","+reserva.getOferta().getId()+")";
+
+
+		PreparedStatement prepStmt = conn.prepareStatement(sql);
+		recursos.add(prepStmt);
+		prepStmt.executeQuery();
+
+	}
+	
 	
 	/**
 	 * Metodo que obtiene la informacion de todos las reservas en la Base de Datos
@@ -116,25 +136,7 @@ public class DAOReserva {
 		return reservas;
 	}
 	
-	/**
-	 * Metodo que agregar la informacion de una nueva reserva en la Base de Datos a partir del parametro ingresado
-	 * <b>Precondicion: </b> la conexion a sido inicializado
-	 * @param reserva Reserva que desea agregar a la Base de Datos
-	 * @throws SQLException SQLException Genera excepcion si hay error en la conexion o en la consulta SQL
-	 * @throws Exception Si se genera un error dentro del metodo.
-	 */
-	public void addReserva(Reserva reserva) throws SQLException, Exception {
-
-		String sql = "INSERT INTO RESERVAS (ID, FECHALLEGADA,RECARGO,CANTIDADDIAS,OFERTA) VALUES ("
-				+reserva.getId()+","+reserva.getDiaLlegada()+","+reserva.getRecarga()+","+ reserva.getCantidadDias()+","+reserva.getOferta().getId()+")";
-
-		System.out.println(sql);
-
-		PreparedStatement prepStmt = conn.prepareStatement(sql);
-		recursos.add(prepStmt);
-		prepStmt.executeQuery();
-
-	}
+	
 	
 	/**
 	 * Metodo que elimina la reserva, en la Base de Datos, que tiene el identificador dado por parametro
@@ -146,9 +148,6 @@ public class DAOReserva {
 	public void deleteReserva(Reserva reserva) throws SQLException, Exception {
 
 		String sql = String.format("DELETE FROM %1$s.RESERVAS WHERE ID = %2$d", AlohAndesTransactionManager.USUARIO, reserva.getId());
-
-		System.out.println(sql);
-		
 		PreparedStatement prepStmt = conn.prepareStatement(sql);
 		recursos.add(prepStmt);
 		prepStmt.executeQuery();

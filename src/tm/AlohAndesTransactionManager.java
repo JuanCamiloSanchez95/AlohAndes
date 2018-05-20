@@ -848,6 +848,7 @@ public class AlohAndesTransactionManager {
 			}
 			daoReserva.addReserva(reserva);	
 		}
+		
 		catch (SQLException sqlException) {
 			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
 			sqlException.printStackTrace();

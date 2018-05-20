@@ -13,10 +13,10 @@ Proyecto de sistrans
    - [ ] Iteracion 1
      - [X] RF1 - Registro de Operadores (DE CADA TIPO DE OPERADOR)
      - [X] RF2 - Registro Propuestas de Alojamiento
-     - [x] RF3- Registro Usuarios
-     - [ ] RF4 - Registro Reserva
-     - [ ] RF5 - Cancelar Reserva
-     - [ ] RF6 - Retirar Oferta 
+     - [X] RF3- Registro Usuarios
+     - [X] RF4 - Registro Reserva
+     - [X] RF5 - Cancelar Reserva
+     - [X] RF6 - Retirar Oferta 
     - [ ] Iteracion 2
       - [ ] RF7 - Registrar reserva colectiva (Usando RF4)
       - [ ] RF8 - Cancelar reserva masiva (Usando RF5)
