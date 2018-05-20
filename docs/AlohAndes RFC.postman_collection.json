@@ -366,7 +366,7 @@
 			"response": []
 		},
 		{
-			"name": "RFC7",
+			"name": "RFC7 - Año",
 			"event": [
 				{
 					"listen": "test",
@@ -390,6 +390,138 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n\t\"categoria\": \"Apartamento\",\n\t\"unidadTiempo\": \"Año\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/AlohAndes/rest/alojamientos/analisis",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AlohAndes",
+						"rest",
+						"alojamientos",
+						"analisis"
+					]
+				},
+				"description": "Para una unidad de tiempo definido (por ejemplo, semana o mes) y un tipo de alojamiento, considerando todo\r\nel tiempo de operación de AloHandes, indicar cuáles fueron las fechas de mayor demanda (mayor cantidad de\r\nalojamientos ocupados), las de mayores ingresos (mayor cantidad de dinero recibido) y las de menor ocupación"
+			},
+			"response": []
+		},
+		{
+			"name": "RFC7 - Dia",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9936376d-1b07-438e-a1cc-ca1bf1a8fffd",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code===200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"categoria\": \"Apartamento\",\n\t\"unidadTiempo\": \"Dia\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/AlohAndes/rest/alojamientos/analisis",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AlohAndes",
+						"rest",
+						"alojamientos",
+						"analisis"
+					]
+				},
+				"description": "Para una unidad de tiempo definido (por ejemplo, semana o mes) y un tipo de alojamiento, considerando todo\r\nel tiempo de operación de AloHandes, indicar cuáles fueron las fechas de mayor demanda (mayor cantidad de\r\nalojamientos ocupados), las de mayores ingresos (mayor cantidad de dinero recibido) y las de menor ocupación"
+			},
+			"response": []
+		},
+		{
+			"name": "RFC7 - Mes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9936376d-1b07-438e-a1cc-ca1bf1a8fffd",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code===200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"categoria\": \"Apartamento\",\n\t\"unidadTiempo\": \"Mes\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/AlohAndes/rest/alojamientos/analisis",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AlohAndes",
+						"rest",
+						"alojamientos",
+						"analisis"
+					]
+				},
+				"description": "Para una unidad de tiempo definido (por ejemplo, semana o mes) y un tipo de alojamiento, considerando todo\r\nel tiempo de operación de AloHandes, indicar cuáles fueron las fechas de mayor demanda (mayor cantidad de\r\nalojamientos ocupados), las de mayores ingresos (mayor cantidad de dinero recibido) y las de menor ocupación"
+			},
+			"response": []
+		},
+		{
+			"name": "RFC7 - Semana",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9936376d-1b07-438e-a1cc-ca1bf1a8fffd",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code===200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"categoria\": \"Apartamento\",\n\t\"unidadTiempo\": \"Semana\"\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/AlohAndes/rest/alojamientos/analisis",

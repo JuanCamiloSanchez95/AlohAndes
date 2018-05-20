@@ -323,9 +323,7 @@ public class DAOAlojamiento {
 			analisis.setMayorDemanda(mayorDemanda);
 			analisis.setMayorIngreso(mayorIngreso);
 			analisis.setMenorOcupacion(menorOcupacion);
-			analisis.setEstadisticas(estadisticas);
 		}
-		System.out.println(sql);
 		return analisis;
 	}
 	
