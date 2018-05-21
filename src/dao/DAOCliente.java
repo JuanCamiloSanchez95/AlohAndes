@@ -423,8 +423,8 @@ public class DAOCliente {
 		String nombre= resultSet.getString("NOMBRE");
 		String vinculo = resultSet.getString("VINCULO");
 		String tipo = resultSet.getString("TIPOALOJAMIENTO");
-		Date fecha = resultSet.getDate("FECHA");
-		Integer dias = resultSet.getInt("CANTIDADIAS");
+		Date fecha = resultSet.getDate("FECHALLEGADA");
+		Integer dias = resultSet.getInt("CANTIDADDIAS");
 		Consumo consumo = new Consumo(documento,nombre,vinculo,tipo,fecha,dias);
 
 		return consumo;

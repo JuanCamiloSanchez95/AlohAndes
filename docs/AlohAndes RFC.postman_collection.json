@@ -615,6 +615,94 @@
 				"description": "Los buenos clientes son de tres tipos: aquellos que hacen reservas en AlohAndes al menos una vez al mes, aquellos que siempre reservan alojamientos costosos (Entiéndase costoso, por ejemplo, como mayor a USD 150 por noche) y aquellos que siempre reservan suites."
 			},
 			"response": []
+		},
+		{
+			"name": "RFC10",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9936376d-1b07-438e-a1cc-ca1bf1a8fffd",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code===200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"idOferta\": 8,\n\t\"fechaInicio\":\"2017-09-02\",\n\t\"fechaFinal\": \"2018-03-13\",\n\t\"criterioOrdenamiento\": \"nombre\",\n\t\"criterioAgrupamiento\":\"\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/AlohAndes/rest/admin/consumos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AlohAndes",
+						"rest",
+						"admin",
+						"consumos"
+					]
+				},
+				"description": "Se quiere conocer la información de los usuarios que realizaron al menos una reserva de una determinada oferta de alojamiento en un rango de fechas. Los resultados deben ser clasificados según un criterio deseado por quien realiza la consulta. En la clasificación debe ofrecerse la posibilidad de agrupamiento y ordenamiento de las respuestas según los intereses del usuario que consulta como, por ejemplo, por los datos del cliente, por oferta de alojamiento y por tipo de alojamiento."
+			},
+			"response": []
+		},
+		{
+			"name": "RFC11",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9936376d-1b07-438e-a1cc-ca1bf1a8fffd",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code===200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"idOferta\": 8,\n\t\"fechaInicio\":\"2017-09-02\",\n\t\"fechaFinal\": \"2018-03-13\",\n\t\"criterioOrdenamiento\": \"nombre\",\n\t\"criterioAgrupamiento\":\"\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/AlohAndes/rest/admin/RFC11",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AlohAndes",
+						"rest",
+						"admin",
+						"RFC11"
+					]
+				},
+				"description": "Se quiere conocer la información de los usuarios que NO realizaron al menos una reserva de una determinada oferta de alojamiento en un rango de fechas. Los resultados deben ser clasificados según un criterio deseado por quien realiza la consulta. En la clasificación debe ofrecerse la posibilidad de agrupamiento y ordenamiento de las respuestas según los intereses del usuario que consulta como, por ejemplo, por los datos del cliente, por oferta de alojamiento y por tipo de alojamiento."
+			},
+			"response": []
 		}
 	]
 }

@@ -121,7 +121,7 @@ public class AdminService {
 				AlohAndesTransactionManager tm = new AlohAndesTransactionManager(getPath());
 				List<Consumo> consumos;
 				consumos=tm.consultaConsumos(request);
-				return Response.status(200).entity(request).build();
+				return Response.status(200).entity(consumos).build();
 			} 
 			catch (Exception e) {
 				return Response.status(500).entity(doErrorMessage(e)).build();
@@ -145,7 +145,7 @@ public class AdminService {
 				AlohAndesTransactionManager tm = new AlohAndesTransactionManager(getPath());
 				List<Consumo> consumos;
 				consumos=tm.consultaNoConsumos(request);
-				return Response.status(200).entity(request).build();
+				return Response.status(200).entity(consumos).build();
 			} 
 			catch (Exception e) {
 				return Response.status(500).entity(doErrorMessage(e)).build();

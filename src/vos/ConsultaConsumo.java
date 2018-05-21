@@ -44,14 +44,6 @@ public class ConsultaConsumo {
 		this.criterioOrdenamiento = criterioOrdenamiento;
 		this.criterioAgrupamiento = criterioAgrupamiento;
 	}
-	
-	
-	public ConsultaConsumo(@JsonProperty(value = "idOferta")Long idOferta,@JsonProperty(value = "fechaInicio") Date fechaInicio,
-			@JsonProperty(value = "fechaFinal") Date fechaFinal) {
-		this.idOferta = idOferta;
-		this.fechaInicio = fechaInicio;
-		this.fechaFinal = fechaFinal;
-	}
 
 
 	public Long getIdOferta() {
