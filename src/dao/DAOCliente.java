@@ -284,6 +284,43 @@ public class DAOCliente {
 	
 		return consumos;
 	}
+	
+	
+	//RFC11
+	
+		public ArrayList<Consumo> consultaNoConsumo(ConsultaConsumo consulta) throws SQLException, Exception  {
+			ArrayList<Consumo> consumos = new ArrayList<Consumo>();
+			long startTime = System.currentTimeMillis();
+			String agrupa = consulta.getCriterioAgrupamiento();
+			
+			Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+			String sql = String.format(
+					"SELECT \"A5\".\"DOCUMENTO\" \"DOCUMENTO\",\"A5\".\"VINCULO\" \"VINCULO\",\"A5\".\"NOMBRE\" \"NOMBRE\",\"A1\".\"TIPO\" \"TIPOALOJAMIENTO\",\"A3\".\"FECHALLEGADA\" \"FECHALLEGADA\",\"A3\".\"CANTIDADDIAS\" \"CANTIDADDIAS\",\"A4\".\"ID\" \"ID\""
+					+ " FROM \"%1$s\".\"CLIENTES\" \"A5\",\"%1$s\".\"OFERTAS\" \"A4\",\"%1$s\".\"RESERVAS\" \"A3\",\"%1$s\".\"RESERVASCLIENTE\" \"A2\",\"%1$s\".\"ALOJAMIENTOS\" \"A1\" "
+					+ "WHERE \"A5\".\"DOCUMENTO\"=\"A2\".\"CLIENTEID\" AND \"A2\".\"RESERVAID\"=\"A3\".\"ID\" AND \"A4\".\"ID\"=\"A3\".\"OFERTA\" AND \"A4\".\"ALOJAMIENTOID\"=\"A1\".\"ID\" "
+					+ "AND (\"A4\".\"ID\"<> %2$d OR \"A3\".\"FECHALLEGADA\"<TO_DATE('%3$s','DD/MM/YYYY') OR \"A3\".\"FECHALLEGADA\">TO_DATE('%4$s','DD/MM/YYYY'))",
+					AlohAndesTransactionManager.USUARIO, consulta.getIdOferta(),
+					formatter.format(consulta.getFechaInicio()), formatter.format(consulta.getFechaFinal()));
+			
+			if(agrupa!=null && !agrupa.isEmpty()) {
+				sql += String.format(" ORDER BY %1$s ",agrupa);
+			}
+			PreparedStatement prepStmt = conn.prepareStatement(sql);
+			recursos.add(prepStmt);
+			ResultSet rs = prepStmt.executeQuery();
+
+			long stopTime = System.currentTimeMillis();
+		    long elapsedTime = stopTime - startTime;
+		    double time = ((double)elapsedTime/1000);
+		    System.out.println("Tiempo de Consulta: "+String.format("%.2f", time)+" segundos");
+
+			while (rs.next()) {
+				consumos.add(convertResultSetToConsumo(rs));
+			}
+		
+			return consumos;
+		}
 
 	//----------------------------------------------------------------------------------------------------------------------------------
 	// METODOS AUXILIARES

@@ -34,7 +34,9 @@ import vos.Apartamento;
 import vos.Cliente;
 import vos.ClienteBueno;
 import vos.ClienteFrecuente;
+import vos.ConsultaConsumo;
 import vos.ConsultaFuncionamiento;
+import vos.Consumo;
 import vos.DineroOperador;
 import vos.HabitacionHostal;
 import vos.HabitacionHotel;
@@ -1393,6 +1395,113 @@ public class AlohAndesTransactionManager {
 		}
 		return clientes;
 	}
+	
+	//RFC10
+	
+	/**
+	 * Metodo que modela la transaccion que retorna los consumos de los clientes que cumplan las condiciones de consulta  en la base de datos.
+	 * @param consulta - Clase que contiene la informacion de la consulta
+	 * @return List<Consumo> - Lista de consumos por cliente
+	 * @throws Exception - Cualquier error que se genere durante la transaccion
+	 */
+	public List<Consumo> consultaConsumos(ConsultaConsumo consulta) throws Exception {
+		DAOCliente daoCliente = new DAOCliente();
+		DAOOferta daoOferta = new DAOOferta();
+		
+		List<Consumo> consumos;
+		try {
+			this.conn = darConexion();
+			daoCliente.setConn(conn);
+			daoOferta.setConn(conn);
+			if(consulta.getIdOferta()==null) {
+				throw new Exception("ID vacio");
+			}
+			if(daoOferta.findOfertaById(consulta.getIdOferta()) == null) {
+				throw new Exception("No existe la oferta a consultar");
+			}
+			if(consulta.getFechaInicio()==null) {
+				throw new Exception("Fecha de inicio vacia");
+			}
+			if(consulta.getFechaFinal()==null) {
+				throw new Exception("Fecha final vacia");
+			}
+			consumos = daoCliente.consultaConsumo(consulta);
+		} catch (SQLException sqlException) {
+			System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+			sqlException.printStackTrace();
+			throw sqlException;
+		} catch (Exception exception) {
+			System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+			exception.printStackTrace();
+			throw exception;
+		} finally {
+			try {
+				daoCliente.cerrarRecursos();
+				daoOferta.cerrarRecursos();
+				if (this.conn != null) {
+					this.conn.close();
+				}
+			} catch (SQLException exception) {
+				System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			}
+		}
+		return consumos;
+	}
+	
+	//RFC11
+	
+		/**
+		 * Metodo que modela la transaccion que retorna los consumos de los clientes que no cumplan las condiciones de consulta  en la base de datos.
+		 * @param consulta - Clase que contiene la informacion de la consulta
+		 * @return List<Consumo> - Lista de consumos por cliente
+		 * @throws Exception - Cualquier error que se genere durante la transaccion
+		 */
+		public List<Consumo> consultaNoConsumos(ConsultaConsumo consulta) throws Exception {
+			DAOCliente daoCliente = new DAOCliente();
+			DAOOferta daoOferta = new DAOOferta();
+			List<Consumo> consumos;
+			try {
+				this.conn = darConexion();
+				daoCliente.setConn(conn);
+				daoOferta.setConn(conn);
+				if(consulta.getIdOferta()==null) {
+					throw new Exception("ID vacio");
+				}
+				if(daoOferta.findOfertaById(consulta.getIdOferta()) == null) {
+					throw new Exception("No existe la oferta a consultar");
+				}
+				if(consulta.getFechaInicio()==null) {
+					throw new Exception("Fecha de inicio vacia");
+				}
+				if(consulta.getFechaFinal()==null) {
+					throw new Exception("Fecha final vacia");
+				}
+				consumos = daoCliente.consultaNoConsumo(consulta);
+			} catch (SQLException sqlException) {
+				System.err.println("[EXCEPTION] SQLException:" + sqlException.getMessage());
+				sqlException.printStackTrace();
+				throw sqlException;
+			} catch (Exception exception) {
+				System.err.println("[EXCEPTION] General Exception:" + exception.getMessage());
+				exception.printStackTrace();
+				throw exception;
+			} finally {
+				try {
+					daoCliente.cerrarRecursos();
+					daoOferta.cerrarRecursos();
+					if (this.conn != null) {
+						this.conn.close();
+					}
+				} catch (SQLException exception) {
+					System.err.println("[EXCEPTION] SQLException While Closing Resources:" + exception.getMessage());
+					exception.printStackTrace();
+					throw exception;
+				}
+			}
+			return consumos;
+		}
 	
 	
 	//RFC8
