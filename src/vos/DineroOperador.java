@@ -30,6 +30,7 @@ public class DineroOperador {
 	/**
 	 * Metodo constructor de la clase de apoyo
 	 * @param nombre - nombre del operador
+	 * @param tipo - tipo del operador
 	 * @param dinero - dinero ganado por el operador
 	 */
 	public DineroOperador(@JsonProperty(value="nombre")String nombre,@JsonProperty(value="tipo")String tipo,@JsonProperty(value="dinero") double dinero) {

@@ -23,10 +23,10 @@ public class OfertaPopular {
 	private int numeroReservas;
 	
 	/**
-	 * 
-	 * @param id
-	 * @param nombre
-	 * @param numeroReservas
+	 * Metodo constructor de la clase auxiliar Oferta Popular
+	 * @param id - id de la oferta
+	 * @param nombre - nombre de la oferta
+	 * @param numeroReservas - numero de reservas de la oferta
 	 */
 	public OfertaPopular(@JsonProperty(value="id") Long id, @JsonProperty(value="nombre") String nombre, @JsonProperty(value="numeroReservas") int numeroReservas) {
 		this.id = id;

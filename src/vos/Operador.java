@@ -106,7 +106,7 @@ public class Operador {
 
 		/**
 		 * Cambia el nombre de un operador 
-		 * @param nombre
+		 * @param nombre - nombre nuevo del operador
 		 */
 		public void setNombre(String nombre) {
 			this.nombre = nombre;

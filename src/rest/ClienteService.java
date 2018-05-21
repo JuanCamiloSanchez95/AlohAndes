@@ -62,19 +62,19 @@ public class ClienteService {
 
 	
 	/**
-	 * Metodo que recibe un cliente en formato JSON y lo agrega a la Base de Datos <br/>
-	 * <b>Precondicion: </b> El archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario <br/>
-	 * <b>Postcondicion: </b> Se agrega a la Base de datos la informacion correspondiente al cliente. <br/>
-	 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/clientes <br/>
-	 * @param bebedor JSON con la informacion del bebedor que se desea agregar
-	 * @return	<b>Response Status 200</b> - JSON que contiene al cliente que ha sido agregado <br/>
+	 * Metodo que recibe un cliente en formato JSON y lo agrega a la Base de Datos 
+	 * <b>Precondicion: </b> El archivo <em>'conectionData'</em> ha sido inicializado con las credenciales del usuario 
+	 * <b>Postcondicion: </b> Se agrega a la Base de datos la informacion correspondiente al cliente. 
+	 * <b>URL: </b> http://localhost:8080/AlohAndes/rest/clientes 
+	 * @param cliente JSON con la informacion del cliente que se desea agregar
+	 * @return	<b>Response Status 200</b> - JSON que contiene al cliente que ha sido agregado 
 	 * 			<b>Response Status 500</b> - Excepcion durante el transcurso de la transaccion
 	 */
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addBebedor(Cliente cliente) {
+	public Response addCliente(Cliente cliente) {
 		try{
 			AlohAndesTransactionManager tm = new AlohAndesTransactionManager(getPath());
 			tm.addCliente(cliente);

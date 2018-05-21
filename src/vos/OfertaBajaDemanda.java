@@ -30,10 +30,10 @@ public class OfertaBajaDemanda {
 	
 	
 	/**
-	 * 
-	 * @param id
-	 * @param nombre
-	 * @param numeroReservas
+	 * Constructor de la clase de consulta Oferta con baja demanda
+	 * @param id - id de la oferta
+	 * @param nombre - nombre de la oferta
+	 * @param numeroReservas - numero de reservas de la oferta
 	 */
 	public OfertaBajaDemanda(@JsonProperty(value="id") Long id, @JsonProperty(value="nombre") String nombre, @JsonProperty(value="numeroReservas") int numeroReservas,@JsonProperty(value="distanciaReservas") int distanciaReservas) {
 		this.id = id;
