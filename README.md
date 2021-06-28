@@ -1,4 +1,4 @@
-# AlohAndes2018
+# AlohAndes
 Proyecto de sistrans 
 
 ## TODO
